@@ -1,0 +1,85 @@
+{
+  "name": "@bn-digital/webpack",
+  "description": "Webpack configuration",
+  "version": "1.8.14-12.19",
+  "license": "MIT",
+  "readme": "README.md",
+  "keywords": [
+    "webpack",
+    "webpack5",
+    "react-scripts"
+  ],
+  "author": {
+    "name": "Vlad Volkov",
+    "email": "vlad.volkov@bndigital.co",
+    "url": "https://github.com/vladyslavvolkov"
+  },
+  "maintainers": [
+    {
+      "name": "BN Enginseer",
+      "email": "dev@bndigital.co",
+      "url": "https://github.com/bn-enginseer"
+    }
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "eslintConfig": {
+    "extends": "@bn-digital/eslint-config"
+  },
+  "stylelint": {
+    "extends": "@bn-digital/stylelint-config"
+  },
+  "bundledDependencies": true,
+  "dependencies": {
+    "@babel/core": "^7.15.0",
+    "@babel/preset-env": "^7.15.0",
+    "@babel/preset-react": "^7.14.5",
+    "@babel/preset-typescript": "^7.15.0",
+    "@bn-digital/eslint-config": "^1.8.13-22.11",
+    "@bn-digital/stylelint-config": "^1.8.13-23.31",
+    "@svgr/webpack": "^5.5.0",
+    "autoprefixer": "^10.3.1",
+    "babel-loader": "^8.2.2",
+    "clean-webpack-plugin": "^4.0.0-alpha.0",
+    "css-loader": "^6.2.0",
+    "dotenv": "^10.0.0",
+    "dotenv-webpack": "^7.0.3",
+    "ejs": "^3.1.6",
+    "ejs-loader": "^0.5.0",
+    "eslint-webpack-plugin": "^3.0.1",
+    "html-webpack-plugin": "^5.3.2",
+    "less": "^4.1.1",
+    "less-loader": "^10.0.1",
+    "mini-css-extract-plugin": "^2.2.0",
+    "mkcert": "^1.4.0",
+    "ngrok": "^4.1.0",
+    "postcss": "^8.3.6",
+    "postcss-loader": "^6.1.1",
+    "process": "^0.11.10",
+    "style-loader": "^3.2.1",
+    "stylelint-webpack-plugin": "^3.0.1",
+    "svgo-loader": "^3.0.0",
+    "webpack": "^5.50.0",
+    "webpack-bundle-analyzer": "^4.4.2",
+    "webpack-cli": "^4.7.2",
+    "webpack-dev-server": "^4.0.0-rc.0",
+    "webpack-merge": "^5.8.0",
+    "yargs": "^17.1.0"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^8.2.0",
+    "@types/dotenv-webpack": "^7.0.3",
+    "@types/html-webpack-plugin": "^3.2.6",
+    "@types/mini-css-extract-plugin": "^2.2.0",
+    "@types/mkcert": "^1.2.0",
+    "@types/node": "^16.4.14",
+    "@types/webpack": "^5.28.0",
+    "@types/yargs": "^17.0.2",
+    "typescript": "^4.3.5"
+  },
+  "scripts": {
+    "build": "tsc -p .",
+    "release": "yarn npm publish"
+  }
+}

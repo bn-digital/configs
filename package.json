@@ -1,7 +1,7 @@
 {
   "name": "bn-digital",
   "description": "Collection of coding standards, style guides and shared configurations",
-  "version": "1.8.6",
+  "version": "1.8.11-21.57",
   "author": {
     "name": "Vlad Volkov",
     "email": "vlad.volkov@bndigital.co",
@@ -9,9 +9,9 @@
   },
   "maintainers": [
     {
-      "name": "BN Enginseers",
+      "name": "BN Enginseer",
       "email": "dev@bndigital.co",
-      "url": "https://github.com/bn-digital"
+      "url": "https://github.com/bn-enginseer"
     }
   ],
   "workspaces": [
@@ -21,10 +21,12 @@
     "registry": "https://registry.npmjs.org/",
     "access": "public"
   },
-  "devDependencies": {
-    "prettier": "^2.3.2"
+  "dependencies": {
+    "@bn-digital/prettier-config": "^1.8.13-22.8"
   },
   "scripts": {
+    "build": "yarn workspaces foreach run build",
     "release": "yarn workspaces foreach run release"
-  }
+  },
+  "packageManager": "yarn@3.0.0"
 }

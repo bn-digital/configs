@@ -1,12 +1,13 @@
 {
   "arrowParens": "avoid",
+  "bracketSpacing": true,
   "endOfLine": "auto",
   "jsxBracketSameLine": false,
   "jsxSingleQuote": true,
   "printWidth": 120,
+  "quoteProps": "consistent",
   "semi": false,
   "singleQuote": true,
-  "quoteProps": "consistent",
   "tabWidth": 2,
   "trailingComma": "all",
   "useTabs": false,
@@ -15,6 +16,18 @@
       "files": ["*.less"],
       "options": {
         "parser": "less"
+      }
+    },
+    {
+      "files": ["*.css"],
+      "options": {
+        "parser": "css"
+      }
+    },
+    {
+      "files": ["*.{scss,sass}"],
+      "options": {
+        "parser": "scss"
       }
     },
     {
@@ -36,15 +49,30 @@
       }
     },
     {
-      "files": ["*.jsonschema", "*rc", "json"],
+      "files": ["*.jsonschema", "json"],
       "options": {
         "parser": "json"
       }
     },
     {
-      "files": ["*.svg", "*.html", "*.ejs"],
+      "files": ["*.html", "*.ejs"],
       "options": {
+        "singleQuote": false,
         "parser": "html"
+      }
+    },
+    {
+      "files": ["*.mdx"],
+      "options": {
+        "singleQuote": false,
+        "parser": "mdx"
+      }
+    },
+    {
+      "files": ["*.md"],
+      "options": {
+        "singleQuote": false,
+        "parser": "markdown"
       }
     }
   ]

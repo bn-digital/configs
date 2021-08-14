@@ -1,9 +1,14 @@
 {
   "name": "@bn-digital/prettier-config",
-  "description": "Prettier ruleset",
-  "version": "1.8.9",
+  "description": "Prettier ruleset used as part of coding standard by BN Digital",
+  "version": "1.8.13-22.8",
   "license": "MIT",
+  "readme": "README.md",
   "main": "index.js",
+  "keywords": [
+    "prettier",
+    "bn-digital"
+  ],
   "author": {
     "name": "Vlad Volkov",
     "email": "vlad.volkov@bndigital.co",
@@ -19,6 +24,8 @@
   "publishConfig": {
     "access": "public"
   },
+  "type": "module",
+  "bundledDependencies": true,
   "dependencies": {
     "prettier": "^2.3.2"
   },

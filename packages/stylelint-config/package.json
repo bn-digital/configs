@@ -1,0 +1,36 @@
+{
+  "name": "@bn-digital/stylelint-config",
+  "description": "Stylelint ruleset",
+  "version": "1.8.13-23.31",
+  "license": "MIT",
+  "main": "index.js",
+  "readme": "README.md",
+  "author": {
+    "name": "Vlad Volkov",
+    "email": "vlad.volkov@bndigital.co",
+    "url": "https://github.com/vladyslavvolkov"
+  },
+  "maintainers": [
+    {
+      "name": "BN Enginseer",
+      "email": "dev@bndigital.co",
+      "url": "https://github.com/bn-enginseer"
+    }
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "stylelint": "^13.13.1",
+    "stylelint-config-prettier": "^8.0.2",
+    "stylelint-config-rational-order": "^0.1.2",
+    "stylelint-config-recommended": "^5.0.0",
+    "stylelint-declaration-block-no-ignored-properties": "^2.4.0",
+    "stylelint-images": "^2.0.1",
+    "stylelint-order": "^4.1.0"
+  },
+  "scripts": {
+    "build": "tsc -p .",
+    "release": "yarn npm publish"
+  }
+}
