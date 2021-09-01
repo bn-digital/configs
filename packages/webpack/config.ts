@@ -3,11 +3,13 @@ import path from 'path'
 
 const config: Configuration = {
   target: 'web',
+  entry: './src/index.tsx',
+  stats: 'errors-warnings',
+  cache: { type: 'memory' },
   output: {
-    clean: true,
-    path: path.resolve(process.cwd(), 'build'),
-    filename: '[name].[contenthash:8][ext]',
-    chunkFilename: 'scripts/[id].[chunkhash][ext]',
+    path: path.join(process.cwd(), 'build'),
+    filename: '[name].[contenthash:8].js',
+    chunkFilename: 'scripts/[id].[chunkhash].js',
     assetModuleFilename: 'assets/[hash][ext]',
   },
   resolve: {
@@ -18,7 +20,6 @@ const config: Configuration = {
     asset: true,
     layers: true,
   },
-  cache: { type: 'memory' },
 }
 
 export default config

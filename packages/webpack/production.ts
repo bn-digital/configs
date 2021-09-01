@@ -1,12 +1,10 @@
 import { Configuration } from 'webpack'
+import baseConfig from './config'
 
 const config: Configuration = {
+  ...baseConfig,
   mode: 'production',
   devtool: 'source-map',
-  optimization: {
-    removeEmptyChunks: true,
-    minimize: true,
-  },
 }
 
 export default config

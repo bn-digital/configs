@@ -7,6 +7,8 @@ export const babel: RuleSetRule = {
   loader: 'babel-loader',
   exclude: /node_modules/,
   options: {
+    cacheDirectory: true,
+    cacheCompression: false,
     compact: process.env.NODE_ENV === 'production',
     presets: [
       ['@babel/preset-env'],
@@ -39,13 +41,13 @@ export const less: RuleSetRule = {
     },
     {
       loader: 'css-loader',
-      options: {
-        importLoaders: 3,
-      },
+      options: { sourceMap: true },
     },
     {
       loader: 'postcss-loader',
       options: {
+        sourceMap: true,
+        implementation: require.resolve('postcss'),
         postcssOptions: {
           plugins: [autoprefixer],
         },
@@ -54,6 +56,8 @@ export const less: RuleSetRule = {
     {
       loader: 'less-loader',
       options: {
+        sourceMap: true,
+        implementation: require.resolve('less'),
         lessOptions: {
           javascriptEnabled: true,
         },
@@ -67,12 +71,28 @@ export const fonts: RuleSetRule = {
   type: 'asset/resource',
 }
 
+export const htmlLoader: RuleSetRule = {
+  test: /\.html$/i,
+  loader: 'html-loader',
+  options: {
+    minimize: true,
+  },
+}
+
 export const images: RuleSetRule = {
   test: /\.(png|webp|bmp|jpg|jpeg|gif)$/i,
   type: 'asset',
 }
 
-export const svg: RuleSetRule = {
-  test: /\.svg$/,
-  use: [{ loader: 'svgo-loader' }, { loader: '@svgr/webpack' }],
+export const svgInStyles: RuleSetRule = {
+  test: /\.svg$/i,
+  type: 'asset/resource',
+  parser: { maxSize: 0 },
+  issuer: /\.(css|less|scss)$/,
+}
+
+export const svgInComponents = {
+  test: /\.svg$/i,
+  use: [{ loader: '@svgr/webpack', options: { prettier: false } }],
+  issuer: /\.(jsx|tsx)$/,
 }

@@ -1,16 +1,24 @@
-import { Configuration } from 'webpack'
+import { Configuration  } from 'webpack'
+import baseConfig from './config'
 
-const config: Configuration & { devServer: any } = {
-  devtool: 'cheap-module-source-map',
+const config: Configuration & { devServer: Record<string, unknown>} = {
+  ...baseConfig,
+  devtool: 'eval-cheap-module-source-map',
   optimization: { minimize: false },
   mode: 'development',
   devServer: {
-    port: 0,
+    client: {
+      logging: 'info',
+      overlay: true,
+      progress: true,
+    },
+    allowedHosts: 'all',
+    compress: false,
     historyApiFallback: true,
-    open: true,
-    hot: true,
+    hot: 'only',
     liveReload: true,
-    compress: true,
+    open: true,
+    port: 0,
   },
 }
 

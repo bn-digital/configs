@@ -4,14 +4,14 @@
     "allowSyntheticDefaultImports": true,
     "declaration": true,
     "esModuleInterop": true,
-    "importHelpers": true,
     "module": "CommonJS",
     "moduleResolution": "Node",
     "noImplicitAny": true,
-    "pretty": true,
+    "noEmit": true,
+    "noEmitHelpers": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
     "target": "ES2017"
-  }
+  },
 }

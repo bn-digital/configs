@@ -11,12 +11,10 @@ import {
   IgnorePlugin,
 } from 'webpack'
 import StylelintWebpackPlugin, { Options as StylelintPluginOptions } from 'stylelint-webpack-plugin'
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 import DotenvPlugin from 'dotenv-webpack'
 
-export type WebpackPlugin =
-  | { apply: (compiler: Compiler) => void }
-  | ((this: Compiler, compiler: Compiler) => void)
-  | WebpackPluginInstance
+export type WebpackPlugin = ((this: Compiler, compiler: Compiler) => void) | WebpackPluginInstance | any
 
 /**
  * Defines environment variables from process.env
@@ -26,12 +24,16 @@ export function definePlugin(envVars: NodeJS.Dict<string> = {}): WebpackPlugin {
   return new DefinePlugin(envVars)
 }
 
+export function bundleAnalyzer(options: BundleAnalyzerPlugin.Options = {}): WebpackPlugin {
+  return new BundleAnalyzerPlugin(options)
+}
+
 /**
  * Defines environment variables from process.env
  * @param {DotenvPlugin.Options} options
  */
 export function dotenvPlugin(options: DotenvPlugin.Options = {}): WebpackPlugin {
-  return new DotenvPlugin({ expand: true })
+  return new DotenvPlugin(options)
 }
 
 /**
@@ -50,10 +52,8 @@ export function htmlPlugin(options: HtmlWebpackPlugin.Options = {}): WebpackPlug
 export function eslintPlugin(options: EslintPluginOptions = {}): WebpackPlugin {
   return new ESLintWebpackPlugin({
     cache: true,
-    cacheLocation: '.cache/.eslintcache',
+    cacheLocation: 'build/.cache/.eslintcache',
     extensions: ['tsx', 'ts'],
-    eslintPath: require.resolve('eslint'),
-    baseConfig: { extends: require.resolve('@bn-digital/eslint-config') },
     ...options,
   })
 }
@@ -65,9 +65,9 @@ export function eslintPlugin(options: EslintPluginOptions = {}): WebpackPlugin {
  */
 export function stylelintPlugin(options: StylelintPluginOptions = {}): WebpackPlugin {
   return new StylelintWebpackPlugin({
-    extensions: ['.less', '.css', '.scss'],
-    cacheLocation: './build/reports/.stylelintcache',
-    config: require('@bn-digital/stylelint-config'),
+    extensions: ['less', 'css', 'scss'],
+    cache: true,
+    cacheLocation: 'build/.cache/.stylelintcache',
     ...options,
   })
 }
@@ -101,7 +101,7 @@ export function automaticPrefetchPlugin(): WebpackPlugin {
  * Extracts CSS into separate files
  * @param options
  */
-export function miniCssExtractPlugin(options: MiniCssPluginOptions = {}) {
+export function miniCssExtractPlugin(options: MiniCssPluginOptions = {}): WebpackPlugin {
   return new MiniCssExtractPlugin({
     filename: '[name].[contenthash:8].css',
     chunkFilename: 'styles/[id].[chunkhash].css',
