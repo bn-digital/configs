@@ -2,9 +2,9 @@
   "arrowParens": "avoid",
   "bracketSpacing": true,
   "endOfLine": "auto",
-  "jsxBracketSameLine": false,
+  "bracketSameLine": false,
   "jsxSingleQuote": true,
-  "printWidth": 120,
+  "printWidth": 140,
   "quoteProps": "consistent",
   "semi": false,
   "singleQuote": true,
@@ -13,56 +13,62 @@
   "useTabs": false,
   "overrides": [
     {
-      "files": ["*.less"],
+      "files": "*.{js,jsx}",
+      "options": {
+        "parser": "babel"
+      }
+    },
+    {
+      "files": "*.less",
       "options": {
         "parser": "less"
       }
     },
     {
-      "files": ["*.css"],
+      "files": "*.css",
       "options": {
         "parser": "css"
       }
     },
     {
-      "files": ["*.{scss,sass}"],
+      "files": "*.{scss,sass}",
       "options": {
         "parser": "scss"
       }
     },
     {
-      "files": ["*.{yaml,yml}"],
+      "files": "*.{yaml,yml}",
       "options": {
         "parser": "yaml"
       }
     },
     {
-      "files": ["*.graphql"],
+      "files": "*.{graphql,graphqls}",
       "options": {
         "parser": "graphql"
       }
     },
     {
-      "files": ["*.vue"],
+      "files": "*.vue",
       "options": {
         "parser": "vue"
       }
     },
     {
-      "files": ["*.jsonschema", "json"],
+      "files": "*.{json,jsonschema,graphqlconfig}",
       "options": {
         "parser": "json"
       }
     },
     {
-      "files": ["*.html", "*.ejs"],
+      "files": "*.{html,ejs,svg,xml}",
       "options": {
         "singleQuote": false,
         "parser": "html"
       }
     },
     {
-      "files": ["*.mdx"],
+      "files": "*.mdx",
       "options": {
         "singleQuote": false,
         "parser": "mdx"

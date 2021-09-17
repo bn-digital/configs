@@ -1,16 +1,23 @@
 {
   "extends": ["stylelint-config-recommended", "stylelint-config-rational-order", "stylelint-config-prettier"],
-  "plugins": ["stylelint-images"],
+  "plugins": ["stylelint-scss", "stylelint-order"],
   "rules": {
     "comment-empty-line-before": null,
     "declaration-empty-line-before": null,
+    "font-family-no-missing-generic-family-keyword": [
+      true,
+      {
+        "ignoreFontFamilies": [
+          "FontAwesome"
+        ]
+      }
+    ],
     "function-name-case": "lower",
-    "images/broken": true,
-    "images/prefer-data-uri": 256,
     "no-descending-specificity": null,
     "no-invalid-double-slash-comments": null,
     "no-invalid-position-at-import-rule": null,
     "property-case": "lower",
+    "scss/at-rule-no-unknown": true,
     "selector-class-pattern": "^([a-z][a-z0-9]*)(-[a-z0-9]+)*$"
   }
 }

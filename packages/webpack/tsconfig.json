@@ -7,11 +7,10 @@
     "module": "CommonJS",
     "moduleResolution": "Node",
     "noImplicitAny": true,
-    "noEmit": true,
-    "noEmitHelpers": true,
+    "importHelpers": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
     "target": "ES2017"
-  },
+  }
 }

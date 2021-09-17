@@ -1,12 +1,13 @@
 {
   "name": "@bn-digital/prettier-config",
   "description": "Prettier ruleset used as part of coding standard by BN Digital",
-  "version": "1.8.13-22.8",
+  "version": "1.10.3",
   "license": "MIT",
   "readme": "README.md",
   "main": "index.js",
   "keywords": [
     "prettier",
+    "prettier-config",
     "bn-digital"
   ],
   "author": {
@@ -24,10 +25,10 @@
   "publishConfig": {
     "access": "public"
   },
-  "type": "module",
   "bundledDependencies": true,
   "dependencies": {
-    "prettier": "^2.3.2"
+    "@babel/parser": "^7.15.6",
+    "prettier": "^2.4.1"
   },
   "scripts": {
     "release": "yarn npm publish"

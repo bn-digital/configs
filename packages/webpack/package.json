@@ -1,12 +1,13 @@
 {
   "name": "@bn-digital/webpack",
-  "description": "Webpack configuration",
-  "version": "1.9.1-22.1",
+  "description": "Webpack configuration with decorators",
+  "version": "1.11.11",
   "license": "MIT",
   "readme": "README.md",
   "keywords": [
     "webpack",
     "webpack5",
+    "typescript",
     "react-scripts"
   ],
   "author": {
@@ -18,9 +19,13 @@
     {
       "name": "BN Enginseer",
       "email": "dev@bndigital.co",
-      "url": "https://github.com/bn-enginseer"
+      "url": "https://github.com/bn-digital"
     }
   ],
+  "scripts": {
+    "build": "tsc -p .",
+    "release": "yarn build && yarn npm publish"
+  },
   "publishConfig": {
     "access": "public"
   },
@@ -40,7 +45,13 @@
     "postcss": {
       "optional": false
     },
+    "postcss-loader": {
+      "optional": false
+    },
     "process": {
+      "optional": false
+    },
+    "typescript": {
       "optional": false
     },
     "webpack": {
@@ -48,53 +59,63 @@
     }
   },
   "bundledDependencies": true,
+  "peerDependencies": {
+    "@babel/preset-env": "^7.15.6",
+    "@bn-digital/vault-env": "^1.4.0",
+    "dotenv": "^10.0.0",
+    "postcss": "^8.3.6",
+    "postcss-loader": "^6.1.1",
+    "process": "^0.11.10",
+    "typescript": "^4.4.3",
+    "webpack": "^5.53.0"
+  },
   "dependencies": {
-    "@babel/cli": "^7.14.8",
-    "@babel/core": "^7.15.0",
-    "@babel/preset-env": "^7.15.0",
+    "@babel/cli": "^7.15.4",
+    "@babel/core": "^7.15.5",
+    "@babel/preset-env": "^7.15.6",
     "@babel/preset-react": "^7.14.5",
     "@babel/preset-typescript": "^7.15.0",
-    "@bn-digital/eslint-config": "^1.8.13-22.11",
-    "@bn-digital/stylelint-config": "^1.8.13-23.31",
+    "@bn-digital/eslint-config": "^1.12.13",
+    "@bn-digital/stylelint-config": "^1.10.0",
+    "@bn-digital/vault-env": "^1.4.0",
     "@svgr/webpack": "^5.5.0",
-    "autoprefixer": "^10.3.3",
+    "@types/dotenv-webpack": "^7.0.3",
+    "@types/html-webpack-plugin": "^3.2.6",
+    "@types/mini-css-extract-plugin": "^2.3.0",
+    "@types/node": "^16.9.2",
+    "@types/webpack-bundle-analyzer": "^4.4.1",
+    "@types/webpack-dev-server": "^4.1.0",
+    "@types/workbox-webpack-plugin": "^5.1.8",
+    "@types/yargs": "^17.0.2",
+    "autoprefixer": "^10.3.4",
     "babel-loader": "^8.2.2",
-    "clean-webpack-plugin": "^4.0.0-alpha.0",
+    "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^6.2.0",
     "dotenv": "^10.0.0",
     "dotenv-webpack": "^7.0.3",
     "ejs": "^3.1.6",
     "ejs-loader": "^0.5.0",
+    "eslint-import-resolver-webpack": "^0.13.1",
     "eslint-webpack-plugin": "^3.0.1",
     "html-webpack-plugin": "^5.3.2",
     "less": "^4.1.1",
     "less-loader": "^10.0.1",
-    "mini-css-extract-plugin": "^2.2.2",
-    "mkcert": "^1.4.0",
+    "mini-css-extract-plugin": "^2.3.0",
     "postcss": "^8.3.6",
+    "postcss-less": "^5.0.0",
     "postcss-loader": "^6.1.1",
     "process": "^0.11.10",
     "style-loader": "^3.2.1",
     "stylelint-webpack-plugin": "^3.0.1",
-    "webpack": "^5.51.1",
+    "terser-webpack-plugin": "^5.2.4",
+    "typescript": "^4.4.3",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.53.0",
     "webpack-bundle-analyzer": "^4.4.2",
     "webpack-cli": "^4.8.0",
-    "webpack-dev-server": "^4.1.0",
+    "webpack-dev-server": "^4.2.1",
     "webpack-merge": "^5.8.0",
+    "workbox-webpack-plugin": "^6.3.0",
     "yargs": "^17.1.1"
-  },
-  "devDependencies": {
-    "@types/dotenv-webpack": "^7.0.3",
-    "@types/html-webpack-plugin": "^3.2.6",
-    "@types/mini-css-extract-plugin": "^2.2.0",
-    "@types/mkcert": "^1.2.0",
-    "@types/node": "^16.7.10",
-    "@types/webpack-bundle-analyzer": "^4.4.1",
-    "@types/yargs": "^17.0.2",
-    "typescript": "^4.4.2"
-  },
-  "scripts": {
-    "build": "tsc -p .",
-    "release": "yarn build && yarn npm publish"
   }
 }

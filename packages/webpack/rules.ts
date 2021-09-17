@@ -1,12 +1,13 @@
 import { RuleSetRule } from 'webpack'
-import autoprefixer from 'autoprefixer'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
-
+import path from 'path'
+import autoprefixer from 'autoprefixer'
 export const babel: RuleSetRule = {
   test: /\.(js|ts)x?$/i,
   loader: 'babel-loader',
   exclude: /node_modules/,
   options: {
+    exclude: [/node_modules[\\/]core-js/, /node_modules[\\/]webpack[\\/]buildin/],
     cacheDirectory: true,
     cacheCompression: false,
     compact: process.env.NODE_ENV === 'production',
@@ -33,18 +34,39 @@ export const ejs: RuleSetRule = {
 }
 
 export const less: RuleSetRule = {
-  test: /\.(css|less)$/i,
-  exclude: /\.module\.(css|less)$/i,
+  test: /\.((c|sa|sc|le)ss)$/i,
   use: [
     {
       loader: MiniCssExtractPlugin.loader,
     },
     {
-      loader: 'css-loader',
+      loader: require.resolve('css-loader'),
       options: { sourceMap: true },
     },
     {
-      loader: 'postcss-loader',
+      loader: require.resolve('less-loader'),
+      options: {
+        sourceMap: true,
+        implementation: require.resolve('less'),
+        lessOptions: {
+          paths: [path.join(process.cwd()), path.join(process.cwd(), 'node_modules')],
+          javascriptEnabled: true,
+        },
+      },
+    },
+  ],
+}
+
+export const lessPostCss: RuleSetRule = {
+  test: /\.((c|sa|sc|le)ss)$/i,
+  use: [
+    MiniCssExtractPlugin.loader,
+    {
+      loader: require.resolve('css-loader'),
+      options: { sourceMap: true, importLoaders: 2 },
+    },
+    {
+      loader: require.resolve('postcss-loader'),
       options: {
         sourceMap: true,
         implementation: require.resolve('postcss'),
@@ -54,11 +76,12 @@ export const less: RuleSetRule = {
       },
     },
     {
-      loader: 'less-loader',
+      loader: require.resolve('less-loader'),
       options: {
         sourceMap: true,
         implementation: require.resolve('less'),
         lessOptions: {
+          paths: [path.join(process.cwd()), path.join(process.cwd(), 'node_modules')],
           javascriptEnabled: true,
         },
       },
@@ -86,13 +109,21 @@ export const images: RuleSetRule = {
 
 export const svgInStyles: RuleSetRule = {
   test: /\.svg$/i,
-  type: 'asset/resource',
-  parser: { maxSize: 0 },
-  issuer: /\.(css|less|scss)$/,
+  loader: 'url-loader',
 }
 
-export const svgInComponents = {
+export const svgInComponents: RuleSetRule = {
   test: /\.svg$/i,
-  use: [{ loader: '@svgr/webpack', options: { prettier: false } }],
-  issuer: /\.(jsx|tsx)$/,
+  issuer: /\.(js|ts)x?$/,
+  use: [
+    {
+      loader: '@svgr/webpack',
+      options: {
+        babel: false,
+      },
+    },
+    {
+      loader: 'url-loader',
+    },
+  ],
 }

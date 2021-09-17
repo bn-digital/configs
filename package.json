@@ -17,16 +17,19 @@
   "workspaces": [
     "packages/*"
   ],
+  "resolutions": {
+    "postcss": ">=8"
+  },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"
   },
+  "prettier": "@bn-digital/prettier-config",
   "dependencies": {
-    "@bn-digital/prettier-config": "^1.8.13-22.8"
+    "@bn-digital/prettier-config": "^1.10.3"
   },
   "scripts": {
     "build": "yarn workspaces foreach run build",
     "release": "yarn workspaces foreach run release"
-  },
-  "packageManager": "yarn@3.0.0"
+  }
 }

@@ -1,19 +1,25 @@
 {
   "extends": [
     "eslint:recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:react/jsx-runtime"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": 2021,
     "ecmaFeatures": {
       "jsx": true
-    }
+    },
+    "ecmaVersion": 2021,
+    "sourceType": "module"
   },
   "env": {
     "browser": true,
     "es6": true,
     "node": true,
+    "serviceworker": true,
     "worker": true
   },
   "globals": {
@@ -22,17 +28,22 @@
     "mountNode": true,
     "process": "readonly"
   },
-  "plugins": ["@typescript-eslint", "dirnames", "import", "react", "react-hooks", "unicorn"],
+  "plugins": ["dirnames", "prettier", "unicorn"],
   "rules": {
-    "dirnames/match-kebab-case": "warn"
+    "dirnames/match-kebab-case": "warn",
+    "import/named": "off",
+    "react/jsx-no-target-blank": "warn",
+    "react/display-name": "off",
+    "react/prop-types": "off"
   },
   "overrides": [
     {
       "files": "**/*/graphql/*.tsx",
       "rules": {
         "@typescript-eslint/ban-types": "off",
-        "@typescript-eslint/no-extra-semi": "off",
         "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-extra-semi": "off",
+        "@typescript-eslint/no-unused-vars": "off",
         "@typescript-eslint/explicit-module-boundary-types": "off"
       }
     },
@@ -42,7 +53,9 @@
         "unicorn/filename-case": [
           "warn",
           {
-            "case": "pascalCase"
+            "cases": {
+              "pascalCase": true
+            }
           }
         ]
       }
@@ -62,9 +75,11 @@
       }
     }
   ],
+  "ignorePatterns": ["*.js"],
   "settings": {
     "react": {
       "version": "detect"
-    }
+    },
+    "import/resolver": "webpack"
   }
 }

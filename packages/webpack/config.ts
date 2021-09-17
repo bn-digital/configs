@@ -4,8 +4,8 @@ import path from 'path'
 const config: Configuration = {
   target: 'web',
   entry: './src/index.tsx',
-  stats: 'errors-warnings',
   cache: { type: 'memory' },
+  optimization: { runtimeChunk: false },
   output: {
     path: path.join(process.cwd(), 'build'),
     filename: '[name].[contenthash:8].js',
@@ -14,6 +14,7 @@ const config: Configuration = {
   },
   resolve: {
     fallback: { assert: false },
+    alias: { src: path.join(process.cwd(), 'src') },
     extensions: ['.ts', '.js', '.tsx', '.jsx', '*'],
   },
   experiments: {
@@ -21,5 +22,4 @@ const config: Configuration = {
     layers: true,
   },
 }
-
 export default config
