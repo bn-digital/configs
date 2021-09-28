@@ -2,12 +2,22 @@ import ESLintWebpackPlugin, { Options as EslintPluginOptions } from 'eslint-webp
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import MiniCssExtractPlugin, { PluginOptions as MiniCssPluginOptions } from 'mini-css-extract-plugin'
 import { CleanWebpackPlugin, Options as CleanPluginOption } from 'clean-webpack-plugin'
-import { ProvidePlugin, AutomaticPrefetchPlugin, Compiler, WebpackPluginInstance, DefinePlugin, IgnorePlugin } from 'webpack'
+import {
+  ProvidePlugin,
+  AutomaticPrefetchPlugin,
+  Compiler,
+  WebpackPluginInstance,
+  DefinePlugin,
+  IgnorePlugin,
+  ProgressPlugin,
+} from 'webpack'
 import StylelintWebpackPlugin, { Options as StylelintPluginOptions } from 'stylelint-webpack-plugin'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 import DotenvPlugin from 'dotenv-webpack'
 import TerserPlugin from 'terser-webpack-plugin'
 import { GenerateSW, GenerateSWOptions as WorkboxOptions, InjectManifestOptions, InjectManifest } from 'workbox-webpack-plugin'
+import SentryCliPlugin, { SentryCliPluginOptions } from '@sentry/webpack-plugin'
+import NodePolyfillPlugin from 'node-polyfill-webpack-plugin'
 
 export type WebpackPlugin = ((this: Compiler, compiler: Compiler) => void) | WebpackPluginInstance | any
 
@@ -27,12 +37,40 @@ export function dotenvPlugin(options: DotenvPlugin.Options = {}): WebpackPlugin 
   return new DotenvPlugin(options)
 }
 
+export function nodePolyfillPlugin(options: NodePolyfillPlugin.Options = {}): WebpackPlugin {
+  return new NodePolyfillPlugin(options)
+}
+
 /**
  * HTML Plugin
  * @param options
  */
-export function htmlPlugin(options: HtmlWebpackPlugin.Options = { template: 'src/index.html' }): WebpackPlugin {
-  return new HtmlWebpackPlugin(options)
+export function htmlPlugin(
+  options: HtmlWebpackPlugin.Options = {
+    inject: true,
+    templateParameters: {},
+    template: 'src/index.html',
+    minify: false,
+  },
+): WebpackPlugin {
+  return new HtmlWebpackPlugin({
+    ...options,
+    minify:
+      options.minify === true
+        ? {
+            removeComments: true,
+            collapseWhitespace: true,
+            removeRedundantAttributes: true,
+            useShortDoctype: true,
+            removeEmptyAttributes: true,
+            removeStyleLinkTypeAttributes: true,
+            keepClosingSlash: true,
+            minifyJS: true,
+            minifyCSS: true,
+            minifyURLs: true,
+          }
+        : options.minify,
+  })
 }
 
 /**
@@ -42,9 +80,9 @@ export function htmlPlugin(options: HtmlWebpackPlugin.Options = { template: 'src
  */
 export function eslintPlugin(options: EslintPluginOptions = {}): WebpackPlugin {
   return new ESLintWebpackPlugin({
-    cache: true,
     cacheLocation: 'build/.cache/.eslintcache',
     extensions: ['tsx', 'ts'],
+    eslintPath: require.resolve('eslint'),
     ...options,
   })
 }
@@ -57,8 +95,8 @@ export function eslintPlugin(options: EslintPluginOptions = {}): WebpackPlugin {
 export function stylelintPlugin(options: StylelintPluginOptions = {}): WebpackPlugin {
   return new StylelintWebpackPlugin({
     extensions: ['less', 'css', 'scss'],
-    cache: true,
     cacheLocation: 'build/.cache/.stylelintcache',
+    stylelintPath: require.resolve('stylelint'),
     ...options,
   })
 }
@@ -92,6 +130,9 @@ export function automaticPrefetchPlugin(): WebpackPlugin {
   return new AutomaticPrefetchPlugin()
 }
 
+/**
+ * @param {InjectManifestOptions} options
+ */
 export function manifestPlugin(
   options: InjectManifestOptions = {
     maximumFileSizeToCacheInBytes: 1e6,
@@ -101,8 +142,28 @@ export function manifestPlugin(
   return new InjectManifest(options)
 }
 
+/**
+ * @param {WorkboxOptions} options
+ */
 export function workboxPlugin(options: WorkboxOptions = { maximumFileSizeToCacheInBytes: 1e6 }): WebpackPlugin {
   return new GenerateSW(options)
+}
+
+/**
+ * @param {SentryCliPluginOptions} options
+ */
+export function sentryPlugin(options: SentryCliPluginOptions = { include: '.' }): WebpackPlugin {
+  return new SentryCliPlugin(options)
+}
+
+export function progressPlugin(
+  options: Partial<typeof ProgressPlugin.defaultOptions> = {
+    activeModules: true,
+    entries: true,
+    modules: true,
+  },
+): WebpackPlugin {
+  return new ProgressPlugin(options)
 }
 
 /**
@@ -111,8 +172,8 @@ export function workboxPlugin(options: WorkboxOptions = { maximumFileSizeToCache
  */
 export function miniCssExtractPlugin(options: MiniCssPluginOptions = {}): WebpackPlugin {
   return new MiniCssExtractPlugin({
-    filename: '[name].[contenthash:8].css',
-    chunkFilename: 'styles/[id].[chunkhash].css',
+    filename: `styles/[name]${process.env.NODE_ENV === 'production' ? '.[contenthash:8]' : ''}.css`,
+    chunkFilename: `styles/[name]${process.env.NODE_ENV === 'production' ? '.[contenthash:8]' : ''}.chunk.css`,
     ignoreOrder: true,
     ...options,
   })

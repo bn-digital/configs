@@ -1,0 +1,51 @@
+{
+  "extends": ["eslint:recommended", "prettier"],
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "requireConfigFile": false
+  },
+  "ignorePatterns": ["*.ts", "*.tsx", "*.jsx"],
+  "env": {
+    "jquery": true
+  },
+  "globals": {
+    "jQuery": true,
+    "process": "readonly"
+  },
+  "plugins": ["dirnames", "unicorn", "@babel"],
+  "overrides": [
+    {
+      "files": ["*.graphql"],
+      "parser": "@graphql-eslint/eslint-plugin",
+      "plugins": ["@graphql-eslint"],
+      "parserOptions": {
+        "operations": ["./src/**/*.graphql"],
+        "schema": "./packages/cms/exports/schema.graphql"
+      },
+      "rules": {
+        "unicorn/filename-case": [
+          "warn",
+          {
+            "cases": {
+              "pascalCase": true,
+              "camelCase": true
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "rules": {
+    "dirnames/match-kebab-case": "off",
+    "unicorn/filename-case": [
+      "warn",
+      {
+        "cases": {
+          "pascalCase": true,
+          "kebabCase": true,
+          "camelCase": true
+        }
+      }
+    ]
+  }
+}

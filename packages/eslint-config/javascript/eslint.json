@@ -1,0 +1,28 @@
+{
+  "extends": ["eslint:recommended", "prettier"],
+  "parser": "@babel/eslint-parser",
+  "plugins": ["@babel"],
+  "parserOptions": {
+    "requireConfigFile": false
+  },
+  "env": {
+    "node": true
+  },
+  "ignorePatterns": ["*.ts", "*.tsx", "*.jsx"],
+  "globals": {
+    "jQuery": true,
+    "process": "readonly"
+  },
+  "rules": {
+    "unicorn/filename-case": [
+      "warn",
+      {
+        "cases": {
+          "pascalCase": true,
+          "kebabCase": true,
+          "camelCase": true
+        }
+      }
+    ]
+  }
+}

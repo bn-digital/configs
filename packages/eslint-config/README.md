@@ -1,18 +1,21 @@
 ## BN Digital: ESLint config
 
-### Plugins
+### Presets
 
-- Typescript
-- Prettier
-- Dirnames
-- Import
-- Unicorn
-- React
-- React Hooks
+#### Language
 
-## Usage
+- `@bn-digital/eslint-config/graphql`
+- `@bn-digital/eslint-config/typescript`
+- `@bn-digital/eslint-config/javascript`
 
-`package.json`
+#### Framework
+
+- `@bn-digital/eslint-config/react`
+- `@bn-digital/eslint-config/strapi`
+
+## Usage 
+
+Add to your `package.json`
 
 ```json
 {
@@ -20,7 +23,10 @@
     "@bn-digital/eslint-config": "latest"
   },
   "eslintConfig": {
-    "extends": ["@bn-digital"]
+    "extends": [
+      "@bn-digital/eslint-config/react",
+      "@bn-digital/eslint-config/graphql"
+    ]
   }
 }
 ```

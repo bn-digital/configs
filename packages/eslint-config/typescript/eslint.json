@@ -1,0 +1,17 @@
+{
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  "parser": "@typescript-eslint/parser",
+  "ignorePatterns": ["*.js", "*.tsx", "*.jsx"],
+  "rules": {
+    "unicorn/filename-case": [
+      "warn",
+      {
+        "cases": {
+          "pascalCase": true,
+          "camelCase": true,
+          "kebabCase": true
+        }
+      }
+    ]
+  }
+}

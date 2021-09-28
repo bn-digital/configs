@@ -17,19 +17,26 @@
   "workspaces": [
     "packages/*"
   ],
-  "resolutions": {
-    "postcss": ">=8"
-  },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"
   },
   "prettier": "@bn-digital/prettier-config",
+  "eslintConfig": {
+    "extends": "./packages/eslint-config"
+  },
+  "stylelint": {
+    "extends": "@bn-digital/stylelint-config"
+  },
   "dependencies": {
-    "@bn-digital/prettier-config": "^1.10.3"
+    "@bn-digital/eslint-config": "^1.13.34",
+    "@bn-digital/prettier-config": "^1.10.5",
+    "@bn-digital/stylelint-config": "^1.10.5",
+    "eslint": "^7.32.0"
   },
   "scripts": {
     "build": "yarn workspaces foreach run build",
-    "release": "yarn workspaces foreach run release"
+    "release": "yarn workspaces foreach run release",
+    "fix": "node_modules/prettier/bin-prettier.js --write packages"
   }
 }

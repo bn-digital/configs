@@ -1,13 +1,21 @@
 {
-  "extends": ["stylelint-config-recommended", "stylelint-config-rational-order", "stylelint-config-prettier"],
-  "plugins": ["stylelint-order"],
+  "extends": [
+    "stylelint-config-recommended",
+    "stylelint-config-rational-order",
+    "stylelint-config-prettier"
+  ],
+  "plugins": [
+    "stylelint-order"
+  ],
   "rules": {
     "comment-empty-line-before": null,
     "declaration-empty-line-before": null,
     "font-family-no-missing-generic-family-keyword": [
       true,
       {
-        "ignoreFontFamilies": ["FontAwesome"]
+        "ignoreFontFamilies": [
+          "FontAwesome"
+        ]
       }
     ],
     "function-name-case": "lower",

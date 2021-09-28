@@ -1,5 +1,4 @@
 import { Configuration } from 'webpack'
-import yargs from 'yargs'
 import { mergeWithReact } from './react'
 import { config } from 'dotenv'
 import { Options as HtmlOptions } from 'html-webpack-plugin'
@@ -9,18 +8,16 @@ import { Options as DotenvOptions } from 'dotenv-webpack'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 import { Options as CleanOptions } from 'clean-webpack-plugin'
 import { GenerateSWOptions as WorkboxOptions, InjectManifestOptions as ManifestOptions } from 'workbox-webpack-plugin'
+import { SentryCliPluginOptions as SentryOptions } from '@sentry/webpack-plugin'
 
 config()
 
-const args = yargs(process.argv.slice(2))
-  .options({
-    mode: { type: 'string', default: 'development' },
-  })
-  .parseSync()
-
+type LoadersConfiguration = { template: 'ejs' | null; jsx: boolean }
 export type WebpackCustomConfiguration = Pick<Configuration, 'plugins'> & {
+  loaders: Partial<LoadersConfiguration>
   html: HtmlOptions
   eslint: EslintOptions
+  sentry: SentryOptions
   clean: CleanOptions
   dotenv: DotenvOptions
   stylelint: StylelintOptions
@@ -30,4 +27,8 @@ export type WebpackCustomConfiguration = Pick<Configuration, 'plugins'> & {
   bundleAnalyzer: BundleAnalyzerPlugin.Options
 }
 
-module.exports = { react: mergeWithReact({ mode: args.mode as 'development' | 'production' }) }
+export const react = mergeWithReact()
+
+module.exports = {
+  react: mergeWithReact({}, {}),
+}

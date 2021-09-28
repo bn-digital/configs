@@ -1,26 +1,23 @@
 import { Configuration } from 'webpack'
-import baseConfig from './config'
-import fs from 'fs'
-import path from 'path'
+import baseConfig, { packageJson } from './config'
+import WebpackDevServer from 'webpack-dev-server'
 
-let packageJson: { proxy?: string } = { proxy: 'http://localhost:1337' }
+const packageConfig = packageJson()
 
-if (fs.existsSync(path.join(process.cwd(), 'package.json'))) {
-  packageJson = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'package.json'), 'utf-8'))
-}
-const config: Configuration = {
+const config: Configuration & { devServer: WebpackDevServer.Configuration } = {
   ...baseConfig,
-  devtool: 'eval',
   optimization: { minimize: false },
   mode: 'development',
+  devtool: 'cheap-module-source-map',
   devServer: {
     client: {
+      logging: 'error',
       overlay: true,
     },
-    proxy: packageJson.proxy
+    proxy: packageConfig?.proxy
       ? [
           {
-            target: packageJson.proxy,
+            target: packageConfig.proxy,
             context: ['/graphql', '/upload', '/uploads'],
           },
         ]

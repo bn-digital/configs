@@ -1,0 +1,38 @@
+version: 2
+
+updates:
+  - directory: /packages/eslint-config
+    package-ecosystem: npm
+    assignees:
+      - @bn-digital/developers
+    reviewers:
+      - @bn-digital/developers
+    schedule:
+      interval: daily
+
+  - directory: /packages/stylelint-config
+    package-ecosystem: npm
+    assignees:
+      - @bn-digital/developers
+    reviewers:
+      - @bn-digital/developers
+    schedule:
+      interval: daily
+
+  - directory: /packages/webpack
+    package-ecosystem: npm
+    assignees:
+      - @bn-digital/developers
+    reviewers:
+      - @bn-digital/developers
+    schedule:
+      interval: daily
+
+  - directory: /packages/prettier-config
+    package-ecosystem: npm
+    assignees:
+      - @bn-digital/developers
+    reviewers:
+      - @bn-digital/developers
+    schedule:
+      interval: daily

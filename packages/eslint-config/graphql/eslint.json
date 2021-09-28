@@ -1,0 +1,18 @@
+{
+  "parser": "@graphql-eslint/eslint-plugin",
+  "plugins": ["@graphql-eslint", "unicorn"],
+  "parserOptions": {
+    "schema": "./packages/*/exports/schema.graphql"
+  },
+  "rules": {
+    "unicorn/filename-case": [
+      "warn",
+      {
+        "cases": {
+          "pascalCase": true,
+          "camelCase": true
+        }
+      }
+    ]
+  }
+}

@@ -1,7 +1,7 @@
 {
   "name": "@bn-digital/webpack",
   "description": "Webpack configuration with decorators",
-  "version": "1.11.11",
+  "version": "1.12.19",
   "license": "MIT",
   "readme": "README.md",
   "keywords": [
@@ -24,16 +24,15 @@
   ],
   "scripts": {
     "build": "tsc -p .",
+    "test": "yarn build && webpack --config=test/webpack.config.js --mode=production",
     "release": "yarn build && yarn npm publish"
   },
   "publishConfig": {
     "access": "public"
   },
-  "eslintConfig": {
-    "extends": "@bn-digital/eslint-config"
-  },
-  "stylelint": {
-    "extends": "@bn-digital/stylelint-config"
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node"
   },
   "peerDependenciesMeta": {
     "@babel/core": {
@@ -63,59 +62,81 @@
     "@babel/preset-env": "^7.15.6",
     "@bn-digital/vault-env": "^1.4.0",
     "dotenv": "^10.0.0",
-    "postcss": "^8.3.6",
-    "postcss-loader": "^6.1.1",
+    "postcss": "^7.0.38",
+    "postcss-loader": "^5.3.0",
     "process": "^0.11.10",
     "typescript": "^4.4.3",
-    "webpack": "^5.53.0"
+    "webpack": "^5.54.0"
   },
   "dependencies": {
-    "@babel/cli": "^7.15.4",
+    "@babel/cli": "^7.15.7",
     "@babel/core": "^7.15.5",
     "@babel/preset-env": "^7.15.6",
     "@babel/preset-react": "^7.14.5",
     "@babel/preset-typescript": "^7.15.0",
-    "@bn-digital/eslint-config": "^1.12.13",
-    "@bn-digital/stylelint-config": "^1.10.0",
+    "@bn-digital/eslint-config": "^1.13.34",
+    "@bn-digital/stylelint-config": "^1.10.5",
     "@bn-digital/vault-env": "^1.4.0",
-    "@svgr/webpack": "^5.5.0",
+    "@sentry/webpack-plugin": "^1.17.1",
+    "@svgr/webpack": "^6.0.0-alpha.0",
     "@types/dotenv-webpack": "^7.0.3",
     "@types/html-webpack-plugin": "^3.2.6",
     "@types/mini-css-extract-plugin": "^2.3.0",
-    "@types/node": "^16.9.2",
+    "@types/node": "^16.10.1",
     "@types/webpack-bundle-analyzer": "^4.4.1",
     "@types/webpack-dev-server": "^4.1.0",
     "@types/workbox-webpack-plugin": "^5.1.8",
-    "@types/yargs": "^17.0.2",
-    "autoprefixer": "^10.3.4",
+    "@types/yargs": "^17.0.3",
+    "autoprefixer": "^10.3.6",
     "babel-loader": "^8.2.2",
+    "browserslist": "^4.17.1",
     "clean-webpack-plugin": "^4.0.0",
-    "css-loader": "^6.2.0",
+    "css-loader": "^6.3.0",
     "dotenv": "^10.0.0",
     "dotenv-webpack": "^7.0.3",
     "ejs": "^3.1.6",
     "ejs-loader": "^0.5.0",
-    "eslint-import-resolver-webpack": "^0.13.1",
     "eslint-webpack-plugin": "^3.0.1",
+    "file-loader": "^6.2.0",
+    "html-loader": "^2.1.2",
     "html-webpack-plugin": "^5.3.2",
     "less": "^4.1.1",
     "less-loader": "^10.0.1",
     "mini-css-extract-plugin": "^2.3.0",
-    "postcss": "^8.3.6",
+    "node-polyfill-webpack-plugin": "^1.1.4",
+    "postcss": "^7.0.38",
     "postcss-less": "^5.0.0",
-    "postcss-loader": "^6.1.1",
+    "postcss-loader": "^5.3.0",
+    "postcss-preset-env": "^6.7.0",
     "process": "^0.11.10",
-    "style-loader": "^3.2.1",
+    "react-app-polyfill": "^3.0.0-next.81",
+    "sass": "^1.42.1",
+    "sass-loader": "^12.1.0",
+    "style-loader": "^3.3.0",
     "stylelint-webpack-plugin": "^3.0.1",
     "terser-webpack-plugin": "^5.2.4",
     "typescript": "^4.4.3",
+    "typescript-plugin-css-modules": "^3.4.0",
     "url-loader": "^4.1.1",
-    "webpack": "^5.53.0",
+    "webpack": "^5.54.0",
     "webpack-bundle-analyzer": "^4.4.2",
     "webpack-cli": "^4.8.0",
-    "webpack-dev-server": "^4.2.1",
+    "webpack-dev-server": "^4.3.0",
     "webpack-merge": "^5.8.0",
+    "webpack-node-externals": "^3.0.0",
     "workbox-webpack-plugin": "^6.3.0",
-    "yargs": "^17.1.1"
+    "yargs": "^17.2.1"
+  },
+  "devDependencies": {
+    "@types/copy-webpack-plugin": "^8.0.1",
+    "@types/jest": "^27.0.2",
+    "@types/react": "^17.0.24",
+    "@types/react-dom": "^17.0.9",
+    "babel-jest": "^27.2.2",
+    "jest": "^27.2.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "ts-jest": "^27.0.5",
+    "ts-node": "^10.2.1"
   }
 }

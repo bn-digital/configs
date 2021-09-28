@@ -1,1 +1,1 @@
-module.exports = require("./prettier.json")
+module.exports = require('./prettier.json')

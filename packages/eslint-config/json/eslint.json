@@ -1,0 +1,4 @@
+{
+  "extends": ["plugin:json/recommended"],
+  "plugins": ["json", "json-files"]
+}
