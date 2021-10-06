@@ -10,6 +10,7 @@ import {
   DefinePlugin,
   IgnorePlugin,
   ProgressPlugin,
+  ContextReplacementPlugin,
 } from 'webpack'
 import StylelintWebpack, { Options as StylelintOptions, Options as StylelintPluginOptions } from 'stylelint-webpack-plugin'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
@@ -29,6 +30,7 @@ import { Mode } from './config'
 import path from 'path'
 import { TerserOptions } from 'terser-webpack-plugin/types'
 import fs from 'fs'
+import ReactRefreshPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 
 type ProgressOptions = Partial<typeof ProgressPlugin.defaultOptions>
 type BundleAnalyzerOptions = BundleAnalyzerPlugin.Options
@@ -175,6 +177,14 @@ function automaticPrefetch(): WebpackPlugin {
   return new AutomaticPrefetchPlugin()
 }
 
+function contextReplacement(): WebpackPlugin {
+  return new ContextReplacementPlugin(/power-assert-formatter[\\/]lib/, new RegExp('^\\./.*\\.js$'))
+}
+
+function reactRefresh(options = {}): WebpackPlugin {
+  return new ReactRefreshPlugin({ overlay: false, ...options })
+}
+
 /**
  * @param {InjectManifestOptions} options
  */
@@ -221,6 +231,7 @@ function miniCssExtract(mode: Mode, options: MiniCssPluginOptions = {}): Webpack
     filename: `styles/[name]${mode === 'production' ? '.[contenthash:8]' : ''}.css`,
     chunkFilename: `styles/[name]${mode === 'production' ? '.[contenthash:8]' : ''}.chunk.css`,
     ignoreOrder: true,
+    experimentalUseImportModule: false,
     ...options,
   })
 }
@@ -235,6 +246,8 @@ const getPlugins = (mode: Mode = 'development') => ({
   copy,
   define,
   dotenv,
+  reactRefresh,
+  contextReplacement,
   eslint,
   html: (options: HtmlWebpackPlugin.Options = {}) => html(options, mode),
   ignore,

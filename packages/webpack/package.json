@@ -1,11 +1,16 @@
 {
   "name": "@bn-digital/webpack",
   "description": "Webpack configuration with decorators",
-  "version": "1.14.17",
+  "version": "1.14.33",
   "license": "MIT",
   "readme": "README.md",
   "types": "types.d.ts",
-  "keywords": ["webpack", "webpack5", "typescript", "react-scripts"],
+  "keywords": [
+    "webpack",
+    "webpack5",
+    "typescript",
+    "react-scripts"
+  ],
   "author": {
     "name": "Vlad Volkov",
     "email": "vlad.volkov@bndigital.co",
@@ -60,8 +65,8 @@
   "peerDependencies": {
     "@babel/preset-env": "^7.15.6",
     "dotenv": "^10.0.0",
-    "postcss": "^8.3.9",
-    "postcss-loader": "^6.1.1",
+    "postcss": "7.0.39",
+    "postcss-loader": "5.3.0",
     "process": "^0.11.10",
     "typescript": "^4.4.3",
     "webpack": "^5.57.1"
@@ -74,6 +79,7 @@
     "@babel/preset-typescript": "^7.15.0",
     "@bn-digital/eslint-config": "^1.13.36",
     "@bn-digital/stylelint-config": "^1.10.5",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.1",
     "@sentry/webpack-plugin": "^1.17.2",
     "@svgr/webpack": "^6.0.0-alpha.0",
     "autoprefixer": "^10.3.7",
@@ -95,12 +101,13 @@
     "less-loader": "^10.0.1",
     "mini-css-extract-plugin": "^2.4.1",
     "node-polyfill-webpack-plugin": "^1.1.4",
-    "postcss": "^8.3.9",
+    "postcss": "^7.0.39",
     "postcss-less": "^5.0.0",
-    "postcss-loader": "^6.1.1",
+    "postcss-loader": "5.3.0",
     "postcss-preset-env": "^6.7.0",
     "process": "^0.11.10",
     "react-app-polyfill": "^3.0.0-next.91",
+    "react-refresh": "^0.10.0",
     "resolve-url-loader": "^4.0.0",
     "sass": "^1.42.1",
     "sass-loader": "^12.1.0",

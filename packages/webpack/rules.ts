@@ -18,6 +18,7 @@ const typescript: WebpackRule = (override = {}, mode = 'development') => ({
     cacheCompression: false,
     compact: mode === 'production',
     presets: [['@babel/preset-env'], ['@babel/preset-typescript']],
+    plugins: [mode === 'development' && require.resolve('react-refresh/babel')].filter(Boolean),
   },
   ...override,
 })
@@ -58,7 +59,12 @@ const ejs: WebpackRule = (override = {}): RuleSetRule => ({
 const styles: WebpackRule = (override = {}) => ({
   test: /\.(css)$/,
   use: [
-    MiniCssExtractPlugin.loader,
+    {
+      loader: MiniCssExtractPlugin.loader,
+      options: {
+        esModule: false,
+      },
+    },
     {
       loader: require.resolve('css-loader'),
       options: { importLoaders: 3 },
@@ -146,36 +152,43 @@ const html: WebpackRule = (override = {}) => ({
 const images: WebpackRule = (override = {}) => ({
   test: [/\.bmp$/, /\.gif$/, /\.webp$/, /\.jpe?g$/, /\.png$/],
   type: 'asset/resource',
-  ...override,
-})
-
-const svgUrl: WebpackRule = (override = {}) => ({
-  test: /\.svg$/,
-  loader: require.resolve('url-loader'),
-  issuer: /\.(c|sc|le|sa)ss$/,
+  parser: {
+    dataUrlCondition: {
+      maxSize: 0,
+    },
+  },
   ...override,
 })
 
 const videos: WebpackRule = (override = {}) => ({
-  test: /\.(mp4|mov|flv)$/,
+  test: /\.(svg)$/,
   type: 'asset/resource',
+  parser: {
+    dataUrlCondition: {
+      maxSize: 0,
+    },
+  },
   ...override,
 })
 
-const svgComponent: WebpackRule = (override = {}) => ({
+const svg: WebpackRule = (override = {}) => ({
   test: /\.svg$/,
-  type: 'asset',
-  loader: require.resolve('@svgr/webpack'),
+  oneOf: [
+    {
+      type: 'asset/resource',
+      parser: {
+        dataUrlCondition: {
+          maxSize: 0,
+        },
+      },
+      issuer: /\.(c|le|sc|sa)ss$/,
+    },
+    {
+      loader: require.resolve('@svgr/webpack'),
+      issuer: /\.(ts|tsx|js|jsx|md|mdx)$/,
+    },
+  ],
   ...override,
-})
-
-const fileLoaderFallback: WebpackRule = () => ({
-  // Exclude `js` files to keep "css" loader working as it injects
-  // its runtime that would otherwise be processed through "file" loader.
-  // Also exclude `html` and `json` extensions so they get processed
-  // by webpacks internal loaders.
-  exclude: [/^$/, /\.(js|mjs|jsx|ts|tsx)$/, /\.html$/, /\.json$/],
-  type: 'asset/resource',
 })
 
 const getRules = (mode: Mode = 'development') => ({
@@ -187,8 +200,7 @@ const getRules = (mode: Mode = 'development') => ({
   react: (override: RuleSetRule = {}) => react(override, mode),
   scss,
   styles,
-  svgComponent: (override: RuleSetRule = {}) => svgComponent(override, mode),
-  svgUrl: (override: RuleSetRule = {}) => svgUrl(override, mode),
+  svg: (override: RuleSetRule = {}) => svg(override, mode),
   typescript: (override: RuleSetRule = {}) => typescript(override, mode),
   videos,
 })
