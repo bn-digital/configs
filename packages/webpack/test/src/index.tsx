@@ -3,8 +3,7 @@ import { render } from 'react-dom'
 import './assets/style.less'
 import './assets/style.scss'
 import styles from './assets/style.module.less'
-import imageUrl from './assets/image.svg'
-import { ReactComponent as SVGImage } from './assets/image.svg'
+import imageUrl, { ReactComponent as SVGImage } from './assets/image.svg'
 
 const App: VFC = () => {
   return (

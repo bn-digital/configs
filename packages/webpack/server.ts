@@ -1,7 +1,7 @@
 import { Configuration } from 'webpack'
 
 export const config: Configuration = {
-  entry: 'server.ts',
+  entry: './src/server.ts',
   target: 'node',
   externalsPresets: { node: true },
 }

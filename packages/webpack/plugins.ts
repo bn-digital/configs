@@ -90,7 +90,7 @@ function html(
   options: HtmlWebpackPlugin.Options = {
     inject: true,
     templateParameters: {},
-    template: 'src/index.html',
+    template: './src/index.html',
   },
   mode: Mode = 'development',
 ): WebpackPlugin {

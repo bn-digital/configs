@@ -33,7 +33,8 @@ export function mergeWithReact(
       rules: [
         rules.react(options.rules?.react),
         rules.images(options.rules?.images),
-        rules.svg(options.rules?.svg),
+        rules.svgComponent(options.rules?.svgComponent),
+        rules.svgSrc(options.rules?.svgSrc),
         rules.less(options.rules?.less),
         rules.scss(options.rules?.scss),
         rules.html(options.rules?.html),

@@ -21,6 +21,7 @@
     "access": "public"
   },
   "dependencies": {
+    "postcss-jsx": "^0.36.4",
     "stylelint": "^13.13.1",
     "stylelint-config-prettier": "^8.0.2",
     "stylelint-config-rational-order": "^0.1.2",

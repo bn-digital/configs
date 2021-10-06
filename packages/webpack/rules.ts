@@ -89,9 +89,6 @@ const less: WebpackRule = (override = {}) =>
     use: (styles(override).use as Array<RuleSetUseItem>).concat([
       {
         loader: require.resolve('resolve-url-loader'),
-        options: {
-          root: path.join(appDir, 'src'),
-        },
       },
       {
         loader: require.resolve('less-loader'),
@@ -115,9 +112,6 @@ const scss: WebpackRule = (override = {}, mode = 'development') =>
       use: (styles({}, mode).use as Array<RuleSetUseItem>).concat([
         {
           loader: require.resolve('resolve-url-loader'),
-          options: {
-            root: path.join(appDir, 'src'),
-          },
         },
         {
           loader: require.resolve('sass-loader'),
@@ -161,7 +155,7 @@ const images: WebpackRule = (override = {}) => ({
 })
 
 const videos: WebpackRule = (override = {}) => ({
-  test: /\.(svg)$/,
+  test: /\.(mp4|mov|flv)$/,
   type: 'asset/resource',
   parser: {
     dataUrlCondition: {
@@ -171,23 +165,16 @@ const videos: WebpackRule = (override = {}) => ({
   ...override,
 })
 
-const svg: WebpackRule = (override = {}) => ({
-  test: /\.svg$/,
-  oneOf: [
-    {
-      type: 'asset/resource',
-      parser: {
-        dataUrlCondition: {
-          maxSize: 0,
-        },
-      },
-      issuer: /\.(c|le|sc|sa)ss$/,
-    },
-    {
-      loader: require.resolve('@svgr/webpack'),
-      issuer: /\.(ts|tsx|js|jsx|md|mdx)$/,
-    },
-  ],
+const svgComponent: WebpackRule = override => ({
+  test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+  issuer: /\.[jt]sx?$/,
+  use: [require.resolve('babel-loader'), require.resolve('@svgr/webpack'), require.resolve('url-loader')],
+  ...override,
+})
+
+const svgSrc: WebpackRule = override => ({
+  test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+  loader: require.resolve('url-loader'),
   ...override,
 })
 
@@ -200,7 +187,8 @@ const getRules = (mode: Mode = 'development') => ({
   react: (override: RuleSetRule = {}) => react(override, mode),
   scss,
   styles,
-  svg: (override: RuleSetRule = {}) => svg(override, mode),
+  svgSrc,
+  svgComponent,
   typescript: (override: RuleSetRule = {}) => typescript(override, mode),
   videos,
 })
