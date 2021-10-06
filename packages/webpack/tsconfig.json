@@ -1,17 +1,16 @@
 {
-  "compileOnSave": true,
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
-    "declaration": true,
+    "baseUrl": ".",
+    "importHelpers": true,
     "esModuleInterop": true,
     "module": "CommonJS",
     "moduleResolution": "Node",
     "noImplicitAny": true,
-    "importHelpers": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
-    "jsx": "react-jsx",
-    "target": "ES2017"
-  }
+    "target": "ES5"
+  },
+  "include": ["*.ts"]
 }

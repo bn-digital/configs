@@ -7,6 +7,21 @@ declare namespace NodeJS {
   }
 }
 
+declare namespace Webpack {
+  import type { RulesConfiguration } from './rules'
+  import type { PluginConfiguration } from './plugins'
+
+  type Mode = 'production' | 'development' | string
+
+  type CliArgs = {
+    mode: Webpack.Mode
+  }
+  type Overrides = {
+    rules: RulesConfiguration
+    plugins: Partial<PluginConfiguration>
+  }
+}
+
 declare namespace Package {
   type Metadata = {
     name: string

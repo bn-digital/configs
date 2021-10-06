@@ -1,7 +1,7 @@
-import ESLintWebpackPlugin, { Options as EslintPluginOptions } from 'eslint-webpack-plugin'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
-import MiniCssExtractPlugin, { PluginOptions as MiniCssPluginOptions } from 'mini-css-extract-plugin'
-import { CleanWebpackPlugin, Options as CleanPluginOption } from 'clean-webpack-plugin'
+import ESLintWebpack, { Options as EslintOptions, Options as EslintPluginOptions } from 'eslint-webpack-plugin'
+import HtmlWebpackPlugin, { Options as HtmlOptions } from 'html-webpack-plugin'
+import MiniCssExtract, { PluginOptions as MiniCssOptions, PluginOptions as MiniCssPluginOptions } from 'mini-css-extract-plugin'
+import { CleanWebpackPlugin, Options as CleanOptions, Options as CleanPluginOption } from 'clean-webpack-plugin'
 import {
   ProvidePlugin,
   AutomaticPrefetchPlugin,
@@ -11,52 +11,91 @@ import {
   IgnorePlugin,
   ProgressPlugin,
 } from 'webpack'
-import StylelintWebpackPlugin, { Options as StylelintPluginOptions } from 'stylelint-webpack-plugin'
+import StylelintWebpack, { Options as StylelintOptions, Options as StylelintPluginOptions } from 'stylelint-webpack-plugin'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
-import DotenvPlugin from 'dotenv-webpack'
+import DotenvPlugin, { Options as DotenvOptions } from 'dotenv-webpack'
 import TerserPlugin from 'terser-webpack-plugin'
-import { GenerateSW, GenerateSWOptions as WorkboxOptions, InjectManifestOptions, InjectManifest } from 'workbox-webpack-plugin'
-import SentryCliPlugin, { SentryCliPluginOptions } from '@sentry/webpack-plugin'
+import {
+  GenerateSW,
+  GenerateSWOptions as WorkboxOptions,
+  InjectManifestOptions,
+  InjectManifest,
+  InjectManifestOptions as ManifestOptions,
+} from 'workbox-webpack-plugin'
+import SentryCli, { SentryCliPluginOptions as SentryOptions, SentryCliPluginOptions } from '@sentry/webpack-plugin'
 import NodePolyfillPlugin from 'node-polyfill-webpack-plugin'
+import Copy, { CopyPluginOptions as CopyOptions, CopyPluginOptions } from 'copy-webpack-plugin'
+import { Mode } from './config'
+import path from 'path'
+import { TerserOptions } from 'terser-webpack-plugin/types'
+import fs from 'fs'
 
-export type WebpackPlugin = ((this: Compiler, compiler: Compiler) => void) | WebpackPluginInstance | any
+type ProgressOptions = Partial<typeof ProgressPlugin.defaultOptions>
+type BundleAnalyzerOptions = BundleAnalyzerPlugin.Options
+type WebpackPlugin = ((this: Compiler, compiler: Compiler) => void) | WebpackPluginInstance | any
+
+const appDir = fs.realpathSync(process.cwd())
 
 /**
  * Defines environment variables from process.env
  * @param envVars
  */
-export function definePlugin(envVars: NodeJS.Dict<string> = {}): WebpackPlugin {
+function define(envVars: NodeJS.Dict<string> = {}): WebpackPlugin {
   return new DefinePlugin(envVars)
 }
 
-export function bundleAnalyzer(options: BundleAnalyzerPlugin.Options): WebpackPlugin {
+/**
+ * @param {CopyPluginOptions} options
+ */
+function copy(
+  options: CopyPluginOptions = {
+    patterns: [
+      {
+        from: '**/*',
+        context: path.join(appDir, 'public'),
+        noErrorOnMissing: true,
+      },
+    ],
+  },
+): WebpackPlugin {
+  return new Copy(options)
+}
+
+/**
+ * @param {BundleAnalyzerPlugin.Options} options
+ */
+function bundleAnalyzer(options: BundleAnalyzerPlugin.Options): WebpackPlugin {
   return new BundleAnalyzerPlugin(options)
 }
 
-export function dotenvPlugin(options: DotenvPlugin.Options = {}): WebpackPlugin {
+/**
+ * @param {DotenvPlugin.Options} options
+ */
+function dotenv(options: DotenvPlugin.Options = {}): WebpackPlugin {
   return new DotenvPlugin(options)
 }
 
-export function nodePolyfillPlugin(options: NodePolyfillPlugin.Options = {}): WebpackPlugin {
+function nodePolyfill(options: NodePolyfillPlugin.Options = {}): WebpackPlugin {
   return new NodePolyfillPlugin(options)
 }
 
 /**
  * HTML Plugin
  * @param options
+ * @param mode
  */
-export function htmlPlugin(
+function html(
   options: HtmlWebpackPlugin.Options = {
     inject: true,
     templateParameters: {},
     template: 'src/index.html',
-    minify: false,
   },
+  mode: Mode = 'development',
 ): WebpackPlugin {
   return new HtmlWebpackPlugin({
     ...options,
     minify:
-      options.minify === true
+      mode === 'production'
         ? {
             removeComments: true,
             collapseWhitespace: true,
@@ -76,13 +115,16 @@ export function htmlPlugin(
 /**
  * ESLint plugin
  * @param {EslintPluginOptions} options
+ *  @param mode
  *  @return {WebpackPlugin}
  */
-export function eslintPlugin(options: EslintPluginOptions = {}): WebpackPlugin {
-  return new ESLintWebpackPlugin({
-    cacheLocation: 'build/.cache/.eslintcache',
+function eslint(options: EslintPluginOptions = {}, mode: Mode = 'development'): WebpackPlugin {
+  return new ESLintWebpack({
+    cacheLocation: '.cache/.eslintcache',
+    cache: true,
     extensions: ['tsx', 'ts'],
     eslintPath: require.resolve('eslint'),
+    failOnError: mode === 'production',
     ...options,
   })
 }
@@ -90,13 +132,16 @@ export function eslintPlugin(options: EslintPluginOptions = {}): WebpackPlugin {
 /**
  * Stylelint plugin
  * @param {StylelintPluginOptions} options
+ * @param mode
  * @return {WebpackPlugin}
  */
-export function stylelintPlugin(options: StylelintPluginOptions = {}): WebpackPlugin {
-  return new StylelintWebpackPlugin({
+function stylelint(options: StylelintPluginOptions = {}, mode: Mode = 'development'): WebpackPlugin {
+  return new StylelintWebpack({
     extensions: ['less', 'css', 'scss'],
-    cacheLocation: 'build/.cache/.stylelintcache',
+    cacheLocation: '.cache/.stylelintcache',
+    cache: true,
     stylelintPath: require.resolve('stylelint'),
+    failOnError: mode === 'production',
     ...options,
   })
 }
@@ -105,35 +150,35 @@ export function stylelintPlugin(options: StylelintPluginOptions = {}): WebpackPl
  * Cleans up output directory before build
  * @param options
  */
-export function cleanPlugin(options: CleanPluginOption = {}): WebpackPlugin {
+function clean(options: CleanPluginOption = {}): WebpackPlugin {
   return new CleanWebpackPlugin(options)
 }
 
 /**
  * Makes accessible process.env from withing client app
  */
-export function providePlugin(options: { [key: string]: string } = { process: 'process/browser' }): WebpackPlugin {
+function provide(options: { [key: string]: string } = { process: 'process/browser' }): WebpackPlugin {
   return new ProvidePlugin(options)
 }
 
-export function terserPlugin(): WebpackPlugin {
+function terser(options: TerserOptions = {}): WebpackPlugin {
   return new TerserPlugin({
-    parallel: true,
+    terserOptions: { parse: { ecma: 2018 }, compress: { ecma: 5 }, ...options },
   })
 }
 
-export function ignorePlugin(): WebpackPlugin {
+function ignore(): WebpackPlugin {
   return new IgnorePlugin({ contextRegExp: /^\.\/locale$/, resourceRegExp: /moment$/ })
 }
 
-export function automaticPrefetchPlugin(): WebpackPlugin {
+function automaticPrefetch(): WebpackPlugin {
   return new AutomaticPrefetchPlugin()
 }
 
 /**
  * @param {InjectManifestOptions} options
  */
-export function manifestPlugin(
+function manifest(
   options: InjectManifestOptions = {
     maximumFileSizeToCacheInBytes: 1e6,
     swSrc: 'src/service-worker.ts',
@@ -145,19 +190,19 @@ export function manifestPlugin(
 /**
  * @param {WorkboxOptions} options
  */
-export function workboxPlugin(options: WorkboxOptions = { maximumFileSizeToCacheInBytes: 1e6 }): WebpackPlugin {
+function workbox(options: WorkboxOptions = { maximumFileSizeToCacheInBytes: 1e6 }): WebpackPlugin {
   return new GenerateSW(options)
 }
 
 /**
  * @param {SentryCliPluginOptions} options
  */
-export function sentryPlugin(options: SentryCliPluginOptions = { include: '.' }): WebpackPlugin {
-  return new SentryCliPlugin(options)
+function sentry(options: SentryCliPluginOptions = { include: '.' }): WebpackPlugin {
+  return new SentryCli(options)
 }
 
-export function progressPlugin(
-  options: Partial<typeof ProgressPlugin.defaultOptions> = {
+function progress(
+  options: ProgressOptions = {
     activeModules: true,
     entries: true,
     modules: true,
@@ -168,13 +213,55 @@ export function progressPlugin(
 
 /**
  * Extracts CSS into separate files
+ * @param mode
  * @param options
  */
-export function miniCssExtractPlugin(options: MiniCssPluginOptions = {}): WebpackPlugin {
-  return new MiniCssExtractPlugin({
-    filename: `styles/[name]${process.env.NODE_ENV === 'production' ? '.[contenthash:8]' : ''}.css`,
-    chunkFilename: `styles/[name]${process.env.NODE_ENV === 'production' ? '.[contenthash:8]' : ''}.chunk.css`,
+function miniCssExtract(mode: Mode, options: MiniCssPluginOptions = {}): WebpackPlugin {
+  return new MiniCssExtract({
+    filename: `styles/[name]${mode === 'production' ? '.[contenthash:8]' : ''}.css`,
+    chunkFilename: `styles/[name]${mode === 'production' ? '.[contenthash:8]' : ''}.chunk.css`,
     ignoreOrder: true,
     ...options,
   })
 }
+
+/**
+ * @param {Mode} mode
+ */
+const getPlugins = (mode: Mode = 'development') => ({
+  automaticPrefetch,
+  bundleAnalyzer,
+  clean,
+  copy,
+  define,
+  dotenv,
+  eslint,
+  html: (options: HtmlWebpackPlugin.Options = {}) => html(options, mode),
+  ignore,
+  manifest,
+  miniCssExtract: (options: MiniCssPluginOptions = {}) => miniCssExtract(mode, options),
+  nodePolyfill,
+  provide,
+  progress,
+  sentry: (options: SentryCliPluginOptions) => sentry(options),
+  stylelint: (options: StylelintPluginOptions = {}) => stylelint(options),
+  terser,
+  workbox,
+})
+
+export type PluginConfiguration = {
+  copy: CopyOptions
+  html: HtmlOptions
+  eslint: EslintOptions
+  sentry: SentryOptions
+  miniCss: MiniCssOptions
+  clean: CleanOptions
+  dotenv: DotenvOptions
+  stylelint: StylelintOptions
+  workbox: WorkboxOptions
+  manifest: ManifestOptions
+  provide: { [key: string]: string }
+  bundleAnalyzer: BundleAnalyzerOptions
+}
+
+export { getPlugins }

@@ -31,7 +31,8 @@
       "files": ["*.graphql"],
       "extends": "@bn-digital/eslint-config/graphql",
       "parserOptions": {
-        "operations": ["./packages/*/src/**/*.graphql"]
+        "operations": ["./packages/*/src/**/*.graphql"],
+        "schema": "./packages/cms/exports/graphql/schema.graphql"
       }
     },
     {

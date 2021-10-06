@@ -1,39 +1,110 @@
 import { Configuration } from 'webpack'
 import path from 'path'
 import fs from 'fs'
-import yargs from "yargs";
+import yargs from 'yargs'
+import merge from 'webpack-merge'
+import { getPlugins } from './plugins'
+import WebpackDevServer from 'webpack-dev-server'
 
-export function packageJson(): Package.Metadata | null {
-  return fs.existsSync(path.join(process.cwd(), 'package.json'))
-    ? JSON.parse(fs.readFileSync(path.join(process.cwd(), 'package.json'), 'utf-8'))
-    : null
+const appDir = fs.realpathSync(process.cwd())
+
+const getPackageMetadata = (): Package.Metadata | null => {
+  if (!fs.existsSync(path.join(appDir, 'package.json'))) {
+    console.warn(`No package.json detected in ${appDir}`)
+    return null
+  }
+  try {
+    return JSON.parse(fs.readFileSync(path.join(appDir, 'package.json'), 'utf-8'))
+  } catch (e) {
+    console.error(e)
+    return null
+  }
 }
 
-export function cliArgs() {
-  return yargs(process.argv.slice(2))
+const getCliArgs = (): Webpack.CliArgs =>
+  yargs(process.argv.slice(2))
     .options({
       mode: { type: 'string', default: 'development' },
     })
     .parseSync()
-}
 
 export type Mode = 'production' | 'development'
 
-const config: Configuration = {
+const getOutputs = (mode: Mode) => ({
+  path: path.join(appDir, 'build'),
+  filename: `scripts/[name]${mode === 'production' ? '.[contenthash:8]' : ''}.js`,
+  chunkFilename: `scripts/[name]${mode === 'production' ? '.[contenthash:8]' : ''}.chunk.js`,
+  assetModuleFilename: 'assets/[hash][ext][query]',
+  pathinfo: mode === 'development',
+})
+
+const base: Partial<Configuration> = {
   stats: 'summary',
-  output: {
-    path: path.join(process.cwd(), 'build'),
-    filename: `scripts/[name]${process.env.NODE_ENV === 'production' ? '.[contenthash:8]' : ''}.js`,
-    chunkFilename: `scripts/[name]${process.env.NODE_ENV === 'production' ? '.[contenthash:8]' : ''}.chunk.js`,
-    assetModuleFilename: 'assets/[name].[hash][ext]',
-  },
   resolve: {
-    alias: { src: path.join(process.cwd(), 'src') },
+    alias: { src: path.join(appDir, 'src') },
     extensions: ['.ts', '.js', '.tsx', '.jsx'],
+  },
+  cache: {
+    type: 'filesystem',
+    cacheLocation: path.join(appDir, '.cache', 'webpack'),
+    store: 'pack',
+    hashAlgorithm: 'md5',
+    buildDependencies: {
+      defaultWebpack: ['webpack/lib/'],
+      config: [__filename],
+      tsconfig: [path.join(appDir, 'tsconfig.json')].filter(f => fs.existsSync(f)),
+    },
   },
   experiments: {
     asset: true,
     layers: true,
+    cacheUnaffected: true,
+  },
+  plugins: [],
+}
+
+const production: Configuration = {
+  mode: 'production',
+  devtool: 'source-map',
+  stats: 'errors-only',
+  performance: { hints: 'warning' },
+  optimization: { minimizer: [getPlugins('production').terser()], minimize: true },
+  plugins: [],
+}
+
+const development: Partial<Configuration & { devServer: WebpackDevServer.Configuration }> = {
+  optimization: { minimize: false },
+  mode: 'development',
+  stats: 'normal',
+  devtool: 'cheap-module-source-map',
+  plugins: [],
+  devServer: {
+    client: {
+      logging: 'error',
+      overlay: true,
+    },
+    proxy: getPackageMetadata()?.proxy
+      ? [
+          {
+            target: getPackageMetadata()?.proxy,
+            context: ['/graphql', '/upload', '/uploads'],
+          },
+        ]
+      : undefined,
+    allowedHosts: 'all',
+    compress: false,
+    historyApiFallback: true,
+    hot: true,
+    liveReload: true,
+    open: true,
+    port: 'auto',
   },
 }
-export default config
+
+const getConfig: (mode: Mode) => Partial<Configuration> = mode =>
+  merge(base, {
+    ...(mode === 'production' ? production : development),
+    output: getOutputs(mode),
+  })
+
+export { getConfig, getCliArgs, getPackageMetadata }

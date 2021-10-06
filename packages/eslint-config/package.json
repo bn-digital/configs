@@ -1,15 +1,11 @@
 {
   "name": "@bn-digital/eslint-config",
   "description": "ESLint ruleset used in coding standard by BN Digital",
-  "version": "1.13.34",
+  "version": "1.13.36",
   "license": "MIT",
-  "peerDependenciesMeta": {
-    "@graphql-eslint/eslint-plugin": {
-      "optional": false
-    },
-    "eslint": {
-      "optional": false
-    }
+  "repository": {
+    "url": "https://github.com/bn-digital/coding-standard",
+    "directory": "packages/eslint-config"
   },
   "main": "index.js",
   "readme": "README.md",
@@ -39,9 +35,8 @@
     "@babel/eslint-parser": "^7.15.7",
     "@babel/eslint-plugin": "^7.14.5",
     "@graphql-eslint/eslint-plugin": "^2.2.0",
-    "@typescript-eslint/eslint-plugin": "^4.32.0",
-    "@typescript-eslint/parser": "^4.32.0",
-    "confusing-browser-globals": "^1.0.10",
+    "@typescript-eslint/eslint-plugin": "^4.33.0",
+    "@typescript-eslint/parser": "^4.33.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-dirnames": "^1.0.3",
@@ -51,7 +46,7 @@
     "eslint-plugin-json-files": "^1.2.0",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-react": "^7.26.0",
+    "eslint-plugin-react": "^7.26.1",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-react-perf": "^3.3.0",
     "eslint-plugin-unicorn": "^36.0.0"

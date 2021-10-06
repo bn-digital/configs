@@ -1,11 +1,12 @@
 {
-  "extends": "../tsconfig.json",
   "compilerOptions": {
-    "jsx": "react-jsx",
     "baseUrl": ".",
     "outDir": "build",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "jsx": "react-jsx",
     "types": ["@bn-digital/webpack/types"]
   },
   "files": ["../types.d.ts"],

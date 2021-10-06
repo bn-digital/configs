@@ -1,101 +1,88 @@
 import { merge } from 'webpack-merge'
 import { Configuration } from 'webpack'
-import production from './production'
-import development from './development'
+import { getCliArgs, getConfig, Mode, getPackageMetadata } from './config'
+import { getPlugins } from './plugins'
+import { getRules } from './rules'
+import fs from 'fs'
 
-import { fonts, images, less, react, sass, svgComponent, svgUrl, videos } from './rules'
-
-import {
-  automaticPrefetchPlugin,
-  bundleAnalyzer,
-  definePlugin,
-  dotenvPlugin,
-  eslintPlugin,
-  providePlugin,
-  htmlPlugin,
-  miniCssExtractPlugin,
-  stylelintPlugin,
-  cleanPlugin,
-  workboxPlugin,
-  manifestPlugin,
-  sentryPlugin,
-  nodePolyfillPlugin,
-  progressPlugin,
-  ignorePlugin,
-} from './plugins'
-import { WebpackCustomConfiguration } from './index'
-import { cliArgs, Mode, packageJson } from './config'
-
-const packageConfig = packageJson()
-const args: { mode: string | Mode } = cliArgs()
+const packageConfig = getPackageMetadata()
+const appDir = fs.realpathSync(process.cwd())
+const args: { mode: string | Mode } = getCliArgs()
 
 /**
  * Configures Webpack with multiple
  * @param {Partial<Configuration>} configuration
- * @param {Partial<WebpackCustomConfiguration>} options
+ * @param options
  */
 export function mergeWithReact(
   configuration: Partial<Configuration> = { mode: 'development' },
-  options: Partial<WebpackCustomConfiguration> = {
-    plugins: [],
+  options: Partial<Webpack.Overrides> = {
+    plugins: {},
+    rules: {},
   },
-): Configuration {
+): Partial<Configuration> {
   const mode = (process.env.NODE_ENV ?? configuration.mode ?? args.mode) as Mode
-  const envConfiguration: Configuration = mode === 'production' ? production : development
-  const baseConfiguration: Configuration = {
-    ...envConfiguration,
+  const config = getConfig(mode)
+  const plugins = getPlugins(mode)
+  const rules = getRules(mode)
+  const baseConfiguration: Partial<Configuration> = {
+    ...config,
+    infrastructureLogging: { level: 'none' },
     entry: './src/index.tsx',
     target: 'web',
+    externalsPresets: { web: true },
     module: {
-      rules: [react, images, videos, svgComponent, svgUrl, less, sass, fonts],
+      rules: [
+        rules.react(options.rules?.react),
+        rules.images(options.rules?.images),
+        rules.svgComponent(options.rules?.svgComponent),
+        rules.svgUrl(options.rules?.svgUrl),
+        rules.less(options.rules?.less),
+        rules.scss(options.rules?.scss),
+        rules.html(options.rules?.html),
+        rules.fonts(options.rules?.fonts),
+        rules.videos(options.rules?.videos),
+      ],
     },
     plugins: Array.from([
-      dotenvPlugin(options?.dotenv),
-      cleanPlugin(options?.clean),
-      definePlugin(process.env),
-      eslintPlugin({
-        ...options?.eslint,
-        failOnError: mode === 'production',
-      }),
-      stylelintPlugin({ ...options?.stylelint, failOnError: mode === 'production' }),
-      htmlPlugin({
-        ...options?.html,
-        minify: mode !== 'development',
-      }),
-      providePlugin(options?.provide),
-      ignorePlugin(),
-      automaticPrefetchPlugin(),
-      miniCssExtractPlugin(),
-      nodePolyfillPlugin(),
-      progressPlugin(),
+      plugins.automaticPrefetch(),
+      plugins.clean(options.plugins?.clean),
+      plugins.copy(options?.plugins?.copy),
+      plugins.define(process.env),
+      plugins.dotenv(options.plugins?.dotenv),
+      plugins.eslint(options.plugins?.eslint),
+      plugins.html(options.plugins?.html),
+      plugins.ignore(),
+      plugins.miniCssExtract(options.plugins?.miniCss),
+      plugins.nodePolyfill(),
+      plugins.provide(options.plugins?.provide),
+      plugins.stylelint(options.plugins?.stylelint),
     ]),
   }
 
-  options?.plugins?.forEach(plugin => baseConfiguration?.plugins?.push(plugin))
-
-  if (envConfiguration?.mode === 'production' || options.workbox) {
-    baseConfiguration?.plugins?.push(workboxPlugin(options.workbox))
-    if (options.manifest?.swSrc) {
-      baseConfiguration?.plugins?.push(manifestPlugin(options.manifest))
+  if (mode === 'production' || options.plugins?.workbox) {
+    baseConfiguration?.plugins?.push(plugins.workbox(options.plugins?.workbox))
+    if (options.plugins?.manifest?.swSrc) {
+      baseConfiguration?.plugins?.push(plugins.manifest(options.plugins.manifest))
     }
-    if ((options.sentry?.authToken || process.env.SENTRY_AUTH_TOKEN) && process.env.SENTRY_URL && process.env.SENTRY_ORG) {
+    if ((options.plugins?.sentry?.authToken || process.env.SENTRY_AUTH_TOKEN) && process.env.SENTRY_URL && process.env.SENTRY_ORG) {
       baseConfiguration?.plugins?.push(
-        sentryPlugin({
-          include: process.cwd(),
+        plugins.sentry({
+          include: appDir,
           url: process.env.SENTRY_URL,
           org: process.env.SENTRY_ORG,
           project: process.env.SENTRY_PROJECT ?? packageConfig?.name.split('/')[0].replace('@', ''),
-          authToken: options.sentry?.authToken ?? process.env.SENTRY_AUTH_TOKEN,
-          ...options.sentry,
+          authToken: options.plugins?.sentry?.authToken ?? process.env.SENTRY_AUTH_TOKEN,
+          ...options.plugins?.sentry,
         }),
       )
     }
   }
-  if (envConfiguration?.mode !== 'production') {
-    if (options?.bundleAnalyzer) {
-      baseConfiguration?.plugins?.push(bundleAnalyzer(options.bundleAnalyzer))
+  if (mode !== 'production') {
+    if (options.plugins?.bundleAnalyzer) {
+      baseConfiguration?.plugins?.push(plugins.bundleAnalyzer(options.plugins.bundleAnalyzer))
     }
   }
 
-  return merge<Configuration>(baseConfiguration, configuration)
+  return merge<Partial<Configuration>>(baseConfiguration, configuration)
 }
