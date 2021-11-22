@@ -49,7 +49,7 @@
     "eslint-plugin-react": "^7.26.1",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-react-perf": "^3.3.0",
-    "eslint-plugin-unicorn": "^36.0.0"
+    "eslint-plugin-unicorn": "^39.0.0"
   },
   "scripts": {
     "release": "yarn npm publish"
