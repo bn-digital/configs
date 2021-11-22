@@ -1,7 +1,7 @@
 {
   "name": "bn-digital",
   "description": "Collection of coding standards, style guides and shared configurations",
-  "version": "1.8.11-21.57",
+  "version": "1.16.0",
   "author": {
     "name": "Vlad Volkov",
     "email": "vlad.volkov@bndigital.co",
@@ -23,20 +23,19 @@
   },
   "prettier": "@bn-digital/prettier-config",
   "eslintConfig": {
-    "extends": "./packages/eslint-config"
+    "extends": "@bn-digital/eslint-config"
   },
   "stylelint": {
     "extends": "@bn-digital/stylelint-config"
   },
-  "dependencies": {
-    "@bn-digital/eslint-config": "^1.13.34",
-    "@bn-digital/prettier-config": "^1.10.5",
-    "@bn-digital/stylelint-config": "^1.10.5",
-    "eslint": "^7.32.0"
+  "devDependencies": {
+    "@bn-digital/eslint-config": "^1.16.1",
+    "@bn-digital/prettier-config": "^1.12.1",
+    "@bn-digital/stylelint-config": "^1.13.3"
   },
   "scripts": {
     "build": "yarn workspaces foreach run build",
-    "release": "yarn workspaces foreach run release",
-    "fix": "node_modules/prettier/bin-prettier.js --write packages"
-  }
+    "release": "yarn workspaces foreach run release"
+  },
+  "packageManager": "yarn@3.1.0"
 }

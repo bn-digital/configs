@@ -1,6 +1,8 @@
 {
   "extends": ["stylelint-config-recommended", "stylelint-config-rational-order", "stylelint-config-prettier"],
+  "customSyntax": "postcss-less",
   "plugins": ["stylelint-order"],
+  "defaultSeverity": "warning",
   "rules": {
     "comment-empty-line-before": null,
     "declaration-empty-line-before": null,

@@ -1,6 +1,7 @@
 {
   "extends": [
     "stylelint-config-recommended",
+    "postcss-less",
     "stylelint-config-rational-order",
     "stylelint-config-prettier"
   ],

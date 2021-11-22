@@ -1,11 +1,10 @@
 {
   "extends": ["prettier"],
-  "root": true,
   "parserOptions": {
     "ecmaVersion": 2021,
     "sourceType": "module"
   },
-  "plugins": ["dirnames", "prettier", "unicorn"],
+  "plugins": ["dirnames", "import", "prettier", "unicorn"],
   "rules": {
     "dirnames/match-kebab-case": "warn",
     "unicorn/prefer-modern-dom-apis": "warn",
@@ -13,9 +12,9 @@
     "unicorn/prefer-ternary": "warn"
   },
   "globals": {
-    "process": "readonly"
+    "process": "readonly",
+    "strapi": true
   },
-  "ignorePatterns": ["node_modules", "build", "dist", ".cache", ".tmp", "coverage", "*.less", "*.css", "*.scss", "*.sass", "*ignore"],
   "env": {
     "node": true,
     "es6": true,
@@ -24,15 +23,19 @@
   },
   "overrides": [
     {
-      "files": ["*.json"],
-      "extends": "@bn-digital/eslint-config/json"
-    },
-    {
       "files": ["*.graphql"],
       "extends": "@bn-digital/eslint-config/graphql",
       "parserOptions": {
         "operations": ["./packages/*/src/**/*.graphql"],
         "schema": "./packages/cms/exports/graphql/schema.graphql"
+      }
+    },
+    {
+      "files": ["*.d.ts"],
+      "extends": "@bn-digital/eslint-config/typescript",
+      "rules": {
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-unused-vars": "off"
       }
     },
     {
@@ -52,7 +55,7 @@
       "excludedFiles": ["**/*/graphql/index.tsx"]
     },
     {
-      "files": ["**/*/graphql/index.tsx"],
+      "files": ["**/*/graphql/index.tsx", "**/*/types/graphql.d.ts"],
       "extends": "@bn-digital/eslint-config/react",
       "rules": {
         "@typescript-eslint/ban-types": "off",

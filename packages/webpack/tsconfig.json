@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
-    "baseUrl": ".",
-    "importHelpers": true,
     "esModuleInterop": true,
+    "importHelpers": true,
+    "lib": ["DOM", "ES5"],
     "module": "CommonJS",
     "moduleResolution": "Node",
     "noImplicitAny": true,
@@ -12,7 +12,5 @@
     "strict": true,
     "target": "ES2017"
   },
-  "exclude": [
-    "test"
-  ]
+  "exclude": ["test"]
 }

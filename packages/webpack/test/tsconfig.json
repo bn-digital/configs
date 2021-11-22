@@ -6,8 +6,7 @@
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "Node",
-    "jsx": "react-jsx",
-    "types": ["@bn-digital/webpack/types"]
+    "jsx": "react-jsx"
   },
   "files": ["../types.d.ts"],
   "include": ["src"]

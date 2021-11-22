@@ -2,16 +2,7 @@ import ESLintWebpack, { Options as EslintOptions, Options as EslintPluginOptions
 import HtmlWebpackPlugin, { Options as HtmlOptions } from 'html-webpack-plugin'
 import MiniCssExtract, { PluginOptions as MiniCssOptions, PluginOptions as MiniCssPluginOptions } from 'mini-css-extract-plugin'
 import { CleanWebpackPlugin, Options as CleanOptions, Options as CleanPluginOption } from 'clean-webpack-plugin'
-import {
-  ProvidePlugin,
-  AutomaticPrefetchPlugin,
-  Compiler,
-  WebpackPluginInstance,
-  DefinePlugin,
-  IgnorePlugin,
-  ProgressPlugin,
-  ContextReplacementPlugin,
-} from 'webpack'
+import { AutomaticPrefetchPlugin, Compiler, ContextReplacementPlugin, DefinePlugin, IgnorePlugin, WebpackPluginInstance } from 'webpack'
 import StylelintWebpack, { Options as StylelintOptions, Options as StylelintPluginOptions } from 'stylelint-webpack-plugin'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 import DotenvPlugin, { Options as DotenvOptions } from 'dotenv-webpack'
@@ -19,8 +10,8 @@ import TerserPlugin from 'terser-webpack-plugin'
 import {
   GenerateSW,
   GenerateSWOptions as WorkboxOptions,
-  InjectManifestOptions,
   InjectManifest,
+  InjectManifestOptions,
   InjectManifestOptions as ManifestOptions,
 } from 'workbox-webpack-plugin'
 import SentryCli, { SentryCliPluginOptions as SentryOptions, SentryCliPluginOptions } from '@sentry/webpack-plugin'
@@ -31,8 +22,9 @@ import path from 'path'
 import { TerserOptions } from 'terser-webpack-plugin/types'
 import fs from 'fs'
 import ReactRefreshPlugin from '@pmmmwh/react-refresh-webpack-plugin'
+import CssMinimizerPlugin from 'css-minimizer-webpack-plugin'
+import { ReactRefreshPluginOptions } from '@pmmmwh/react-refresh-webpack-plugin/types/lib/types'
 
-type ProgressOptions = Partial<typeof ProgressPlugin.defaultOptions>
 type BundleAnalyzerOptions = BundleAnalyzerPlugin.Options
 type WebpackPlugin = ((this: Compiler, compiler: Compiler) => void) | WebpackPluginInstance | any
 
@@ -41,9 +33,15 @@ const appDir = fs.realpathSync(process.cwd())
 /**
  * Defines environment variables from process.env
  * @param envVars
+ * @param mode
  */
-function define(envVars: NodeJS.Dict<string> = {}): WebpackPlugin {
-  return new DefinePlugin(envVars)
+function define(envVars: NodeJS.Dict<string> = {}, mode = 'development'): WebpackPlugin {
+  return new DefinePlugin({
+    'NODE_ENV': mode,
+    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV ?? mode),
+    'process.env.PUBLIC_URL': JSON.stringify(process.env.PUBLIC_URL ?? ''),
+    ...envVars,
+  })
 }
 
 /**
@@ -88,14 +86,17 @@ function nodePolyfill(options: NodePolyfillPlugin.Options = {}): WebpackPlugin {
  */
 function html(
   options: HtmlWebpackPlugin.Options = {
-    inject: true,
     templateParameters: {},
-    template: './src/index.html',
   },
   mode: Mode = 'development',
 ): WebpackPlugin {
   return new HtmlWebpackPlugin({
     ...options,
+    cache: true,
+    hash: mode === 'production',
+    template: 'src/index.html',
+    scriptLoading: 'module',
+    showErrors: mode === 'development',
     minify:
       mode === 'production'
         ? {
@@ -122,11 +123,13 @@ function html(
  */
 function eslint(options: EslintPluginOptions = {}, mode: Mode = 'development'): WebpackPlugin {
   return new ESLintWebpack({
-    cacheLocation: '.cache/.eslintcache',
+    cacheLocation: path.resolve(appDir, 'node_modules/.cache/.eslintcache'),
     cache: true,
-    extensions: ['tsx', 'ts'],
-    eslintPath: require.resolve('eslint'),
+    cwd: appDir,
+    resolvePluginsRelativeTo: __dirname,
+    extensions: ['tsx', 'ts', 'graphql'],
     failOnError: mode === 'production',
+    failOnWarning: false,
     ...options,
   })
 }
@@ -139,11 +142,12 @@ function eslint(options: EslintPluginOptions = {}, mode: Mode = 'development'): 
  */
 function stylelint(options: StylelintPluginOptions = {}, mode: Mode = 'development'): WebpackPlugin {
   return new StylelintWebpack({
-    extensions: ['less', 'css', 'scss'],
-    cacheLocation: '.cache/.stylelintcache',
+    extensions: ['less'],
+    cacheLocation: path.resolve(appDir, 'node_modules/.cache/.stylelintcache'),
+    customSyntax: 'postcss-less',
     cache: true,
-    stylelintPath: require.resolve('stylelint'),
     failOnError: mode === 'production',
+    failOnWarning: false,
     ...options,
   })
 }
@@ -154,13 +158,6 @@ function stylelint(options: StylelintPluginOptions = {}, mode: Mode = 'developme
  */
 function clean(options: CleanPluginOption = {}): WebpackPlugin {
   return new CleanWebpackPlugin(options)
-}
-
-/**
- * Makes accessible process.env from withing client app
- */
-function provide(options: { [key: string]: string } = { process: 'process/browser' }): WebpackPlugin {
-  return new ProvidePlugin(options)
 }
 
 function terser(options: TerserOptions = {}): WebpackPlugin {
@@ -181,7 +178,7 @@ function contextReplacement(): WebpackPlugin {
   return new ContextReplacementPlugin(/power-assert-formatter[\\/]lib/, new RegExp('^\\./.*\\.js$'))
 }
 
-function reactRefresh(options = {}): WebpackPlugin {
+function reactRefresh(mode: Mode, options: ReactRefreshPluginOptions = {}): WebpackPlugin {
   return new ReactRefreshPlugin({ overlay: false, ...options })
 }
 
@@ -191,10 +188,14 @@ function reactRefresh(options = {}): WebpackPlugin {
 function manifest(
   options: InjectManifestOptions = {
     maximumFileSizeToCacheInBytes: 1e6,
-    swSrc: 'src/service-worker.ts',
+    swSrc: 'src/service-worker.js',
   },
 ): WebpackPlugin {
   return new InjectManifest(options)
+}
+
+function cssMinimizer(): WebpackPlugin {
+  return new CssMinimizerPlugin()
 }
 
 /**
@@ -211,16 +212,6 @@ function sentry(options: SentryCliPluginOptions = { include: '.' }): WebpackPlug
   return new SentryCli(options)
 }
 
-function progress(
-  options: ProgressOptions = {
-    activeModules: true,
-    entries: true,
-    modules: true,
-  },
-): WebpackPlugin {
-  return new ProgressPlugin(options)
-}
-
 /**
  * Extracts CSS into separate files
  * @param mode
@@ -228,10 +219,8 @@ function progress(
  */
 function miniCssExtract(mode: Mode, options: MiniCssPluginOptions = {}): WebpackPlugin {
   return new MiniCssExtract({
-    filename: `styles/[name]${mode === 'production' ? '.[contenthash:8]' : ''}.css`,
-    chunkFilename: `styles/[name]${mode === 'production' ? '.[contenthash:8]' : ''}.chunk.css`,
     ignoreOrder: true,
-    experimentalUseImportModule: false,
+    runtime: true,
     ...options,
   })
 }
@@ -243,21 +232,20 @@ const getPlugins = (mode: Mode = 'development') => ({
   automaticPrefetch,
   bundleAnalyzer,
   clean,
+  cssMinimizer,
   copy,
-  define,
+  define: (options: NodeJS.Dict<string>) => define(options, mode),
   dotenv,
-  reactRefresh,
   contextReplacement,
-  eslint,
+  eslint: (options: EslintOptions = {}) => eslint(options, mode),
   html: (options: HtmlWebpackPlugin.Options = {}) => html(options, mode),
   ignore,
   manifest,
+  reactRefresh: (options: ReactRefreshPluginOptions = {}) => reactRefresh(mode, options),
   miniCssExtract: (options: MiniCssPluginOptions = {}) => miniCssExtract(mode, options),
   nodePolyfill,
-  provide,
-  progress,
   sentry: (options: SentryCliPluginOptions) => sentry(options),
-  stylelint: (options: StylelintPluginOptions = {}) => stylelint(options),
+  stylelint: (options: StylelintPluginOptions = {}) => stylelint(options, mode),
   terser,
   workbox,
 })

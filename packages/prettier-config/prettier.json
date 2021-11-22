@@ -4,7 +4,7 @@
   "endOfLine": "auto",
   "bracketSameLine": false,
   "jsxSingleQuote": true,
-  "printWidth": 140,
+  "printWidth": 160,
   "quoteProps": "consistent",
   "semi": false,
   "singleQuote": true,

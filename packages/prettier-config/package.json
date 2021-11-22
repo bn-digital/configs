@@ -1,8 +1,8 @@
 {
   "name": "@bn-digital/prettier-config",
   "description": "Prettier ruleset used as part of coding standard by BN Digital",
-  "version": "1.10.5",
   "license": "MIT",
+  "version": "1.12.1",
   "readme": "README.md",
   "main": "index.js",
   "keywords": [
@@ -32,7 +32,7 @@
     }
   },
   "dependencies": {
-    "@babel/parser": "^7.15.7",
+    "@babel/parser": "^7.16.4",
     "prettier": "^2.4.1"
   },
   "scripts": {
