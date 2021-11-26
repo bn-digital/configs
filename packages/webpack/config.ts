@@ -45,7 +45,8 @@ const production: Configuration = {
   devtool: false,
   resolve: {
     ...base.resolve,
-    ...{
+    alias: {
+      ...(base.resolve?.alias ?? {}),
       'react-dom$': 'react-dom/profiling',
       'scheduler/tracing': 'scheduler/tracing-profiling',
     },
