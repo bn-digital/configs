@@ -21,9 +21,7 @@ import { Mode } from './config'
 import path from 'path'
 import { TerserOptions } from 'terser-webpack-plugin/types'
 import fs from 'fs'
-import ReactRefreshPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin'
-import { ReactRefreshPluginOptions } from '@pmmmwh/react-refresh-webpack-plugin/types/lib/types'
 
 type BundleAnalyzerOptions = BundleAnalyzerPlugin.Options
 type WebpackPlugin = ((this: Compiler, compiler: Compiler) => void) | WebpackPluginInstance | any
@@ -37,7 +35,6 @@ const appDir = fs.realpathSync(process.cwd())
  */
 function define(envVars: NodeJS.Dict<string> = {}, mode = 'development'): WebpackPlugin {
   return new DefinePlugin({
-    'NODE_ENV': mode,
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV ?? mode),
     'process.env.PUBLIC_URL': JSON.stringify(process.env.PUBLIC_URL ?? ''),
     ...envVars,
@@ -92,6 +89,7 @@ function html(
 ): WebpackPlugin {
   return new HtmlWebpackPlugin({
     ...options,
+    inject: true,
     cache: true,
     hash: mode === 'production',
     template: 'src/index.html',
@@ -178,20 +176,18 @@ function contextReplacement(): WebpackPlugin {
   return new ContextReplacementPlugin(/power-assert-formatter[\\/]lib/, new RegExp('^\\./.*\\.js$'))
 }
 
-function reactRefresh(mode: Mode, options: ReactRefreshPluginOptions = {}): WebpackPlugin {
-  return new ReactRefreshPlugin({ overlay: false, ...options })
-}
-
 /**
  * @param {InjectManifestOptions} options
  */
 function manifest(
   options: InjectManifestOptions = {
-    maximumFileSizeToCacheInBytes: 1e6,
-    swSrc: 'src/service-worker.js',
+    dontCacheBustURLsMatching: /\.[0-9a-f]{8}\./,
+    exclude: [/\.map$/, /asset-manifest\.json$/, /LICENSE/],
+    maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
+    swSrc: 'src/service-worker.ts',
   },
 ): WebpackPlugin {
-  return new InjectManifest(options)
+  return fs.existsSync(options.swSrc) && new InjectManifest(options)
 }
 
 function cssMinimizer(): WebpackPlugin {
@@ -241,7 +237,6 @@ const getPlugins = (mode: Mode = 'development') => ({
   html: (options: HtmlWebpackPlugin.Options = {}) => html(options, mode),
   ignore,
   manifest,
-  reactRefresh: (options: ReactRefreshPluginOptions = {}) => reactRefresh(mode, options),
   miniCssExtract: (options: MiniCssPluginOptions = {}) => miniCssExtract(mode, options),
   nodePolyfill,
   sentry: (options: SentryCliPluginOptions) => sentry(options),

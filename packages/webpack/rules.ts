@@ -9,7 +9,7 @@ type WebpackRule<T = RuleSetRule> = (override?: T, mode?: Mode) => T
 
 const appDir = fs.realpathSync(process.cwd())
 
-function getLocalIdent<T = any>(context: LoaderContext<T>, localIdentName: string, localName: string, options: T) {
+function getLocalIdent(context: LoaderContext<unknown>, localIdentName: string, localName: string, options: unknown) {
   const toKebabCase = (string: string) =>
     string
       .replace(/([a-z])([A-Z])/g, '$1-$2')
@@ -36,7 +36,6 @@ const typescript: WebpackRule = (override = {}, mode = 'development') => ({
     cacheCompression: false,
     compact: mode === 'production',
     presets: [['@babel/preset-env'], ['@babel/preset-typescript']],
-    plugins: [mode === 'development' && require.resolve('react-refresh/babel')].filter(Boolean),
   },
   ...override,
 })
@@ -85,14 +84,12 @@ const styles: WebpackRule = (override = {}, mode = 'development') => ({
     {
       loader: require.resolve('css-loader'),
       options: {
-        sourceMap: true,
         importLoaders: 3,
       },
     },
     {
       loader: require.resolve('postcss-loader'),
       options: {
-        sourceMap: true,
         postcssOptions: {
           ident: 'postcss',
           plugins: [['postcss-preset-env'], ['postcss-normalize']],
@@ -113,7 +110,6 @@ const cssModules: WebpackRule = (override = {}, mode = 'development') => ({
     {
       loader: require.resolve('css-loader'),
       options: {
-        sourceMap: true,
         importLoaders: 3,
         modules: {
           auto: true,
@@ -126,7 +122,6 @@ const cssModules: WebpackRule = (override = {}, mode = 'development') => ({
     {
       loader: require.resolve('postcss-loader'),
       options: {
-        sourceMap: true,
         postcssOptions: {
           ident: 'postcss',
           plugins: [['postcss-preset-env'], ['postcss-normalize']],
@@ -145,7 +140,7 @@ const lessModules: WebpackRule = (override = {}, mode = 'development') =>
       use: (cssModules(override, mode).use as Array<RuleSetUseItem>).concat([
         {
           loader: require.resolve('resolve-url-loader'),
-          options: { sourceMap: true, root: appDir },
+          options: { sourceMap: true },
         },
         {
           loader: require.resolve('less-loader'),
@@ -171,7 +166,7 @@ const less: WebpackRule = (override = {}, mode = 'development') =>
       use: (styles(override, mode).use as Array<RuleSetUseItem>).concat([
         {
           loader: require.resolve('resolve-url-loader'),
-          options: { sourceMap: true, root: appDir },
+          options: { sourceMap: true },
         },
         {
           loader: require.resolve('less-loader'),

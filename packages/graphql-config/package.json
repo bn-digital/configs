@@ -6,7 +6,7 @@
     "apollo-client",
     "graphql-codegen"
   ],
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": {
     "name": "Vlad Volkov",
     "email": "vlad.volkov@bndigital.co",
@@ -29,7 +29,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@apollo/client": "^3.5.4",
+    "@apollo/client": "^3.5.5",
     "@graphql-codegen/cli": "^2.3.0",
     "@graphql-codegen/core": "^2.3.0",
     "@graphql-codegen/typescript": "^2.4.1",

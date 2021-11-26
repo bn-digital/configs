@@ -43,19 +43,21 @@ export function mergeWithReact(
         rules.react(options.rules?.react),
       ],
     },
-    plugins: Array.from([
-      plugins.clean(options.plugins?.clean),
-      plugins.nodePolyfill(),
-      plugins.automaticPrefetch(),
-      plugins.contextReplacement(),
-      plugins.copy(options?.plugins?.copy),
-      plugins.define(process.env),
-      plugins.dotenv(options.plugins?.dotenv),
-      plugins.eslint(options.plugins?.eslint),
-      plugins.stylelint(options.plugins?.stylelint),
-      plugins.html(options.plugins?.html),
-      plugins.ignore(),
-    ]),
+    plugins: Array.from(
+      [
+        plugins.clean(options.plugins?.clean),
+        plugins.nodePolyfill(),
+        plugins.automaticPrefetch(),
+        plugins.contextReplacement(),
+        plugins.copy(options?.plugins?.copy),
+        plugins.define(process.env),
+        plugins.dotenv(options.plugins?.dotenv),
+        plugins.eslint(options.plugins?.eslint),
+        plugins.stylelint(options.plugins?.stylelint),
+        plugins.html(options.plugins?.html),
+        plugins.ignore(),
+      ].filter(Boolean),
+    ),
   }
 
   if (mode === 'production') {
@@ -84,7 +86,6 @@ export function mergeWithReact(
     if (options.plugins?.bundleAnalyzer) {
       baseConfiguration?.plugins?.push(plugins.bundleAnalyzer(options.plugins.bundleAnalyzer))
     }
-    baseConfiguration.plugins?.push(plugins.reactRefresh())
   }
 
   return merge<Partial<Configuration>>(baseConfiguration, configuration)

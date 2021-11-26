@@ -42,8 +42,16 @@ const plugins = getPlugins('production')
 
 const production: Configuration = {
   mode: 'production',
-  devtool: 'source-map',
+  devtool: false,
+  resolve: {
+    ...base.resolve,
+    ...{
+      'react-dom$': 'react-dom/profiling',
+      'scheduler/tracing': 'scheduler/tracing-profiling',
+    },
+  },
   stats: 'errors-warnings',
+  performance: { maxAssetSize: 1e6 },
   optimization: { minimizer: [plugins.terser(), plugins.cssMinimizer()], minimize: true },
   plugins: [],
 }
@@ -52,7 +60,7 @@ const development: Partial<Configuration & { devServer: WebpackDevServer.Configu
   optimization: { minimize: false },
   mode: 'development',
   stats: 'normal',
-  devtool: 'cheap-module-source-map',
+  devtool: 'source-map',
   plugins: [],
   devServer,
 }
