@@ -1,0 +1,22 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "allowJs": false,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "declaration": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "lib": ["ES5", "ES6", "ES7", "DOM", "ESNext.AsyncIterable", "ESNext"],
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "outDir": "lib",
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": false,
+    "target": "ES2017"
+  },
+  "include": ["./src/**/*"]
+}

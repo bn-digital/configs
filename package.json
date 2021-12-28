@@ -29,9 +29,9 @@
     "extends": "@bn-digital/stylelint-config"
   },
   "devDependencies": {
-    "@bn-digital/eslint-config": "^1.16.1",
-    "@bn-digital/prettier-config": "^1.13.0",
-    "@bn-digital/stylelint-config": "^1.13.3"
+    "@bn-digital/eslint-config": "^1.17.5",
+    "@bn-digital/prettier-config": "^1.13.1",
+    "@bn-digital/stylelint-config": "^1.13.4"
   },
   "scripts": {
     "build": "yarn workspaces foreach run build",

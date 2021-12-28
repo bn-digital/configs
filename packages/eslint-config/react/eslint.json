@@ -1,12 +1,5 @@
 {
-  "extends": [
-    "prettier",
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:react/recommended",
-    "plugin:react-hooks/recommended",
-    "plugin:react/jsx-runtime"
-  ],
+  "extends": ["prettier", "eslint:recommended", "react-app", "plugin:@typescript-eslint/recommended"],
   "parser": "@typescript-eslint/parser",
   "ignorePatterns": ["*.ts", "**/*/graphql/index.tsx", "*.js", "*.jsx"],
   "parserOptions": {
