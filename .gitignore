@@ -2,6 +2,7 @@
 .yarn/install-state.gz
 node_modules
 dist
+typings
 coverage
 build
 .cache

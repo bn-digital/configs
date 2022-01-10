@@ -1,5 +1,5 @@
 {
-  "extends": ["prettier", "eslint:recommended", "react-app", "plugin:@typescript-eslint/recommended"],
+  "extends": ["prettier", "eslint:recommended", "plugin:react/recommended", "plugin:react-hooks/recommended", "plugin:@typescript-eslint/recommended"],
   "parser": "@typescript-eslint/parser",
   "ignorePatterns": ["*.ts", "**/*/graphql/index.tsx", "*.js", "*.jsx"],
   "parserOptions": {
@@ -22,7 +22,7 @@
     "mountNode": true,
     "process": "readonly"
   },
-  "plugins": ["dirnames", "unicorn"],
+  "plugins": ["dirnames", "unicorn", "react", "react-hooks"],
   "rules": {
     "dirnames/match-kebab-case": "warn",
     "unicorn/prefer-modern-dom-apis": "warn",

@@ -1,7 +1,7 @@
 {
-  "extends": ["prettier"],
+  "extends": ["prettier", "eslint:recommended"],
   "parserOptions": {
-    "ecmaVersion": 2021,
+    "ecmaVersion": "latest",
     "sourceType": "module"
   },
   "plugins": ["dirnames", "import", "prettier", "unicorn"],
@@ -27,7 +27,7 @@
       "extends": "@bn-digital/eslint-config/graphql",
       "parserOptions": {
         "operations": ["./packages/*/src/**/*.graphql"],
-        "schema": "./packages/cms/exports/graphql/schema.graphql"
+        "schema": "./packages/cms/src/graphql/schema.graphql"
       }
     },
     {
@@ -55,7 +55,7 @@
       "excludedFiles": ["**/*/graphql/index.tsx"]
     },
     {
-      "files": ["**/*/graphql/index.tsx", "**/*/types/graphql.d.ts"],
+      "files": ["**/*/graphql/index.tsx"],
       "extends": "@bn-digital/eslint-config/react",
       "rules": {
         "@typescript-eslint/ban-types": "off",
