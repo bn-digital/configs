@@ -1,12 +1,12 @@
-import { Configuration } from 'webpack'
+import {Configuration} from 'webpack'
 import path from 'path'
 import fs from 'fs'
 import yargs from 'yargs'
 import merge from 'webpack-merge'
-import { getPlugins } from './plugins'
+import {getPlugins} from './plugins'
 import WebpackDevServer from 'webpack-dev-server'
-import { devServer } from './devServer'
-import { getPackageMetadata } from './getPackageMetadata'
+import {devServer} from './devServer'
+import {getPackageMetadata} from './getPackageMetadata'
 
 const appDir = fs.realpathSync(process.cwd())
 
@@ -34,7 +34,7 @@ const base: Configuration = {
   infrastructureLogging: {
     level: 'none',
   },
-  experiments: { layers: true, cacheUnaffected: true, outputModule: true },
+  experiments: { topLevelAwait: true, layers: true, cacheUnaffected: true, outputModule: true },
   cache: { type: 'filesystem' },
   plugins: [],
 }

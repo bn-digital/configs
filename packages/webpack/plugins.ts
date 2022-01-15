@@ -1,11 +1,24 @@
-import ESLintWebpack, { Options as EslintOptions, Options as EslintPluginOptions } from 'eslint-webpack-plugin'
-import HtmlWebpackPlugin, { Options as HtmlOptions } from 'html-webpack-plugin'
-import MiniCssExtract, { PluginOptions as MiniCssOptions, PluginOptions as MiniCssPluginOptions } from 'mini-css-extract-plugin'
-import { CleanWebpackPlugin, Options as CleanOptions, Options as CleanPluginOption } from 'clean-webpack-plugin'
-import { AutomaticPrefetchPlugin, Compiler, ContextReplacementPlugin, DefinePlugin, IgnorePlugin, WebpackPluginInstance } from 'webpack'
-import StylelintWebpack, { Options as StylelintOptions, Options as StylelintPluginOptions } from 'stylelint-webpack-plugin'
-import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
-import DotenvPlugin, { Options as DotenvOptions } from 'dotenv-webpack'
+import ESLintWebpack, {Options as EslintOptions, Options as EslintPluginOptions} from 'eslint-webpack-plugin'
+import HtmlWebpackPlugin, {Options as HtmlOptions} from 'html-webpack-plugin'
+import MiniCssExtract, {
+  PluginOptions as MiniCssOptions,
+  PluginOptions as MiniCssPluginOptions
+} from 'mini-css-extract-plugin'
+import {CleanWebpackPlugin, Options as CleanOptions, Options as CleanPluginOption} from 'clean-webpack-plugin'
+import {
+  AutomaticPrefetchPlugin,
+  Compiler,
+  ContextReplacementPlugin,
+  DefinePlugin,
+  IgnorePlugin,
+  WebpackPluginInstance
+} from 'webpack'
+import StylelintWebpack, {
+  Options as StylelintOptions,
+  Options as StylelintPluginOptions
+} from 'stylelint-webpack-plugin'
+import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer'
+import DotenvPlugin, {Options as DotenvOptions} from 'dotenv-webpack'
 import TerserPlugin from 'terser-webpack-plugin'
 import {
   GenerateSW,
@@ -14,12 +27,12 @@ import {
   InjectManifestOptions,
   InjectManifestOptions as ManifestOptions,
 } from 'workbox-webpack-plugin'
-import SentryCli, { SentryCliPluginOptions as SentryOptions, SentryCliPluginOptions } from '@sentry/webpack-plugin'
+import SentryCli, {SentryCliPluginOptions as SentryOptions, SentryCliPluginOptions} from '@sentry/webpack-plugin'
 import NodePolyfillPlugin from 'node-polyfill-webpack-plugin'
-import Copy, { CopyPluginOptions as CopyOptions, CopyPluginOptions } from 'copy-webpack-plugin'
-import { Mode } from './config'
+import Copy, {PluginOptions as CopyPluginOptions} from 'copy-webpack-plugin'
+import {Mode} from './config'
 import path from 'path'
-import { TerserOptions } from 'terser-webpack-plugin/types'
+import {TerserOptions} from 'terser-webpack-plugin/types'
 import fs from 'fs'
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin'
 
@@ -246,7 +259,7 @@ const getPlugins = (mode: Mode = 'development') => ({
 })
 
 export type PluginConfiguration = {
-  copy: CopyOptions
+  copy: CopyPluginOptions
   html: HtmlOptions
   eslint: EslintOptions
   sentry: SentryOptions

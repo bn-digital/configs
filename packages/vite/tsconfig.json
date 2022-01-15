@@ -6,8 +6,9 @@
     "baseUrl": ".",
     "declaration": true,
     "declarationDir": "typings",
-    "esModuleInterop": true,
+    "declarationMap": true,
     "inlineSourceMap": true,
+    "esModuleInterop": true,
     "isolatedModules": true,
     "lib": ["ES5", "ES6", "ES7", "DOM", "ESNext.AsyncIterable", "ESNext"],
     "module": "CommonJS",
@@ -18,8 +19,11 @@
     "strict": true,
     "strictNullChecks": true,
     "strictPropertyInitialization": false,
-    "target": "ESNext",
-    "types": ["vite/client", "vite-plugin-svgr/client"]
+    "target": "ESNext"
   },
-  "include": ["./src/**/*"]
+  "include": ["./src/**/*"],
+  "typeAcquisition": {
+    "include": ["vite/client", "vite-plugin-svgr/client"],
+    "enable": true
+  }
 }

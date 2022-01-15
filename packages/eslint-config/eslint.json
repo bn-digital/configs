@@ -23,7 +23,7 @@
   },
   "overrides": [
     {
-      "files": ["*.graphql"],
+      "files": ["**/*.graphql"],
       "extends": "@bn-digital/eslint-config/graphql",
       "parserOptions": {
         "operations": ["./packages/*/src/**/*.graphql"],
@@ -31,7 +31,7 @@
       }
     },
     {
-      "files": ["*.d.ts"],
+      "files": ["**/*.d.ts"],
       "extends": "@bn-digital/eslint-config/typescript",
       "rules": {
         "@typescript-eslint/no-explicit-any": "off",
@@ -39,18 +39,18 @@
       }
     },
     {
-      "files": ["*.ts"],
+      "files": ["**/*.ts"],
       "extends": "@bn-digital/eslint-config/typescript"
     },
     {
-      "files": ["*.js"],
+      "files": ["**/*.js"],
       "extends": "@bn-digital/eslint-config/javascript",
       "parserOptions": {
         "requireConfigFile": false
       }
     },
     {
-      "files": ["*.tsx"],
+      "files": ["**/*.tsx"],
       "extends": "@bn-digital/eslint-config/react",
       "excludedFiles": ["**/*/graphql/index.tsx"]
     },

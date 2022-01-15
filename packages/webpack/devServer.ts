@@ -1,17 +1,30 @@
 import WebpackDevServer from 'webpack-dev-server'
-import { getPackageMetadata } from './getPackageMetadata'
+import {getPackageMetadata} from './getPackageMetadata'
 
 const proxy = getPackageMetadata()?.proxy
 
+const target: import('http-proxy-middleware').Options | undefined = proxy
+  ? {
+      target: proxy,
+      changeOrigin: true,
+      ws: true,
+      xfwd: true,
+      cookieDomainRewrite: 'localhost',
+      onProxyReq: proxyReq => {
+        if (proxyReq.getHeader('origin')) {
+          proxyReq.setHeader('origin', proxy)
+        }
+      },
+    }
+  : undefined
+
 const devServer: WebpackDevServer.Configuration = {
-  proxy: proxy
-    ? [
-        {
-          target: proxy,
-          path: ['/graphql', '/upload', '/uploads'],
-        },
-      ]
-    : undefined,
+  proxy: target && {
+    '/graphql': target,
+    '/api': target,
+    '/upload': target,
+    '/auth': target,
+  },
   allowedHosts: 'all',
   headers: {
     'Access-Control-Allow-Origin': '*',
@@ -27,7 +40,7 @@ const devServer: WebpackDevServer.Configuration = {
       warnings: false,
     },
   },
-  server: 'spdy',
+  server: 'http',
   liveReload: true,
   open: true,
   port: 'auto',

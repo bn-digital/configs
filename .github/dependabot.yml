@@ -6,21 +6,21 @@ updates:
     reviewers:
       - vladyslavvolkov
     schedule:
-      interval: daily
+      interval: weekly
 
   - directory: /packages/stylelint-config
     package-ecosystem: npm
     reviewers:
       - vladyslavvolkov
     schedule:
-      interval: daily
+      interval: weekly
 
   - directory: /packages/webpack
     package-ecosystem: npm
     reviewers:
       - vladyslavvolkov
     schedule:
-      interval: daily
+      interval: weekly
 
   - directory: /packages/prettier-config
     package-ecosystem: npm

@@ -1,12 +1,20 @@
 {
   "name": "@bn-digital/vite",
   "description": "Vite configuration used in BN Digital projects",
-  "version": "1.1.30",
+  "version": "1.4.5",
   "license": "MIT",
-  "keywords": ["vite", "react-ssr", "react-scripts", "react-hmr"],
+  "keywords": [
+    "vite",
+    "react-ssr",
+    "react-scripts",
+    "react-hmr"
+  ],
   "types": "typings",
   "main": "dist/index.js",
-  "files": ["dist", "typings"],
+  "files": [
+    "dist",
+    "typings"
+  ],
   "publishConfig": {
     "access": "public"
   },
@@ -31,12 +39,16 @@
     "release": "yarn build && yarn npm publish"
   },
   "dependencies": {
-    "@bn-digital/postcss-config": "^1.0.3",
+    "@bn-digital/postcss-config": "^1.0.4",
     "@vitejs/plugin-react": "^1.1.4",
-    "vite": "^2.7.10",
-    "vite-plugin-pwa": "^0.11.12",
+    "vite": "^2.8.0-beta.2",
+    "vite-imagetools": "^4.0.3",
+    "vite-plugin-fonts": "^0.2.2",
+    "vite-plugin-loading-indicator": "^1.0.0",
+    "vite-plugin-pwa": "^0.11.13",
+    "vite-plugin-radar": "^0.4.2",
     "vite-plugin-sentry": "^1.0.12",
-    "vite-plugin-svgr": "^0.6.0"
+    "vite-plugin-svgr": "^1.0.1"
   },
   "devDependencies": {
     "@types/node": "^17.0.8",
