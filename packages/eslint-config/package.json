@@ -1,7 +1,7 @@
 {
   "name": "@bn-digital/eslint-config",
   "description": "ESLint ruleset used in coding standard by BN Digital",
-  "version": "1.18.2",
+  "version": "1.19.1",
   "license": "MIT",
   "repository": {
     "url": "https://github.com/bn-digital/coding-standard",
@@ -32,12 +32,12 @@
   },
   "bundleDependencies": true,
   "dependencies": {
-    "@babel/eslint-parser": "^7.16.5",
+    "@babel/eslint-parser": "^7.17.0",
     "@babel/eslint-plugin": "^7.16.5",
-    "@graphql-eslint/eslint-plugin": "^3.6.0",
-    "@typescript-eslint/eslint-plugin": "^5.9.1",
-    "@typescript-eslint/parser": "^5.9.1",
-    "eslint": "^8.6.0",
+    "@graphql-eslint/eslint-plugin": "^3.8.0",
+    "@typescript-eslint/eslint-plugin": "^5.12.0",
+    "@typescript-eslint/parser": "^5.12.0",
+    "eslint": "^8.9.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-dirnames": "^1.0.3",
     "eslint-plugin-graphql": "^4.0.0",
@@ -46,8 +46,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
-    "eslint-plugin-react-ssr": "^1.0.3",
-    "eslint-plugin-unicorn": "^40.0.0"
+    "eslint-plugin-unicorn": "^41.0.0"
   },
   "scripts": {
     "release": "yarn npm publish"

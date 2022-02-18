@@ -1,16 +1,9 @@
 {
   "arrowParens": "avoid",
+  "bracketSameLine": false,
   "bracketSpacing": true,
   "endOfLine": "auto",
-  "bracketSameLine": false,
   "jsxSingleQuote": true,
-  "printWidth": 160,
-  "quoteProps": "consistent",
-  "semi": false,
-  "singleQuote": true,
-  "tabWidth": 2,
-  "trailingComma": "all",
-  "useTabs": false,
   "overrides": [
     {
       "files": "*.{js,jsx}",
@@ -75,11 +68,20 @@
       }
     },
     {
-      "files": ["*.md"],
+      "files": [
+        "*.md"
+      ],
       "options": {
         "singleQuote": false,
         "parser": "markdown"
       }
     }
-  ]
+  ],
+  "printWidth": 160,
+  "quoteProps": "consistent",
+  "semi": false,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "trailingComma": "all",
+  "useTabs": false
 }

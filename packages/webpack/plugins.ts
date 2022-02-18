@@ -1,31 +1,31 @@
 import ESLintWebpack, {Options as EslintOptions, Options as EslintPluginOptions} from 'eslint-webpack-plugin'
 import HtmlWebpackPlugin, {Options as HtmlOptions} from 'html-webpack-plugin'
 import MiniCssExtract, {
-  PluginOptions as MiniCssOptions,
-  PluginOptions as MiniCssPluginOptions
+    PluginOptions as MiniCssOptions,
+    PluginOptions as MiniCssPluginOptions
 } from 'mini-css-extract-plugin'
 import {CleanWebpackPlugin, Options as CleanOptions, Options as CleanPluginOption} from 'clean-webpack-plugin'
 import {
-  AutomaticPrefetchPlugin,
-  Compiler,
-  ContextReplacementPlugin,
-  DefinePlugin,
-  IgnorePlugin,
-  WebpackPluginInstance
+    AutomaticPrefetchPlugin,
+    Compiler,
+    ContextReplacementPlugin,
+    DefinePlugin,
+    IgnorePlugin,
+    WebpackPluginInstance
 } from 'webpack'
 import StylelintWebpack, {
-  Options as StylelintOptions,
-  Options as StylelintPluginOptions
+    Options as StylelintOptions,
+    Options as StylelintPluginOptions
 } from 'stylelint-webpack-plugin'
 import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer'
 import DotenvPlugin, {Options as DotenvOptions} from 'dotenv-webpack'
 import TerserPlugin from 'terser-webpack-plugin'
 import {
-  GenerateSW,
-  GenerateSWOptions as WorkboxOptions,
-  InjectManifest,
-  InjectManifestOptions,
-  InjectManifestOptions as ManifestOptions,
+    GenerateSW,
+    GenerateSWOptions as WorkboxOptions,
+    InjectManifest,
+    InjectManifestOptions,
+    InjectManifestOptions as ManifestOptions,
 } from 'workbox-webpack-plugin'
 import SentryCli, {SentryCliPluginOptions as SentryOptions, SentryCliPluginOptions} from '@sentry/webpack-plugin'
 import NodePolyfillPlugin from 'node-polyfill-webpack-plugin'
@@ -47,9 +47,13 @@ const appDir = fs.realpathSync(process.cwd())
  * @param mode
  */
 function define(envVars: NodeJS.Dict<string> = {}, mode = 'development'): WebpackPlugin {
+  const appVariables = Object.entries(envVars)
+    .filter(([key]) => key.startsWith('WEBSITE_'))
+    .reduce((all, [key, value]) => ({ ...all, ...{ [`process.env.${key}`]: value } }), {})
   return new DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV ?? mode),
     'process.env.PUBLIC_URL': JSON.stringify(process.env.PUBLIC_URL ?? ''),
+    ...appVariables,
     ...envVars,
   })
 }
@@ -269,7 +273,7 @@ export type PluginConfiguration = {
   stylelint: StylelintOptions
   workbox: WorkboxOptions
   manifest: ManifestOptions
-  provide: { [key: string]: string }
+  define: { [key: string]: string }
   bundleAnalyzer: BundleAnalyzerOptions
 }
 

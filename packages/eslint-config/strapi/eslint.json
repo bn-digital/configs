@@ -10,6 +10,7 @@
   },
   "globals": {
     "jQuery": true,
+    "strapi": true,
     "process": "readonly"
   },
   "plugins": ["dirnames", "unicorn", "@babel"],
