@@ -1,9 +1,13 @@
-type EnvVariableName = `WEBSITE_${string}`
+/// <reference types="vite/src/client" />
+declare global {
+  type EnvVariableName = `WEBSITE_${string}`
 
-export interface ProcessEnv {
-  [key: EnvVariableName]: string | number | boolean
-}
+  interface ImportMetaEnv {
+    [key: EnvVariableName]: string | number | boolean | null | undefined
+  }
 
-export interface ImportMeta<T extends ProcessEnv> {
-  readonly env: T & ImportMetaEnv
+  interface ImportMeta {
+    readonly env: ImportMetaEnv
+  }
+
 }

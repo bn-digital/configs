@@ -1,5 +1,6 @@
-import { readPackageJson } from './plugins'
 import { UserConfig } from 'vite'
+
+import { readPackageJson } from './plugins'
 
 const STRAPI_URLS: Readonly<string[]> = [
   '_health',
@@ -21,9 +22,10 @@ const STRAPI_URLS: Readonly<string[]> = [
 ] as const
 
 type ServerOptions = Partial<Pick<UserConfig, 'server'>>
+
 const serverOptions = (options?: ServerOptions): ServerOptions => {
   const packageJson = readPackageJson()
-  const proxy = packageJson?.proxy ? { [`^/(${STRAPI_URLS.join('|')})(.*)`]: packageJson.proxy } : undefined
+  const proxy = packageJson?.proxy ? { [`^/(${STRAPI_URLS.join('|')})(.*)`]: packageJson.proxy.replace('localhost', '127.0.0.1') } : undefined
   return {
     server: {
       port: Number.parseInt(process.env.WEBSITE_PORT ?? '8080'),

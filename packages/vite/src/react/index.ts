@@ -1,44 +1,49 @@
-import { defineConfig, PluginOption } from 'vite'
+import postcssPlugins from '@bn-digital/postcss-config'
 import reactPlugin from '@vitejs/plugin-react'
-import { ConfigCallback } from '../index'
-import { commonOptions } from '../common'
+import {defineConfig} from 'vite'
 import svgrPlugin from 'vite-plugin-svgr'
+import swcPlugin from 'vite-plugin-swc-react'
 
-function reactPlugins(): PluginOption[] {
-  const plugins: PluginOption[] = []
-  plugins.concat(
+import {commonOptions} from '../common'
+import Vite from '../types/config'
+
+function reactPlugins(): Vite.Plugins {
+  return [
     reactPlugin({
       jsxRuntime: 'automatic',
     }),
-    svgrPlugin({ esbuildOptions: { sourcemap: true }, svgrOptions: { svgo: false } }),
-  )
-  return plugins
+    swcPlugin({jsxRuntime:'automatic', reactFresh: false}),
+    svgrPlugin({ esbuildOptions: { sourcemap: Boolean(process.env.SOURCE_MAPS) }, svgrOptions: { icon: true, svgo: false } }),
+  ]
 }
 
-const withReact: ConfigCallback = config =>
+const withReact: Vite.ConfigCallback = config =>
   defineConfig({
     build: {
-      outDir: 'build',
-      emptyOutDir: true,
-      polyfillModulePreload: true,
       chunkSizeWarningLimit: 1024,
-      sourcemap: true,
+      cssCodeSplit: true,
+      emptyOutDir: true,
+      manifest: true,
       minify: 'esbuild',
+      outDir: 'build',
+      polyfillModulePreload: true,
+      sourcemap: Boolean(process.env.SOURCE_MAPS),
       target: 'esnext',
     },
     esbuild: {
-      tsconfigRaw: `{
-          "compilerOptions": {
-            "useDefineForClassFields": true,
-            "jsx": "react-jsx"
-          },
-        }`,
-      charset: 'utf8',
-      minify: false,
-      sourcemap: true,
-      keepNames: true,
+      sourcemap: Boolean(process.env.SOURCE_MAPS),
     },
-    ...commonOptions({ plugins: reactPlugins(), css: { preprocessorOptions: { less: { javascriptEnabled: true } } } }, config),
+    ...commonOptions(
+      {
+        plugins: reactPlugins(),
+        css: {
+          devSourcemap: Boolean(process.env.SOURCE_MAPS),
+          postcss: { plugins: postcssPlugins },
+          preprocessorOptions: { less: { javascriptEnabled: true } },
+        },
+      },
+      config,
+    ),
   })
 
 export { withReact }

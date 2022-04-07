@@ -1,33 +1,25 @@
-import { serverOptions } from './server'
-import { cssOptions } from './styles'
-import { pathsOptions } from './paths'
-import { VitePluginFontsOptions } from 'vite-plugin-fonts'
-import { VitePluginRadarOptions } from 'vite-plugin-radar'
-import { VitePWAOptions } from 'vite-plugin-pwa'
-import { ViteSentryPluginOptions } from 'vite-plugin-sentry'
-import { UserConfig } from 'vite'
-import { envOptions } from './env'
-import { commonPlugins } from './plugins'
+import {UserConfig} from 'vite'
 
-export interface VitePluginOptions {
-  fonts: Partial<VitePluginFontsOptions>
-  analytics: Partial<VitePluginRadarOptions>
-  pwa: Partial<VitePWAOptions>
-  sentry: Partial<ViteSentryPluginOptions>
-}
+import Vite from '../types/config'
+import {envOptions} from './env'
+import {pathsOptions} from './paths'
+import {commonPlugins} from './plugins'
+import {serverOptions} from './server'
+import {cssOptions} from './styles'
 
 type CommonOptions = Partial<Pick<UserConfig, 'server' | 'plugins' | 'define' | 'envPrefix' | 'root' | 'envDir' | 'base' | 'css'>>
-
-const commonOptions = (options: CommonOptions = {}, config: Partial<VitePluginOptions> = {}): CommonOptions => {
-  const { css, base, server, define, envPrefix, envDir, root } = options
-  const plugins = commonPlugins(config)
-  options.plugins?.forEach(it => plugins.push(it))
+/**
+ * @param {Vite.PluginOptions} options
+ * @param {CommonOptions} config
+ */
+const commonOptions = (options: CommonOptions = { plugins: [] }, config: Partial<Vite.PluginOptions> = {}): CommonOptions => {
+  const { plugins, css, server } = options
   return {
-    plugins,
+    plugins: commonPlugins(config).concat(plugins),
     ...serverOptions({ server }),
     ...cssOptions({ css }),
-    ...envOptions({ define, envDir, envPrefix }),
-    ...pathsOptions({ base, root }),
+    ...envOptions(),
+    ...pathsOptions(),
   }
 }
 

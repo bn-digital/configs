@@ -2,7 +2,7 @@ import { UserConfig } from 'vite'
 
 type EnvOptions = Partial<Pick<UserConfig, 'define' | 'envPrefix' | 'envDir'>>
 
-const envOptions = (options?: EnvOptions): EnvOptions => {
+const envOptions = (): EnvOptions => {
   const workingDir = process.cwd()
   return {
     define: {
@@ -10,7 +10,6 @@ const envOptions = (options?: EnvOptions): EnvOptions => {
     },
     envDir: workingDir,
     envPrefix: 'WEBSITE_',
-    ...options,
   }
 }
 

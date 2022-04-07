@@ -1,14 +1,16 @@
 import fs from 'fs'
 import path from 'path'
-import { default as analyticsPlugin, VitePluginRadarOptions } from 'vite-plugin-radar'
-import sentryPlugin, { ViteSentryPluginOptions } from 'vite-plugin-sentry'
-import fontsPlugin from 'vite-plugin-fonts'
-import { VitePWA as pwaPlugin, VitePWAOptions } from 'vite-plugin-pwa'
-import { PluginOption } from 'vite'
-import legacyPlugin from '@vitejs/plugin-legacy'
 import { imagetools as imageToolsPlugin } from 'vite-imagetools'
-import tsConfigPathsPlugin from 'vite-tsconfig-paths'
-import { VitePluginOptions } from './index'
+import { default as fontsPlugin } from 'vite-plugin-fonts'
+import { VitePWA as pwaPlugin, VitePWAOptions } from 'vite-plugin-pwa'
+import { default as analyticsPlugin, VitePluginRadarOptions } from 'vite-plugin-radar'
+import { default as sentryPlugin, ViteSentryPluginOptions } from 'vite-plugin-sentry'
+import { default as tsConfigPathsPlugin } from 'vite-tsconfig-paths'
+import { default as checkPlugin } from 'vite-plugin-checker'
+
+import Vite from '../types/config'
+
+type TsConfigPathOptions = { root?: string }
 
 function readPackageJson(workingDir = ''): { name: string; homepage?: string; proxy?: string; description: string } {
   return JSON.parse(fs.readFileSync(path.join(workingDir ?? process.cwd(), 'package.json'), 'utf-8'))
@@ -20,6 +22,10 @@ function resolveAnalyticsOptions(extraOptions?: Partial<VitePluginRadarOptions>)
     gtm: process.env.GOOGLE_TAG_MANAGER_ID ? { id: process.env.GOOGLE_TAG_MANAGER_ID } : undefined,
     ...extraOptions,
   }
+}
+
+function resolveTsConfigPathOptions(extraOptions?: TsConfigPathOptions): TsConfigPathOptions {
+  return { root: process.cwd(), ...extraOptions }
 }
 
 function resolvePWAOptions(extraOptions?: Partial<VitePWAOptions>): Partial<VitePWAOptions> {
@@ -48,15 +54,17 @@ function resolveSentryOptions(extraOptions?: Partial<ViteSentryPluginOptions> & 
   return null
 }
 
-function commonPlugins(options: Partial<VitePluginOptions> = {}): (PluginOption | PluginOption[])[] {
+function commonPlugins(options: Partial<Vite.PluginOptions> = {}): Vite.Plugins {
   const packageJson = readPackageJson()
-
-  const plugins: PluginOption[] = [
-    legacyPlugin({
-      targets: ['defaults', 'not IE 11'],
-      polyfills: true,
+  const plugins = [
+    checkPlugin({
+      enableBuild: true,
+      overlay: { position: 'tr' },
+      eslint: { lintCommand: 'eslint "./src/**/*.{ts,tsx}"', dev: { logLevel: ['error'] } },
+      typescript: true,
+      terminal: true,
     }),
-    tsConfigPathsPlugin(),
+    tsConfigPathsPlugin(resolveTsConfigPathOptions()),
     imageToolsPlugin({ removeMetadata: true }),
   ]
 
@@ -81,7 +89,8 @@ function commonPlugins(options: Partial<VitePluginOptions> = {}): (PluginOption 
       ...options.sentry,
     })
   sentryOptions && plugins.push(sentryPlugin(sentryOptions))
+
   return plugins
 }
 
-export {readPackageJson, commonPlugins }
+export { commonPlugins, readPackageJson }

@@ -1,3 +1,2 @@
-/// <reference types="vite/client" />
-/// <reference types="vite-plugin-svgr/client" />
-declare module 'rollup-plugin-html'
+/// <reference types="vite/src/client" />
+/// <reference types="vite-plugin-svgr/client.d.ts" />

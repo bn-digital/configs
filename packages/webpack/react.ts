@@ -1,10 +1,10 @@
-import { merge } from 'webpack-merge'
-import { Configuration } from 'webpack'
-import { getCliArgs, getConfig, Mode } from './config'
-import { getPlugins } from './plugins'
-import { getRules } from './rules'
-import { realpathSync } from 'fs'
-import { getPackageMetadata } from './getPackageMetadata'
+import {merge} from 'webpack-merge'
+import {Configuration} from 'webpack'
+import {getCliArgs, getConfig, Mode} from './config'
+import {getPlugins} from './plugins'
+import {getRules} from './rules'
+import {realpathSync} from 'fs'
+import {getPackageMetadata} from './getPackageMetadata'
 
 const packageConfig = getPackageMetadata()
 const appDir = realpathSync(process.cwd())
@@ -61,13 +61,6 @@ export function mergeWithReact(
   }
 
   if (mode === 'production') {
-    if (options.plugins?.workbox) {
-      baseConfiguration?.plugins?.push(plugins.workbox(options.plugins?.workbox))
-      if (options.plugins?.manifest?.swSrc) {
-        baseConfiguration?.plugins?.push(plugins.manifest(options.plugins.manifest))
-      }
-    }
-
     if ((options.plugins?.sentry?.authToken || process.env.SENTRY_AUTH_TOKEN) && process.env.SENTRY_URL && process.env.SENTRY_ORG) {
       baseConfiguration?.plugins?.push(
         plugins.sentry({

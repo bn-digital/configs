@@ -5,7 +5,7 @@ const proxy = getPackageMetadata()?.proxy
 
 const target: import('http-proxy-middleware').Options | undefined = proxy
   ? {
-      target: proxy,
+      target: proxy.replace('localhost', '127.0.0.1'),
       changeOrigin: true,
       ws: true,
       xfwd: true,
@@ -20,6 +20,7 @@ const target: import('http-proxy-middleware').Options | undefined = proxy
 
 const devServer: WebpackDevServer.Configuration = {
   proxy: target && {
+    '/admin': target,
     '/graphql': target,
     '/api': target,
     '/upload': target,

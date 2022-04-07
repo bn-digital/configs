@@ -21,9 +21,5 @@
     "strictPropertyInitialization": false,
     "target": "ESNext"
   },
-  "include": ["./src/**/*"],
-  "typeAcquisition": {
-    "include": ["vite/client", "vite-plugin-svgr/client"],
-    "enable": true
-  }
+  "include": ["./src"]
 }

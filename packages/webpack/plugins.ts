@@ -20,13 +20,6 @@ import StylelintWebpack, {
 import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer'
 import DotenvPlugin, {Options as DotenvOptions} from 'dotenv-webpack'
 import TerserPlugin from 'terser-webpack-plugin'
-import {
-    GenerateSW,
-    GenerateSWOptions as WorkboxOptions,
-    InjectManifest,
-    InjectManifestOptions,
-    InjectManifestOptions as ManifestOptions,
-} from 'workbox-webpack-plugin'
 import SentryCli, {SentryCliPluginOptions as SentryOptions, SentryCliPluginOptions} from '@sentry/webpack-plugin'
 import NodePolyfillPlugin from 'node-polyfill-webpack-plugin'
 import Copy, {PluginOptions as CopyPluginOptions} from 'copy-webpack-plugin'
@@ -193,29 +186,8 @@ function contextReplacement(): WebpackPlugin {
   return new ContextReplacementPlugin(/power-assert-formatter[\\/]lib/, new RegExp('^\\./.*\\.js$'))
 }
 
-/**
- * @param {InjectManifestOptions} options
- */
-function manifest(
-  options: InjectManifestOptions = {
-    dontCacheBustURLsMatching: /\.[0-9a-f]{8}\./,
-    exclude: [/\.map$/, /asset-manifest\.json$/, /LICENSE/],
-    maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
-    swSrc: 'src/service-worker.ts',
-  },
-): WebpackPlugin {
-  return fs.existsSync(options.swSrc) && new InjectManifest(options)
-}
-
 function cssMinimizer(): WebpackPlugin {
   return new CssMinimizerPlugin()
-}
-
-/**
- * @param {WorkboxOptions} options
- */
-function workbox(options: WorkboxOptions = { maximumFileSizeToCacheInBytes: 1e6 }): WebpackPlugin {
-  return new GenerateSW(options)
 }
 
 /**
@@ -253,13 +225,11 @@ const getPlugins = (mode: Mode = 'development') => ({
   eslint: (options: EslintOptions = {}) => eslint(options, mode),
   html: (options: HtmlWebpackPlugin.Options = {}) => html(options, mode),
   ignore,
-  manifest,
   miniCssExtract: (options: MiniCssPluginOptions = {}) => miniCssExtract(mode, options),
   nodePolyfill,
   sentry: (options: SentryCliPluginOptions) => sentry(options),
   stylelint: (options: StylelintPluginOptions = {}) => stylelint(options, mode),
   terser,
-  workbox,
 })
 
 export type PluginConfiguration = {
@@ -271,8 +241,6 @@ export type PluginConfiguration = {
   clean: CleanOptions
   dotenv: DotenvOptions
   stylelint: StylelintOptions
-  workbox: WorkboxOptions
-  manifest: ManifestOptions
   define: { [key: string]: string }
   bundleAnalyzer: BundleAnalyzerOptions
 }

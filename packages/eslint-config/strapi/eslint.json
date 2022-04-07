@@ -1,19 +1,20 @@
 {
-  "extends": ["eslint:recommended", "plugin:@babel", "prettier"],
+  "extends": ["eslint:recommended", "prettier"],
   "parser": "@babel/eslint-parser",
   "parserOptions": {
     "requireConfigFile": false
   },
-  "ignorePatterns": ["*.ts", "*.tsx", "*.jsx"],
-  "env": {
-    "jquery": true
+  "ecmaFeatures": {
+    "experimentalObjectRestSpread": true,
+    "jsx": false
   },
+  "ignorePatterns": ["*.ts", "*.tsx", "*.jsx"],
+  "env": { "commonjs": true, "es6": true, "node": true, "browser": false },
   "globals": {
-    "jQuery": true,
     "strapi": true,
     "process": "readonly"
   },
-  "plugins": ["dirnames", "unicorn", "@babel"],
+  "plugins": ["dirnames", "unicorn"],
   "overrides": [
     {
       "files": ["*.graphql"],
