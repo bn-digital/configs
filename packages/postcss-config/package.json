@@ -43,7 +43,7 @@
     "postcss-less": "^6.0.0",
     "postcss-normalize": "^10.0.1",
     "postcss-preset-env": "^7.4.3",
-    "sass": "^1.49.11"
+    "sass": "^1.50.0"
   },
   "devDependencies": {
     "@types/postcss-preset-env": "^6.7.3",

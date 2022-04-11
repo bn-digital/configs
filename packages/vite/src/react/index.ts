@@ -13,7 +13,7 @@ function reactPlugins(): Vite.Plugins {
       jsxRuntime: 'automatic',
     }),
     swcPlugin({jsxRuntime:'automatic', reactFresh: false}),
-    svgrPlugin({ esbuildOptions: { sourcemap: Boolean(process.env.SOURCE_MAPS) }, svgrOptions: { icon: true, svgo: false } }),
+    svgrPlugin({ esbuildOptions: { sourcemap: Boolean(process.env.SOURCE_MAPS) }, svgrOptions: {  svgo: false } }),
   ]
 }
 
