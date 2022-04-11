@@ -119,7 +119,7 @@
     "@types/jest": "^27.4.1",
     "@types/loader-utils": "^2.0.3",
     "@types/mini-css-extract-plugin": "^2.5.1",
-    "@types/react": "^17.0.44",
+    "@types/react": "^18.0.1",
     "@types/webpack-bundle-analyzer": "^4.4.1",
     "@types/workbox-webpack-plugin": "^5.1.8",
     "@types/yargs": "^17.0.10",
