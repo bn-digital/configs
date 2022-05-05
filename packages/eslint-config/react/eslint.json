@@ -1,14 +1,10 @@
 {
-  "root": true,
-  "extends": ["prettier", "eslint:recommended", "plugin:react/recommended", "plugin:react-hooks/recommended", "plugin:@typescript-eslint/recommended"],
-  "parser": "@typescript-eslint/parser",
-  "ignorePatterns": ["*.ts", "**/*/graphql/index.tsx", "*.js", "*.jsx"],
+  "extends": ["@bn-digital/eslint-config", "@bn-digital/eslint-config/typescript", "plugin:react-hooks/recommended"],
+  "ignorePatterns": ["**/*/types/graphql.d.ts", "*.js", "*.jsx"],
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
-    },
-    "ecmaVersion": 2021,
-    "sourceType": "module"
+    }
   },
   "env": {
     "shared-node-browser": true,
@@ -23,24 +19,24 @@
     "mountNode": true,
     "process": "readonly"
   },
-  "plugins": ["dirnames", "unicorn", "react", "react-hooks"],
+  "plugins": ["react", "react-hooks"],
   "rules": {
-    "dirnames/match-kebab-case": "warn",
-    "unicorn/prefer-modern-dom-apis": "warn",
-    "unicorn/prefer-query-selector": "warn",
-    "unicorn/prefer-ternary": "warn",
     "react/jsx-no-target-blank": "warn",
     "react/display-name": "off",
-    "react/prop-types": "off",
-    "unicorn/filename-case": [
-      "warn",
-      {
-        "cases": {
-          "pascalCase": true
-        }
-      }
-    ]
+    "react/prop-types": "off"
   },
+  "overrides": [
+    {
+      "files": ["**/*/graphql/index.tsx"],
+      "rules": {
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-extra-semi": "off",
+        "@typescript-eslint/no-unused-vars": "off",
+        "@typescript-eslint/explicit-module-boundary-types": "off"
+      }
+    }
+  ],
   "settings": {
     "react": {
       "version": "detect"

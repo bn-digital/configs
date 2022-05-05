@@ -1,6 +1,7 @@
 {
   "root": true,
-  "extends": ["prettier", "eslint:recommended"],
+  "extends": ["prettier"],
+  "ignorePatterns": ["*.ts", "*.tsx"],
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module"
@@ -27,47 +28,11 @@
   "env": { "node": true, "es6": true, "jest": true, "shared-node-browser": true },
   "overrides": [
     {
-      "files": ["**/*.graphql"],
+      "files": ["*.graphql"],
       "extends": "@bn-digital/eslint-config/graphql",
       "parserOptions": {
         "operations": ["./packages/*/src/**/*.graphql"],
         "schema": "./packages/cms/src/graphql/schema.graphql"
-      }
-    },
-    {
-      "files": ["**/*.d.ts"],
-      "extends": "@bn-digital/eslint-config/typescript",
-      "rules": {
-        "@typescript-eslint/ban-types": "off",
-        "@typescript-eslint/no-explicit-any": "off",
-        "@typescript-eslint/no-unused-vars": "off"
-      }
-    },
-    {
-      "files": ["**/*.ts"],
-      "extends": "@bn-digital/eslint-config/typescript"
-    },
-    {
-      "files": ["**/*.js"],
-      "extends": "@bn-digital/eslint-config/javascript",
-      "parserOptions": {
-        "requireConfigFile": false
-      }
-    },
-    {
-      "files": ["**/*.tsx"],
-      "extends": "@bn-digital/eslint-config/react",
-      "excludedFiles": ["**/*/graphql/index.tsx"]
-    },
-    {
-      "files": ["**/*/graphql/index.tsx"],
-      "extends": "@bn-digital/eslint-config/react",
-      "rules": {
-        "@typescript-eslint/ban-types": "off",
-        "@typescript-eslint/no-explicit-any": "off",
-        "@typescript-eslint/no-extra-semi": "off",
-        "@typescript-eslint/no-unused-vars": "off",
-        "@typescript-eslint/explicit-module-boundary-types": "off"
       }
     }
   ]

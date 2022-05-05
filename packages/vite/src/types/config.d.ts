@@ -1,16 +1,24 @@
-import {defineConfig, PluginOption, UserConfig} from 'vite'
-import {VitePluginFontsOptions} from 'vite-plugin-fonts'
-import {VitePWAOptions} from 'vite-plugin-pwa'
-import {VitePluginRadarOptions} from 'vite-plugin-radar'
-import {ViteSentryPluginOptions} from 'vite-plugin-sentry'
+import { defineConfig, PluginOption, UserConfig } from 'vite'
+import { VitePluginFontsOptions } from 'vite-plugin-fonts'
+import { VitePWAOptions } from 'vite-plugin-pwa'
+import { VitePluginRadarOptions } from 'vite-plugin-radar'
+import { ViteSentryPluginOptions } from 'vite-plugin-sentry'
 
-// eslint-disable-next-line @typescript-eslint/no-namespace
+type Browsers = `safari${number}` | `opera${number}` | `chrome${number}` | `edge${number}` | `ios${number}` | `ie${number}`
+
 declare namespace Vite {
   type PluginOptions = {
     fonts: Partial<VitePluginFontsOptions>
     analytics: Partial<VitePluginRadarOptions>
     pwa: Partial<VitePWAOptions>
     sentry: Partial<ViteSentryPluginOptions>
+    browsers: Browsers[]
+    sourceMaps: boolean
+    react: Partial<ReactOptions>
+  }
+
+  type ReactOptions = {
+    antd: boolean
   }
 
   type Plugins = (PluginOption | PluginOption[])[]

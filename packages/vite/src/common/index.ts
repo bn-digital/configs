@@ -1,11 +1,11 @@
-import {UserConfig} from 'vite'
+import { UserConfig } from 'vite'
 
 import Vite from '../types/config'
-import {envOptions} from './env'
-import {pathsOptions} from './paths'
-import {commonPlugins} from './plugins'
-import {serverOptions} from './server'
-import {cssOptions} from './styles'
+import { envOptions } from './env'
+import { pathsOptions } from './paths'
+import { commonPlugins } from './plugins'
+import { serverOptions } from './server'
+import { cssOptions } from './styles'
 
 type CommonOptions = Partial<Pick<UserConfig, 'server' | 'plugins' | 'define' | 'envPrefix' | 'root' | 'envDir' | 'base' | 'css'>>
 /**

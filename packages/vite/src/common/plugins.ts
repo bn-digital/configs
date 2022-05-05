@@ -60,7 +60,19 @@ function commonPlugins(options: Partial<Vite.PluginOptions> = {}): Vite.Plugins 
     checkPlugin({
       enableBuild: true,
       overlay: { position: 'tr' },
-      eslint: { lintCommand: 'eslint "./src/**/*.{ts,tsx}"', dev: { logLevel: ['error'] } },
+      eslint: {
+        lintCommand: 'eslint "./src"',
+        dev: {
+          overrideConfig: {
+            cache: true,
+            fix: true,
+            extensions: ['ts', 'tsx'],
+            cacheLocation: 'node_modules/.cache/.eslintcache',
+            baseConfig: { extends: '@bn-digital/eslint-config/react' },
+          },
+          logLevel: ['warning', 'error'],
+        },
+      },
       typescript: true,
       terminal: true,
     }),

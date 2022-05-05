@@ -1,15 +1,4 @@
 {
   "parser": "@graphql-eslint/eslint-plugin",
-  "plugins": ["@graphql-eslint", "unicorn"],
-  "rules": {
-    "unicorn/filename-case": [
-      "warn",
-      {
-        "cases": {
-          "pascalCase": true,
-          "camelCase": true
-        }
-      }
-    ]
-  }
+  "plugins": ["@graphql-eslint"]
 }

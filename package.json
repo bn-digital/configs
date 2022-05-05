@@ -29,7 +29,7 @@
     "extends": "@bn-digital/stylelint-config"
   },
   "devDependencies": {
-    "@bn-digital/eslint-config": "^1.19.4",
+    "@bn-digital/eslint-config": "^1.19.20",
     "@bn-digital/prettier-config": "^1.14.1",
     "@bn-digital/stylelint-config": "^1.14.1"
   },

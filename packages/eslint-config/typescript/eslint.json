@@ -1,8 +1,7 @@
 {
   "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
   "parser": "@typescript-eslint/parser",
-  "plugins": ["unicorn", "dirnames"],
-  "ignorePatterns": ["*.js", "*.tsx", "*.jsx"],
+  "ignorePatterns": ["*.js", "*.jsx"],
   "overrides": [
     {
       "files": ["*.d.ts"],
@@ -10,18 +9,21 @@
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/no-unused-vars": "off"
       }
-    }
-  ],
-  "rules": {
-    "unicorn/filename-case": [
-      "warn",
-      {
-        "cases": {
-          "pascalCase": true,
-          "camelCase": true,
-          "kebabCase": true
-        }
+    },
+    {
+      "files": ["*.ts"],
+      "rules": {
+        "unicorn/filename-case": [
+          "warn",
+          {
+            "cases": {
+              "pascalCase": true,
+              "camelCase": true,
+              "kebabCase": true
+            }
+          }
+        ]
       }
-    ]
-  }
+    }
+  ]
 }

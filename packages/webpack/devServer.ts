@@ -1,5 +1,5 @@
 import WebpackDevServer from 'webpack-dev-server'
-import {getPackageMetadata} from './getPackageMetadata'
+import { getPackageMetadata } from './getPackageMetadata'
 
 const proxy = getPackageMetadata()?.proxy
 

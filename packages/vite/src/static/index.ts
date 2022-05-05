@@ -1,14 +1,14 @@
-import {defineConfig} from 'vite'
+import { defineConfig } from 'vite'
 import multiPageAppPlugin from 'vite-plugin-mpa'
 
-import {commonOptions} from '../common'
+import { commonOptions } from '../common'
 import Vite from '../types/config'
 
 const withStaticHtml: Vite.ConfigCallback = config =>
   defineConfig({
     build: {
       outDir: 'build',
-      sourcemap: Boolean(process.env.SOURCE_MAPS),
+      sourcemap: config?.sourceMaps,
       target: 'es2015',
       emptyOutDir: true,
     },

@@ -1,19 +1,20 @@
 import postcssPlugins from '@bn-digital/postcss-config'
 import reactPlugin from '@vitejs/plugin-react'
-import {defineConfig} from 'vite'
+import { defineConfig } from 'vite'
 import svgrPlugin from 'vite-plugin-svgr'
-import swcPlugin from 'vite-plugin-swc-react'
 
-import {commonOptions} from '../common'
+import { commonOptions } from '../common'
 import Vite from '../types/config'
 
-function reactPlugins(): Vite.Plugins {
+function reactPlugins(params: Vite.ReactOptions & Pick<Vite.PluginOptions, 'sourceMaps'>): Vite.Plugins {
   return [
     reactPlugin({
       jsxRuntime: 'automatic',
     }),
-    swcPlugin({jsxRuntime:'automatic', reactFresh: false}),
-    svgrPlugin({ esbuildOptions: { sourcemap: Boolean(process.env.SOURCE_MAPS) }, svgrOptions: {  svgo: false } }),
+    svgrPlugin({
+      esbuildOptions: { sourcemap: params.sourceMaps },
+      svgrOptions: { svgo: false },
+    }),
   ]
 }
 
@@ -24,20 +25,17 @@ const withReact: Vite.ConfigCallback = config =>
       cssCodeSplit: true,
       emptyOutDir: true,
       manifest: true,
-      minify: 'esbuild',
+      minify: process.env.NODE_ENV === 'production',
       outDir: 'build',
-      polyfillModulePreload: true,
-      sourcemap: Boolean(process.env.SOURCE_MAPS),
-      target: 'esnext',
-    },
-    esbuild: {
-      sourcemap: Boolean(process.env.SOURCE_MAPS),
+      sourcemap: config.sourceMaps,
+      target: config.browsers,
+      cssTarget: config.browsers,
     },
     ...commonOptions(
       {
-        plugins: reactPlugins(),
+        plugins: reactPlugins({ antd: false, sourceMaps: process.env.NODE_ENV !== 'production', ...config.react }),
         css: {
-          devSourcemap: Boolean(process.env.SOURCE_MAPS),
+          devSourcemap: config.sourceMaps,
           postcss: { plugins: postcssPlugins },
           preprocessorOptions: { less: { javascriptEnabled: true } },
         },
