@@ -1,13 +1,13 @@
 import postcssPlugins from '@bn-digital/postcss-config'
-import { UserConfig } from 'vite'
+import { CSSOptions, UserConfig } from 'vite'
 
-type CssOptions = Partial<Pick<UserConfig, 'css'>>
+type CssOptions = Pick<UserConfig, 'css'>
 
-const cssOptions = (options?: CssOptions): CssOptions => {
+const cssOptions = (options?: CSSOptions): CssOptions => {
   return {
     css: {
       postcss: { plugins: postcssPlugins },
-      ...options?.css,
+      ...options,
     },
   }
 }

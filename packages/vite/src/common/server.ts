@@ -30,7 +30,6 @@ const serverOptions = (options?: ServerOptions): ServerOptions => {
     server: {
       port: Number.parseInt(process.env.WEBSITE_PORT ?? '8080'),
       strictPort: false,
-      hmr: { port: process.env.WEBSITE_PUBLIC_URL?.startsWith('https') ? 443 : undefined },
       fs: {
         strict: false,
       },

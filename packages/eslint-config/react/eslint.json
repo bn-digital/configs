@@ -1,5 +1,6 @@
 {
-  "extends": ["@bn-digital/eslint-config", "@bn-digital/eslint-config/typescript", "plugin:react-hooks/recommended"],
+  "extends": ["@bn-digital/eslint-config", "eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:react-hooks/recommended"],
+  "parser": "@typescript-eslint/parser",
   "ignorePatterns": ["**/*/types/graphql.d.ts", "*.js", "*.jsx"],
   "parserOptions": {
     "ecmaFeatures": {

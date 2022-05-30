@@ -61,12 +61,10 @@ function commonPlugins(options: Partial<Vite.PluginOptions> = {}): Vite.Plugins 
       enableBuild: true,
       overlay: { position: 'tr' },
       eslint: {
-        lintCommand: 'eslint "./src"',
+        lintCommand: 'eslint "./src/**/*.tsx"',
         dev: {
           overrideConfig: {
             cache: true,
-            fix: true,
-            extensions: ['ts', 'tsx'],
             cacheLocation: 'node_modules/.cache/.eslintcache',
             baseConfig: { extends: '@bn-digital/eslint-config/react' },
           },

@@ -1,3 +1,4 @@
-import { Plugin } from 'postcss';
-declare const plugins: Plugin[];
+declare const plugins: {
+    postcssPlugin: string;
+}[];
 export default plugins;

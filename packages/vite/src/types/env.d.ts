@@ -1,4 +1,3 @@
-/// <reference types="vite/src/client" />
 declare global {
   type EnvVariableName = `WEBSITE_${string}`
 

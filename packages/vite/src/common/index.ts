@@ -17,7 +17,7 @@ const commonOptions = (options: CommonOptions = { plugins: [] }, config: Partial
   return {
     plugins: commonPlugins(config).concat(plugins),
     ...serverOptions({ server }),
-    ...cssOptions({ css }),
+    ...cssOptions(css),
     ...envOptions(),
     ...pathsOptions(),
   }

@@ -6,7 +6,7 @@ import { ViteSentryPluginOptions } from 'vite-plugin-sentry'
 
 type Browsers = `safari${number}` | `opera${number}` | `chrome${number}` | `edge${number}` | `ios${number}` | `ie${number}`
 
-declare namespace Vite {
+namespace Vite {
   type PluginOptions = {
     fonts: Partial<VitePluginFontsOptions>
     analytics: Partial<VitePluginRadarOptions>
@@ -28,4 +28,4 @@ declare namespace Vite {
   type ConfigMergeCallback = (config?: UserConfig, plugins?: Partial<Vite.PluginOptions>) => ReturnType<typeof defineConfig>
 }
 
-export default Vite
+export { Vite as default }

@@ -1,4 +1,3 @@
-import postcssPlugins from '@bn-digital/postcss-config'
 import reactPlugin from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 import svgrPlugin from 'vite-plugin-svgr'
@@ -25,7 +24,7 @@ const withReact: Vite.ConfigCallback = config =>
       cssCodeSplit: true,
       emptyOutDir: true,
       manifest: true,
-      minify: process.env.NODE_ENV === 'production',
+      minify: 'esbuild',
       outDir: 'build',
       sourcemap: config.sourceMaps,
       target: config.browsers,
@@ -33,12 +32,8 @@ const withReact: Vite.ConfigCallback = config =>
     },
     ...commonOptions(
       {
-        plugins: reactPlugins({ antd: false, sourceMaps: process.env.NODE_ENV !== 'production', ...config.react }),
-        css: {
-          devSourcemap: config.sourceMaps,
-          postcss: { plugins: postcssPlugins },
-          preprocessorOptions: { less: { javascriptEnabled: true } },
-        },
+        css: { devSourcemap: config.sourceMaps, preprocessorOptions: { less: { javascriptEnabled: true } } },
+        plugins: reactPlugins({ antd: config.react?.antd ?? false, sourceMaps: config.sourceMaps ?? process.env.NODE_ENV !== 'production', ...config.react }),
       },
       config,
     ),

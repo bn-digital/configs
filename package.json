@@ -25,17 +25,13 @@
   "eslintConfig": {
     "extends": "@bn-digital/eslint-config"
   },
-  "stylelint": {
-    "extends": "@bn-digital/stylelint-config"
-  },
   "devDependencies": {
-    "@bn-digital/eslint-config": "^1.19.20",
-    "@bn-digital/prettier-config": "^1.14.1",
-    "@bn-digital/stylelint-config": "^1.14.1"
+    "@bn-digital/eslint-config": "^1.19.26",
+    "@bn-digital/prettier-config": "^1.15.0"
   },
   "scripts": {
     "build": "yarn workspaces foreach run build",
     "release": "yarn workspaces foreach run release"
   },
-  "packageManager": "yarn@3.1.0"
+  "packageManager": "yarn@3.2.1"
 }
