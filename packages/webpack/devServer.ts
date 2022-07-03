@@ -1,9 +1,11 @@
+import type {Options} from 'http-proxy-middleware'
 import WebpackDevServer from 'webpack-dev-server'
-import { getPackageMetadata } from './getPackageMetadata'
+
+import {getPackageMetadata} from './getPackageMetadata'
 
 const proxy = getPackageMetadata()?.proxy
 
-const target: import('http-proxy-middleware').Options | undefined = proxy
+const target:Options | undefined = proxy
   ? {
       target: proxy.replace('localhost', '127.0.0.1'),
       changeOrigin: true,

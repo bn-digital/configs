@@ -1,12 +1,13 @@
-import {Configuration} from 'webpack'
-import path from 'path'
 import fs from 'fs'
-import yargs from 'yargs'
-import merge from 'webpack-merge'
-import {getPlugins} from './plugins'
+import path from 'path'
+import type {Configuration} from 'webpack'
 import WebpackDevServer from 'webpack-dev-server'
+import merge from 'webpack-merge'
+import yargs from 'yargs'
+
 import {devServer} from './devServer'
 import {getPackageMetadata} from './getPackageMetadata'
+import {getPlugins} from './plugins'
 
 const appDir = fs.realpathSync(process.cwd())
 

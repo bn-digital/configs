@@ -5,9 +5,8 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["dirnames", "simple-import-sort", "import", "prettier", "unicorn"],
+  "plugins": ["simple-import-sort", "import", "prettier", "unicorn"],
   "rules": {
-    "dirnames/match-kebab-case": "warn",
     "simple-import-sort/exports": "warn",
     "simple-import-sort/imports": "warn",
     "unicorn/better-regex": "warn",

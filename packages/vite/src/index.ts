@@ -1,11 +1,47 @@
-import { mergeConfig } from 'vite'
+import { defineConfig, mergeConfig, type PluginOption, type UserConfig } from 'vite'
+import type { VitePluginFontsOptions } from 'vite-plugin-fonts'
+import type { VitePWAOptions } from 'vite-plugin-pwa'
+import type { VitePluginRadarOptions } from 'vite-plugin-radar'
+import type { ViteSentryPluginOptions } from 'vite-plugin-sentry'
 
 import { withReact } from './react'
 import { withStaticHtml } from './static'
-import Vite from './types/config'
 
-const configureReact: Vite.ConfigMergeCallback = (config = {}, plugins = {}) => mergeConfig(withReact(plugins), config)
+declare global {
+  type EnvVariableName = `WEBSITE_${string}`
+  type Browsers = `safari${number}` | `opera${number}` | `chrome${number}` | `edge${number}` | `ios${number}` | `ie${number}`
 
-const configureStaticHtml: Vite.ConfigMergeCallback = (config = {}, plugins = {}) => mergeConfig(withStaticHtml(plugins), config)
+  interface ImportMetaEnv {
+    [key: EnvVariableName]: string | number | boolean | null | undefined
+  }
 
-export { configureReact, configureStaticHtml,configureReact as default }
+  interface ImportMeta {
+    readonly env: ImportMetaEnv
+  }
+
+  type PluginOptions = {
+    fonts: Partial<VitePluginFontsOptions>
+    analytics: Partial<VitePluginRadarOptions>
+    pwa: Partial<VitePWAOptions>
+    sentry: Partial<ViteSentryPluginOptions>
+    browsers: Browsers[]
+    sourceMaps: boolean
+    react: Partial<ReactOptions>
+  }
+
+  type ReactOptions = {
+    antd: boolean
+  }
+
+  type Plugins = (PluginOption | PluginOption[])[]
+
+  type ConfigCallback = (plugins: Partial<PluginOptions>) => ReturnType<typeof defineConfig>
+
+  type ConfigMergeCallback = (config?: UserConfig, plugins?: Partial<PluginOptions>) => ReturnType<typeof defineConfig>
+}
+
+const configureReact: ConfigMergeCallback = (config = {}, plugins = {}) => mergeConfig(withReact(plugins), config)
+
+const configureStaticHtml: ConfigMergeCallback = (config = {}, plugins = {}) => mergeConfig(withStaticHtml(plugins), config)
+
+export { configureReact, configureStaticHtml, configureReact as default }

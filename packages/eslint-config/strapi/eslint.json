@@ -14,7 +14,7 @@
     "strapi": true,
     "process": "readonly"
   },
-  "plugins": ["dirnames", "unicorn"],
+  "plugins": ["unicorn"],
   "overrides": [
     {
       "files": ["*.graphql"],
@@ -38,7 +38,6 @@
     }
   ],
   "rules": {
-    "dirnames/match-kebab-case": "off",
     "unicorn/filename-case": [
       "warn",
       {

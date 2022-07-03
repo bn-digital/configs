@@ -3,9 +3,8 @@ import multiPageAppPlugin from 'vite-plugin-mpa'
 
 import { commonOptions } from '../common'
 import { cssOptions } from '../common/styles'
-import Vite from '../types/config'
 
-const withStaticHtml: Vite.ConfigCallback = config =>
+const withStaticHtml: ConfigCallback = config =>
   defineConfig({
     build: {
       outDir: 'build',

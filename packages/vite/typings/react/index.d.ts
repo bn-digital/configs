@@ -1,4 +1,3 @@
-import Vite from '../types/config';
-declare const withReact: Vite.ConfigCallback;
+declare const withReact: ConfigCallback;
 export { withReact };
 //# sourceMappingURL=index.d.ts.map

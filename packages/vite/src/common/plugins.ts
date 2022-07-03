@@ -1,14 +1,12 @@
 import fs from 'fs'
 import path from 'path'
 import { imagetools as imageToolsPlugin } from 'vite-imagetools'
+import { default as checkPlugin } from 'vite-plugin-checker'
 import { default as fontsPlugin } from 'vite-plugin-fonts'
 import { VitePWA as pwaPlugin, VitePWAOptions } from 'vite-plugin-pwa'
 import { default as analyticsPlugin, VitePluginRadarOptions } from 'vite-plugin-radar'
 import { default as sentryPlugin, ViteSentryPluginOptions } from 'vite-plugin-sentry'
 import { default as tsConfigPathsPlugin } from 'vite-tsconfig-paths'
-import { default as checkPlugin } from 'vite-plugin-checker'
-
-import Vite from '../types/config'
 
 type TsConfigPathOptions = { root?: string }
 
@@ -54,12 +52,12 @@ function resolveSentryOptions(extraOptions?: Partial<ViteSentryPluginOptions> & 
   return null
 }
 
-function commonPlugins(options: Partial<Vite.PluginOptions> = {}): Vite.Plugins {
+function commonPlugins(options: Partial<PluginOptions> = {}): Plugins {
   const packageJson = readPackageJson()
   const plugins = [
     checkPlugin({
       enableBuild: true,
-      overlay: { position: 'tr' },
+      overlay: { position: 'tr', initialIsOpen: false },
       eslint: {
         lintCommand: 'eslint "./src/**/*.tsx"',
         dev: {
@@ -68,7 +66,7 @@ function commonPlugins(options: Partial<Vite.PluginOptions> = {}): Vite.Plugins 
             cacheLocation: 'node_modules/.cache/.eslintcache',
             baseConfig: { extends: '@bn-digital/eslint-config/react' },
           },
-          logLevel: ['warning', 'error'],
+          logLevel: ['error'],
         },
       },
       typescript: true,

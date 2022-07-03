@@ -3,9 +3,8 @@ import { defineConfig } from 'vite'
 import svgrPlugin from 'vite-plugin-svgr'
 
 import { commonOptions } from '../common'
-import Vite from '../types/config'
 
-function reactPlugins(params: Vite.ReactOptions & Pick<Vite.PluginOptions, 'sourceMaps'>): Vite.Plugins {
+function reactPlugins(params: ReactOptions & Pick<PluginOptions, 'sourceMaps'>): Plugins {
   return [
     reactPlugin({
       jsxRuntime: 'automatic',
@@ -17,7 +16,7 @@ function reactPlugins(params: Vite.ReactOptions & Pick<Vite.PluginOptions, 'sour
   ]
 }
 
-const withReact: Vite.ConfigCallback = config =>
+const withReact: ConfigCallback = config =>
   defineConfig({
     build: {
       chunkSizeWarningLimit: 1024,
