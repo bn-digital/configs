@@ -10,18 +10,11 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Import Vault secrets
-        uses: hashicorp/vault-action@v2.4.0
-        with:
-          method: github
-          url: ${{ secrets.VAULT_ENDPOINT }}
-          githubToken: ${{ secrets.GH_TOKEN }}
-          secrets: |
-            infrastructure/data/sonarqube   url     | SONAR_HOST_URL ;
-            infrastructure/data/sonarqube   token   | SONAR_TOKEN ;
-
-      - name: Run Sonar scanner
+      - name: Run code scanner
         uses: sonarsource/sonarqube-scan-action@v1.1.0
+        env:
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          SONAR_TOKEN: ${{ secrets.          SONAR_TOKEN }}
         with:
           args: |
             -Dsonar.projectName=${{ github.event.repository.name }}
