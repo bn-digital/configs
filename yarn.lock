@@ -4841,7 +4841,7 @@ __metadata:
     vite-plugin-mpa: ^1.1.3
     vite-plugin-pwa: ^0.12.2
     vite-plugin-radar: ^0.4.2
-    vite-plugin-sentry: ^1.0.18
+    vite-plugin-sentry: ^1.0.1
     vite-plugin-svgr: ^2.2.0
     vite-tsconfig-paths: ^3.5.0
   languageName: unknown
@@ -6869,22 +6869,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sentry/cli@npm:2.1.0":
-  version: 2.1.0
-  resolution: "@sentry/cli@npm:2.1.0"
-  dependencies:
-    https-proxy-agent: ^5.0.0
-    node-fetch: ^2.6.7
-    npmlog: ^6.0.1
-    progress: ^2.0.3
-    proxy-from-env: ^1.1.0
-    which: ^2.0.2
-  bin:
-    sentry-cli: bin/sentry-cli
-  checksum: 5f1293b9042e4babd4cd28cea26d2fd7040529964a3f67a02c22049c041d56d4f45f4530fb3cbb8fa63ca0c32fe9350a361eaffa29a00a322d7ed2d66e9721cd
-  languageName: node
-  linkType: hard
-
 "@sentry/cli@npm:^1.74.4":
   version: 1.74.4
   resolution: "@sentry/cli@npm:1.74.4"
@@ -6899,6 +6883,22 @@ __metadata:
   bin:
     sentry-cli: bin/sentry-cli
   checksum: 6fe63095edbb0f8c250ad813e24fddd65b3266763fbf628cfd865d2f68f7248ec38e600f220d6530a54ebf1a10cc51e1b5fbf203e28fab223d80a5afd4d5dfb2
+  languageName: node
+  linkType: hard
+
+"@sentry/cli@npm:^2.2.0":
+  version: 2.3.1
+  resolution: "@sentry/cli@npm:2.3.1"
+  dependencies:
+    https-proxy-agent: ^5.0.0
+    node-fetch: ^2.6.7
+    npmlog: ^6.0.1
+    progress: ^2.0.3
+    proxy-from-env: ^1.1.0
+    which: ^2.0.2
+  bin:
+    sentry-cli: bin/sentry-cli
+  checksum: 96086042b38a90b6d84a48431e0ce1be22696ed7d320967645a2f780a864c36855a40d7d0f4c2364ad18e591fe1543a6dae1a1de156723773b1c73366bd151ac
   languageName: node
   linkType: hard
 
@@ -24467,14 +24467,14 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"vite-plugin-sentry@npm:^1.0.18":
-  version: 1.0.18
-  resolution: "vite-plugin-sentry@npm:1.0.18"
+"vite-plugin-sentry@npm:^1.0.1":
+  version: 1.1.0
+  resolution: "vite-plugin-sentry@npm:1.1.0"
   dependencies:
-    "@sentry/cli": 2.1.0
+    "@sentry/cli": ^2.2.0
   peerDependencies:
     vite: ^2.9.12
-  checksum: 92dbe3978469233cece2a7dafc421512817d580ad46a8145e58a764788df973caff0f12a7a5568455b597f60e412fafb3aaa49588470062c99154b4c77351bd6
+  checksum: 9b0797a9f5833fd4475c516aa07ce9f9c31fef1f87ed749ea1bc73d73f399d9aceed1495ba352ad45c80104330e8fc2cf3db8533c50b76e683de106c58734978
   languageName: node
   linkType: hard
 
