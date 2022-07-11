@@ -1,6 +1,10 @@
 on:
   workflow_call:
-
+  
+env:
+  SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  
 jobs:
   sonarqube:
     runs-on: self-hosted
