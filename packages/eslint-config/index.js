@@ -1,1 +1,1 @@
-module.exports = require('./eslint.json')
+module.exports = require("./eslint.json")

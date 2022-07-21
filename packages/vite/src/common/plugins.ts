@@ -7,6 +7,7 @@ import { VitePWA as pwaPlugin, VitePWAOptions } from 'vite-plugin-pwa'
 import { default as analyticsPlugin, VitePluginRadarOptions } from 'vite-plugin-radar'
 import { default as sentryPlugin, ViteSentryPluginOptions } from 'vite-plugin-sentry'
 import { default as tsConfigPathsPlugin } from 'vite-tsconfig-paths'
+import { default as sslPlugin } from '@vitejs/plugin-basic-ssl'
 
 type TsConfigPathOptions = { root?: string }
 
@@ -73,6 +74,7 @@ function commonPlugins(options: Partial<PluginOptions> = {}): Plugins {
       terminal: true,
     }),
     tsConfigPathsPlugin(resolveTsConfigPathOptions()),
+    sslPlugin(),
     imageToolsPlugin({ removeMetadata: true }),
   ]
 

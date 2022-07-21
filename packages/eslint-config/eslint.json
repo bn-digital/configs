@@ -5,7 +5,7 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["simple-import-sort", "import", "prettier", "unicorn"],
+  "plugins": ["simple-import-sort", "prettier", "unicorn"],
   "rules": {
     "simple-import-sort/exports": "warn",
     "simple-import-sort/imports": "warn",

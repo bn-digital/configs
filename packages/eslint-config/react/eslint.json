@@ -1,7 +1,13 @@
 {
-  "extends": ["@bn-digital/eslint-config", "eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:react-hooks/recommended"],
+  "extends": [
+    "@bn-digital/eslint-config",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended"
+  ],
   "parser": "@typescript-eslint/parser",
-  "ignorePatterns": ["**/*/types/graphql.d.ts", "*.js", "*.jsx"],
+  "ignorePatterns": ["*.js", "*.jsx"],
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -20,15 +26,15 @@
     "mountNode": true,
     "process": "readonly"
   },
-  "plugins": ["react", "react-hooks"],
   "rules": {
     "react/jsx-no-target-blank": "warn",
+    "react/jsx-curly-brace-presence": "off",
     "react/display-name": "off",
     "react/prop-types": "off"
   },
   "overrides": [
     {
-      "files": ["**/*/graphql/index.tsx"],
+      "files": ["**/*/graphql/index.tsx", "**/*/types/graphql.d.ts"],
       "rules": {
         "@typescript-eslint/ban-types": "off",
         "@typescript-eslint/no-explicit-any": "off",
