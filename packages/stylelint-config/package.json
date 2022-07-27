@@ -1,7 +1,7 @@
 {
   "name": "@bn-digital/stylelint-config",
   "description": "Stylelint ruleset",
-  "version": "1.14.5",
+  "version": "1.14.6",
   "license": "MIT",
   "main": "index.js",
   "readme": "README.md",
