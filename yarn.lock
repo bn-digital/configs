@@ -4209,7 +4209,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@bn-digital/eslint-config@npm:^1.19.39, @bn-digital/eslint-config@npm:^1.20.4, @bn-digital/eslint-config@workspace:packages/eslint-config":
+"@bn-digital/eslint-config@npm:^1.20.4, @bn-digital/eslint-config@workspace:packages/eslint-config":
   version: 0.0.0-use.local
   resolution: "@bn-digital/eslint-config@workspace:packages/eslint-config"
   dependencies:
@@ -4307,20 +4307,20 @@ __metadata:
   dependencies:
     "@bn-digital/eslint-config": "npm:^1.20.4"
     "@bn-digital/postcss-config": "npm:^1.1.4"
-    "@types/node": "npm:^18.6.1"
+    "@types/node": "npm:^18.6.2"
     "@vitejs/plugin-react": "npm:^2.0.0"
     eslint: "npm:^8.20.0"
     terser: "npm:^5.14.2"
     typescript: "npm:^4.7.4"
-    vite: "npm:^3.0.3"
+    vite: "npm:^3.0.4"
     vite-imagetools: "npm:^4.0.4"
     vite-plugin-checker: "npm:^0.4.9"
     vite-plugin-fonts: "npm:^0.6.0"
     vite-plugin-imp: "npm:^2.2.0"
-    vite-plugin-mpa: "npm:^1.1.3"
+    vite-plugin-mpa: "npm:^1.1.4"
     vite-plugin-pwa: "npm:^0.12.3"
     vite-plugin-radar: "npm:^0.5.0"
-    vite-plugin-sentry: "npm:^1.1.2"
+    vite-plugin-sentry: "npm:^1.1.3"
     vite-plugin-svgr: "npm:^2.2.1"
     vite-tsconfig-paths: "npm:^3.5.0"
   languageName: unknown
@@ -7061,6 +7061,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/node@npm:^18.6.2":
+  version: 18.6.2
+  resolution: "@types/node@npm:18.6.2"
+  checksum: a853c5c9d28cf9064fff053b8cbb20b0d646f5ef7bc004226c9189f490bc3c0d16f6a3cada2ad16e67e40eca82c8f60d33b8b271b6852d9db9779f67596100d2
+  languageName: node
+  linkType: hard
+
 "@types/normalize-package-data@npm:^2.4.0":
   version: 2.4.1
   resolution: "@types/normalize-package-data@npm:2.4.1"
@@ -8723,7 +8730,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "bn-digital@workspace:."
   dependencies:
-    "@bn-digital/eslint-config": "npm:^1.19.39"
+    "@bn-digital/eslint-config": "npm:^1.20.4"
     "@bn-digital/prettier-config": "npm:^1.15.1"
   languageName: unknown
   linkType: soft
@@ -23738,14 +23745,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite-plugin-mpa@npm:^1.1.3":
-  version: 1.1.3
-  resolution: "vite-plugin-mpa@npm:1.1.3"
+"vite-plugin-mpa@npm:^1.1.4":
+  version: 1.1.4
+  resolution: "vite-plugin-mpa@npm:1.1.4"
   dependencies:
     connect-history-api-fallback: "npm:1.6.0"
     shelljs: "npm:0.8.5"
     yargs: "npm:16.2.0"
-  checksum: a956a382ba145e99d9cdff80ab270c5556326748e85ec4879df4dfd9b590a861332ebf1fc25666c3a9d941140d42a38dd62478f883e34dbe3b2ab1fd2b9483e9
+  checksum: 4dbea30e4eb3120b5d07337b4646ef9b6b9d4fc189f26632ecf38b83eedd87fd78b4ceda57d42d0b1d6e3939cd6e2cfc5b0d4a6d79f10e6d71713a3e0b8bdec8
   languageName: node
   linkType: hard
 
@@ -23776,14 +23783,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite-plugin-sentry@npm:^1.1.2":
-  version: 1.1.2
-  resolution: "vite-plugin-sentry@npm:1.1.2"
+"vite-plugin-sentry@npm:^1.1.3":
+  version: 1.1.3
+  resolution: "vite-plugin-sentry@npm:1.1.3"
   dependencies:
     "@sentry/cli": "npm:^2.3.1"
   peerDependencies:
-    vite: ^3.0.1
-  checksum: 8f679183f2cfd79451cf61351cc871f6ef62a1dbbc7bec3d9ef29c44331e5c7d43e910114c70b517703b00b1ad5979b61e28fdecb9e8b184fb60c783bd741b0f
+    vite: ^3.0.3
+  checksum: 1283431e0da556ca528d800ff009888c8805acc056736f41a1245b0033f5a1b2a7f2d27c72d819429cb6018c6229b1def940bd4f20a61ec3a2ff1c3a2eeb6d93
   languageName: node
   linkType: hard
 
@@ -23813,9 +23820,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^3.0.3":
-  version: 3.0.3
-  resolution: "vite@npm:3.0.3"
+"vite@npm:^3.0.4":
+  version: 3.0.4
+  resolution: "vite@npm:3.0.4"
   dependencies:
     esbuild: "npm:^0.14.47"
     fsevents: "npm:~2.3.2"
@@ -23841,7 +23848,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 14956d8d355b2ec60925c9b94699640cd81e331209ca9bedd1659a93810c505fd263424fa8998168b6bc6e32375b6be17ad15ed4817847a7bcbc497bfd86205a
+  checksum: 65535d8402011fee6edf89944fb1fdaa77275d71f87bc8d76a285ccf40badbbfba649c10cad31305de29b41c82641410ad8a835a1b39e2d0440efdd54912a81c
   languageName: node
   linkType: hard
 
