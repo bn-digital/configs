@@ -7,9 +7,6 @@ import { commonOptions } from '../common'
 function reactPlugins(params: ReactOptions & Pick<PluginOptions, 'sourceMaps'>): Plugins {
   return [
     reactPlugin({
-      exclude: /\.stories\.(ts|js)x?$/,
-      // Only .tsx files
-      include: '**/*.tsx',
       jsxRuntime: 'automatic',
     }),
     svgrPlugin({
