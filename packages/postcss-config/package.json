@@ -1,7 +1,7 @@
 {
   "name": "@bn-digital/postcss-config",
   "description": "PostCSS configuration used in BN Digital projects",
-  "version": "1.1.5",
+  "version": "2.0.0",
   "keywords": [
     "postcss",
     "autoprefixer",
@@ -22,7 +22,7 @@
     "url": "https://github.com/VladyslavVolkov"
   },
   "repository": {
-    "url": "https://github.com/bn-digital/coding-standard",
+    "url": "https://github.com/bn-digital/config",
     "directory": "packages/postcss-config"
   },
   "maintainers": [

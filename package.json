@@ -26,12 +26,12 @@
     "extends": "@bn-digital/eslint-config"
   },
   "devDependencies": {
-    "@bn-digital/eslint-config": "^1.20.8",
-    "@bn-digital/prettier-config": "^1.15.2"
+    "@bn-digital/eslint-config": "^2.0.0",
+    "@bn-digital/prettier-config": "^2.0.0"
   },
   "scripts": {
     "build": "yarn workspaces foreach run build",
-    "release": "yarn workspaces foreach run release"
+    "release:packages": "yarn workspaces foreach run release"
   },
   "packageManager": "yarn@3.2.3"
 }

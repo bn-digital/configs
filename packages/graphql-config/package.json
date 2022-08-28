@@ -6,7 +6,7 @@
     "apollo-client",
     "graphql-codegen"
   ],
-  "version": "1.2.3",
+  "version": "2.0.0",
   "author": {
     "name": "Vlad Volkov",
     "email": "vlad.volkov@bndigital.co",

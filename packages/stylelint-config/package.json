@@ -1,7 +1,7 @@
 {
   "name": "@bn-digital/stylelint-config",
   "description": "Stylelint ruleset",
-  "version": "1.15.0",
+  "version": "2.0.0",
   "license": "MIT",
   "main": "index.js",
   "readme": "README.md",
@@ -11,7 +11,7 @@
     "url": "https://github.com/vladyslavvolkov"
   },
   "repository": {
-    "url": "https://github.com/bn-digital/coding-standard",
+    "url": "https://github.com/bn-digital/config",
     "directory": "packages/stylelint-config"
   },
   "maintainers": [
