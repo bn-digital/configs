@@ -1,7 +1,7 @@
 {
   "name": "bn-digital",
   "description": "Collection of coding standards, style guides and shared configurations",
-  "version": "1.16.0",
+  "version": "2.0.0",
   "author": {
     "name": "Vlad Volkov",
     "email": "vlad.volkov@bndigital.co",
@@ -33,5 +33,5 @@
     "build": "yarn workspaces foreach run build",
     "release": "yarn workspaces foreach run release"
   },
-  "packageManager": "yarn@3.2.1"
+  "packageManager": "yarn@3.2.3"
 }

@@ -18,6 +18,7 @@
     "skipLibCheck": true,
     "strict": true,
     "strictNullChecks": true,
+    "keyofStringsOnly": false,
     "strictPropertyInitialization": false,
     "target": "ESNext"
   },

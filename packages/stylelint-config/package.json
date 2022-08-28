@@ -1,7 +1,7 @@
 {
   "name": "@bn-digital/stylelint-config",
   "description": "Stylelint ruleset",
-  "version": "1.14.6",
+  "version": "1.15.0",
   "license": "MIT",
   "main": "index.js",
   "readme": "README.md",
@@ -26,10 +26,10 @@
   },
   "dependencies": {
     "postcss-less": "^6.0.0",
-    "stylelint": "^14.9.1",
+    "stylelint": "^14.11.0",
     "stylelint-config-prettier": "^9.0.3",
     "stylelint-config-rational-order": "^0.1.2",
-    "stylelint-config-recommended": "^8.0.0",
+    "stylelint-config-recommended": "^9.0.0",
     "stylelint-config-recommended-scss": "^7.0.0",
     "stylelint-order": "^5.0.0"
   },
