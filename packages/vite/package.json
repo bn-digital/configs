@@ -1,7 +1,7 @@
 {
   "name": "@bn-digital/vite",
   "description": "Vite configuration used in BN Digital projects",
-  "version": "1.12.12",
+  "version": "1.12.13",
   "license": "MIT",
   "keywords": [
     "vite",
@@ -42,7 +42,7 @@
     "release": "yarn build && yarn npm publish"
   },
   "dependencies": {
-    "@bn-digital/eslint-config": "^1.20.8",
+    "@bn-digital/eslint-config": "^1.20.9",
     "@bn-digital/postcss-config": "^1.1.5",
     "@vitejs/plugin-react": "^2.0.1",
     "eslint": "^8.23.0",

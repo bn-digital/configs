@@ -4277,7 +4277,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@bn-digital/eslint-config@npm:^1.20.5, @bn-digital/eslint-config@npm:^1.20.8, @bn-digital/eslint-config@workspace:packages/eslint-config":
+"@bn-digital/eslint-config@npm:^1.20.8, @bn-digital/eslint-config@npm:^1.20.9, @bn-digital/eslint-config@workspace:packages/eslint-config":
   version: 0.0.0-use.local
   resolution: "@bn-digital/eslint-config@workspace:packages/eslint-config"
   dependencies:
@@ -4374,7 +4374,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@bn-digital/vite@workspace:packages/vite"
   dependencies:
-    "@bn-digital/eslint-config": "npm:^1.20.8"
+    "@bn-digital/eslint-config": "npm:^1.20.9"
     "@bn-digital/postcss-config": "npm:^1.1.5"
     "@types/node": "npm:^18.7.13"
     "@vitejs/plugin-react": "npm:^2.0.1"
@@ -9129,7 +9129,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "bn-digital@workspace:."
   dependencies:
-    "@bn-digital/eslint-config": "npm:^1.20.5"
+    "@bn-digital/eslint-config": "npm:^1.20.8"
     "@bn-digital/prettier-config": "npm:^1.15.2"
   languageName: unknown
   linkType: soft
