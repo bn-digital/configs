@@ -1,9 +1,5 @@
 on:
-  pull_request:
-    types:
-      - opened
-      - reopened
-      - review_requested
+  workflow_call:
 
 env:
   SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
