@@ -4,34 +4,25 @@ on:
 env:
   SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
 jobs:
-  superlinter:
-    continue-on-error: true
+  quality:
     runs-on: self-hosted
+    continue-on-error: true
     steps:
       - name: Checkout sources
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      - name: Lint Code Base
+      - name: Lint sources
         uses: github/super-linter@v4
         env:
           DEFAULT_BRANCH: latest
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VALIDATE_XML: false
+          FILTER_REGEX_EXCLUDE: .*/(.idea|.yarn|run)/.*
 
-  qodana:
-    runs-on: self-hosted
-    continue-on-error: true
-    steps:
-      - name: Checkout sources
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
-      - name: Qodana Scan
+      - name: Run Qodana scanner
         uses: JetBrains/qodana-action@v2022.2.1
         with:
           args: --baseline,qodana.sarif.json
@@ -41,17 +32,7 @@ jobs:
         with:
           sarif_file: ${{ runner.temp }}/qodana/results/qodana.sarif.json
 
-
-  sonarqube:
-    runs-on: self-hosted
-    continue-on-error: true
-    steps:
-      - name: Checkout sources
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
-      - name: Run code scanner
+      - name: Run Sonar scanner
         uses: sonarsource/sonarqube-scan-action@v1.1.0
         with:
           args: |
