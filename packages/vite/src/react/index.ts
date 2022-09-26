@@ -1,5 +1,6 @@
-import reactPlugin from '@vitejs/plugin-react'
+import { default as reactPlugin } from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
+import graphqlCodegenPlugin from 'vite-plugin-graphql-codegen'
 import svgrPlugin from 'vite-plugin-svgr'
 
 import { commonOptions } from '../common'
@@ -9,6 +10,7 @@ function reactPlugins(params: ReactOptions & Pick<PluginOptions, 'sourceMaps'>):
     reactPlugin({
       jsxRuntime: 'automatic',
     }),
+    graphqlCodegenPlugin({ runOnBuild: false }),
     svgrPlugin({
       esbuildOptions: { sourcemap: params.sourceMaps },
       svgrOptions: { svgo: false },
@@ -25,9 +27,8 @@ const withReact: ConfigCallback = config =>
       manifest: true,
       minify: 'terser',
       outDir: 'build',
+      target: "esnext",
       sourcemap: config.sourceMaps,
-      target: config.browsers,
-      cssTarget: config.browsers,
     },
     ...commonOptions(
       {

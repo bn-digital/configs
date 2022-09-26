@@ -7,6 +7,8 @@ const STRAPI_URLS: Readonly<string[]> = [
   'admin',
   'api',
   'config-sync',
+  'import-export-entries',
+    'menus',
   'content-manager',
   'content-type-builder',
   'email',

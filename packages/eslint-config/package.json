@@ -1,7 +1,7 @@
 {
   "name": "@bn-digital/eslint-config",
   "description": "ESLint ruleset used in coding standard by BN Digital",
-  "version": "2.0.0",
+  "version": "2.0.4",
   "license": "MIT",
   "repository": {
     "url": "https://github.com/bn-digital/config",
@@ -30,9 +30,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "peerDependencies": {
-    "eslint": "^8.23.0"
-  },
   "peerDependenciesMeta": {
     "eslint": {
       "optional": false
@@ -40,22 +37,22 @@
   },
   "bundleDependencies": true,
   "dependencies": {
-    "@babel/eslint-parser": "^7.18.9",
-    "@babel/eslint-plugin": "^7.18.10",
-    "@graphql-eslint/eslint-plugin": "^3.10.7",
-    "@typescript-eslint/eslint-plugin": "^5.35.1",
-    "@typescript-eslint/parser": "^5.35.1",
-    "eslint": "^8.23.0",
+    "@babel/eslint-parser": "^7.19.1",
+    "@babel/eslint-plugin": "^7.19.1",
+    "@graphql-eslint/eslint-plugin": "^3.11.0",
+    "@typescript-eslint/eslint-plugin": "^5.38.0",
+    "@typescript-eslint/parser": "^5.38.0",
+    "eslint": "^8.24.0",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-import-resolver-typescript": "^3.5.0",
+    "eslint-import-resolver-typescript": "^3.5.1",
     "eslint-plugin-graphql": "^4.0.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsx-a11y": "^6.6.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-react": "^7.31.1",
+    "eslint-plugin-react": "^7.31.8",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "eslint-plugin-simple-import-sort": "^8.0.0",
     "eslint-plugin-unicorn": "^43.0.2"
   },
   "scripts": {

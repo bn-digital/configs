@@ -1,18 +1,50 @@
 on:
-  workflow_call:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - review_requested
 
 env:
   SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
 jobs:
-  sonarqube:
+  superlinter:
+    continue-on-error: true
     runs-on: self-hosted
     steps:
       - name: Checkout sources
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+      - name: Lint Code Base
+        uses: github/super-linter@v4
+        env:
+          DEFAULT_BRANCH: ${{ github.ref_name }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  qodana:
+    runs-on: self-hosted
+    continue-on-error: true
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Qodana Scan
+        uses: JetBrains/qodana-action@v2022.2.1
+
+  sonarqube:
+    runs-on: self-hosted
+    continue-on-error: true
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Qodana Scan
+        uses: JetBrains/qodana-action@v2022.2.1
 
       - name: Run code scanner
         uses: sonarsource/sonarqube-scan-action@v1.1.0
