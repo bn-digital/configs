@@ -20,6 +20,7 @@ jobs:
         env:
           DEFAULT_BRANCH: latest
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VALIDATE_XML: false
 
   qodana:
     runs-on: self-hosted
@@ -29,10 +30,17 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+
       - name: Qodana Scan
         uses: JetBrains/qodana-action@v2022.2.1
         with:
-          upload-result: false
+          args: --baseline,qodana.sarif.json
+
+      - name: Upload report
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: ${{ runner.temp }}/qodana/results/qodana.sarif.json
+
 
   sonarqube:
     runs-on: self-hosted
