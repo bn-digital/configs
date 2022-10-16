@@ -62,8 +62,6 @@ function commonPlugins(options: Partial<PluginOptions> = {}): Plugins {
         lintCommand: 'eslint "./src/**/*.tsx"',
         dev: {
           overrideConfig: {
-            fix: true,
-            fixTypes: ['problem', 'layout'],
             cache: true,
             cacheLocation: 'node_modules/.cache/.eslintcache',
             baseConfig: { extends: '@bn-digital/eslint-config/react' },

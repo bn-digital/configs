@@ -1,8 +1,24 @@
 {
   "extends": ["stylelint-config-recommended", "stylelint-config-rational-order", "stylelint-config-prettier"],
-  "customSyntax": "postcss-less",
   "plugins": ["stylelint-order"],
   "defaultSeverity": "warning",
+  "ignoreFiles": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.json", "**/*.graphql"],
+  "overrides": [
+    {
+      "files": ["**/*.less"],
+      "customSyntax": "postcss-less",
+      "extends": ["stylelint-config-recommended-less", "stylelint-config-rational-order", "stylelint-config-prettier"]
+    },
+    {
+      "files": ["**/*.jsx", "**/*.tsx"],
+      "customSyntax": "@stylelint/postcss-css-in-js"
+    },
+    {
+      "files": ["**/*.scss", "**/*.sass"],
+      "customSyntax": "postcss-scss",
+      "extends": ["stylelint-config-recommended-scss", "stylelint-config-rational-order", "stylelint-config-prettier"]
+    }
+  ],
   "rules": {
     "comment-empty-line-before": null,
     "declaration-empty-line-before": null,

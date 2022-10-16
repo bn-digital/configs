@@ -10,12 +10,12 @@ function reactPlugins(params: ReactOptions & Pick<PluginOptions, 'sourceMaps'>):
     reactPlugin({
       jsxRuntime: 'automatic',
     }),
-    graphqlCodegenPlugin({ runOnBuild: false }),
+
     svgrPlugin({
       esbuildOptions: { sourcemap: params.sourceMaps },
       svgrOptions: { svgo: false },
     }),
-  ]
+  ].concat(params.graphql ? graphqlCodegenPlugin({ runOnBuild: false }) : [])
 }
 
 const withReact: ConfigCallback = config =>
@@ -27,13 +27,13 @@ const withReact: ConfigCallback = config =>
       manifest: true,
       minify: 'terser',
       outDir: 'build',
-      target: "esnext",
+      target: 'esnext',
       sourcemap: config.sourceMaps,
     },
     ...commonOptions(
       {
         css: { devSourcemap: config.sourceMaps, preprocessorOptions: { less: { javascriptEnabled: true } } },
-        plugins: reactPlugins({ antd: config.react?.antd ?? false, sourceMaps: config.sourceMaps ?? process.env.NODE_ENV !== 'production', ...config.react }),
+        plugins: reactPlugins({ graphql: config.react?.graphql ?? true, antd: config.react?.antd ?? false, sourceMaps: config.sourceMaps ?? process.env.NODE_ENV !== 'production', ...config.react }),
       },
       config,
     ),

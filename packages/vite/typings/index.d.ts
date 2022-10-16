@@ -1,4 +1,4 @@
-import { defineConfig, type PluginOption, type UserConfig } from 'vite';
+import { type PluginOption, type UserConfig, defineConfig } from 'vite';
 import type { VitePluginFontsOptions } from 'vite-plugin-fonts';
 import type { VitePWAOptions } from 'vite-plugin-pwa';
 import type { VitePluginRadarOptions } from 'vite-plugin-radar';
@@ -23,6 +23,7 @@ declare global {
     };
     type ReactOptions = {
         antd: boolean;
+        graphql: boolean;
     };
     type Plugins = (PluginOption | PluginOption[])[];
     type ConfigCallback = (plugins: Partial<PluginOptions>) => ReturnType<typeof defineConfig>;
