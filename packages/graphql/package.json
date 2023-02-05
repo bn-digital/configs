@@ -1,0 +1,37 @@
+{
+  "name": "@bn-digital/graphql-config",
+  "description": "GraphQL Types generator configuration and preset, used in @bn-digital projects",
+  "keywords": [
+    "graphql",
+    "apollo-client",
+    "graphql-codegen"
+  ],
+  "version": "2.1.1",
+  "author": {
+    "name": "Vlad Volkov",
+    "email": "vlad.volkov@bndigital.co",
+    "url": "https://github.com/VladyslavVolkov"
+  },
+  "repository": {
+    "url": "https://github.com/bn-digital/sdk",
+    "directory": "packages/graphql-codegen"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@graphql-codegen/cli": "^3.0.0",
+    "@graphql-codegen/core": "^3.0.0",
+    "@graphql-codegen/fragment-matcher": "^4.0.0",
+    "@graphql-codegen/typescript": "^3.0.0",
+    "@graphql-codegen/typescript-operations": "^3.0.0",
+    "@graphql-codegen/typescript-react-apollo": "^3.3.7",
+    "graphql": "^16.6.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.5"
+  },
+  "scripts": {
+    "release": "yarn npm publish"
+  }
+}

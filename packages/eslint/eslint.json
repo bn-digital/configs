@@ -1,0 +1,5 @@
+{
+  "root": true,
+  "extends": ["prettier", "eslint:recommended"],
+  "plugins": ["prettier", "unicorn"]
+}

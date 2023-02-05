@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "allowJs": false,
+    "checkJs": false,
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "moduleResolution": "Node",
+    "paths": {
+      "src/*": ["src/*"]
+    }
+  }
+}

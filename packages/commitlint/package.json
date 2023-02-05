@@ -1,0 +1,39 @@
+{
+  "name": "@bn-digital/commitlint-config",
+  "description": "Commitlint ruleset used in coding standard by BN Digital",
+  "version": "2.0.3",
+  "license": "MIT",
+  "repository": {
+    "url": "https://github.com/bn-digital/config",
+    "directory": "packages/commitlint-config"
+  },
+  "main": "index.js",
+  "readme": "README.md",
+  "keywords": [
+    "commitlint",
+    "commitlint-config",
+    "bn-digital"
+  ],
+  "author": {
+    "name": "Vlad Volkov",
+    "email": "vlad.volkov@bndigital.co",
+    "url": "https://github.com/VladyslavVolkov"
+  },
+  "maintainers": [
+    {
+      "name": "BN Enginseers",
+      "email": "dev@bndigital.co",
+      "url": "https://github.com/bn-digital"
+    }
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@commitlint/cli": "^17.4.2",
+    "@commitlint/config-conventional": "^17.4.2"
+  },
+  "scripts": {
+    "release": "yarn npm publish"
+  }
+}

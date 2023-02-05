@@ -1,0 +1,118 @@
+{
+  "arrowParens": "avoid",
+  "bracketSameLine": false,
+  "bracketSpacing": true,
+  "embeddedLanguageFormatting": "auto",
+  "endOfLine": "auto",
+  "jsxSingleQuote": true,
+  "printWidth": 120,
+  "quoteProps": "consistent",
+  "semi": false,
+  "singleAttributePerLine": false,
+  "singleQuote": true,
+  "trailingComma": "es5",
+  "tabWidth": 2,
+  "useTabs": false,
+  "vueIndentScriptAndStyle": true,
+  "overrides": [
+    {
+      "files": ["*.js", "*.jsx"]
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "options": {
+        "parser": "typescript"
+      }
+    },
+    {
+      "files": ["*.less"],
+      "options": {
+        "parser": "less"
+      }
+    },
+    {
+      "files": ["*.css"],
+      "options": {
+        "parser": "css"
+      }
+    },
+    {
+      "files": ["*.scss", "*.scss", "*.sass"],
+      "options": {
+        "parser": "scss"
+      }
+    },
+    {
+      "files": ["*.yml", "*.yaml"],
+      "excludeFiles": ["helmfile.yaml", "helmfile.lock"],
+      "options": {
+        "singleQuote": true,
+        "parser": "yaml"
+      }
+    },
+    {
+      "files": ["*.graphql", "*.gql", ".graphqls"],
+      "options": {
+        "singleQuote": false,
+        "parser": "graphql"
+      }
+    },
+    {
+      "files": ["*.vue"],
+      "options": {
+        "parser": "vue"
+      }
+    },
+    {
+      "files": ["*.json", ".stylelintrc", ".prettierrc", ".eslintrc", ".babelrc", ".mocharc", ".lintstagedrc"],
+      "excludeFiles": ["package.json", "package-lock.json", "yarn.lock"],
+      "options": {
+        "singleQuote": false,
+        "trailingComma": "none",
+        "proseWrap": "never",
+        "parser": "json"
+      }
+    },
+    {
+      "files": [
+        "*.html",
+        "*.htm",
+        "*.ejs",
+        "*.jsp",
+        "*.aspx",
+        "*.asax",
+        "*.ascx",
+        "*.master",
+        "*.cshtml",
+        "*.tshtml",
+        "*.twig"
+      ],
+      "options": {
+        "singleQuote": false,
+        "parser": "html"
+      }
+    },
+    {
+      "files": ["*.xml", "*.svg"],
+      "options": {
+        "singleQuote": false,
+        "parser": "html"
+      }
+    },
+    {
+      "files": ["*.mdx"],
+      "options": {
+        "singleQuote": false,
+        "parser": "mdx"
+      }
+    },
+    {
+      "files": ["*.md", "README", "CHANGELOG", "CODE_OF_CONDUCT", "CONTRIBUTING", "LICENSE"],
+      "options": {
+        "singleQuote": false,
+        "proseWrap": "never",
+        "parser": "markdown"
+      }
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "extends": [
+    "stylelint-config-recommended",
+    "postcss-less",
+    "stylelint-config-rational-order",
+    "stylelint-config-prettier"
+  ],
+  "ignoreFiles": ["*.json", "*.graphql"],
+  "customSyntax": "postcss-less",
+  "plugins": ["stylelint-order"],
+  "rules": {
+    "comment-empty-line-before": null,
+    "declaration-empty-line-before": null,
+    "font-family-no-missing-generic-family-keyword": [
+      true,
+      {
+        "ignoreFontFamilies": ["FontAwesome"]
+      }
+    ],
+    "function-name-case": "lower",
+    "no-descending-specificity": null,
+    "no-invalid-double-slash-comments": null,
+    "property-case": "lower",
+    "selector-class-pattern": "^([a-z][a-z0-9]*)(-[a-z0-9]+)*$"
+  },
+  "overrides": [
+    {
+      "customSyntax": "css-in-js",
+      "files": ["*.js", "*.jsx", "*.ts", "*.tsx"]
+    },
+    {
+      "customSyntax": "postcss-less",
+      "files": ["*.less"]
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "name": "@bn-digital/stylelint-config",
+  "description": "Stylelint ruleset",
+  "version": "2.0.15",
+  "license": "MIT",
+  "main": "index.js",
+  "readme": "README.md",
+  "author": {
+    "name": "Vlad Volkov",
+    "email": "vlad.volkov@bndigital.co",
+    "url": "https://github.com/vladyslavvolkov"
+  },
+  "repository": {
+    "url": "https://github.com/bn-digital/config",
+    "directory": "packages/stylelint-config"
+  },
+  "maintainers": [
+    {
+      "name": "BN Enginseer",
+      "email": "dev@bndigital.co",
+      "url": "https://github.com/bn-enginseer"
+    }
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@stylelint/postcss-css-in-js": "^0.38.0",
+    "postcss-less": "^6.0.0",
+    "postcss-scss": "^4.0.6",
+    "postcss-syntax": "^0.36.2",
+    "stylelint": "^14.16.1",
+    "stylelint-config-prettier": "^9.0.4",
+    "stylelint-config-rational-order": "^0.1.2",
+    "stylelint-config-recommended": "^9.0.0",
+    "stylelint-config-recommended-less": "^1.0.4",
+    "stylelint-config-recommended-scss": "^8.0.0",
+    "stylelint-order": "^6.0.1"
+  },
+  "scripts": {
+    "release": "yarn npm publish"
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "name": "@bn-digital/eslint-config",
+  "description": "ESLint ruleset used in coding standard by BN Digital",
+  "version": "2.0.30",
+  "license": "MIT",
+  "repository": {
+    "url": "https://github.com/bn-digital/config",
+    "directory": "packages/eslint-config"
+  },
+  "main": "index.js",
+  "readme": "README.md",
+  "keywords": [
+    "eslint",
+    "tslint",
+    "eslint-config",
+    "bn-digital"
+  ],
+  "author": {
+    "name": "Vlad Volkov",
+    "email": "vlad.volkov@bndigital.co",
+    "url": "https://github.com/vladyslavvolkov"
+  },
+  "maintainers": [
+    {
+      "name": "BN Enginseers",
+      "email": "dev@bndigital.co",
+      "url": "https://github.com/bn-digital"
+    }
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@bn-digital/prettier-config": "^2.1.10",
+    "@typescript-eslint/eslint-plugin": "^5.50.0",
+    "@typescript-eslint/parser": "^5.50.0",
+    "@typescript-eslint/utils": "^5.50.0",
+    "eslint": "^8.33.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "eslint-plugin-typescript-sort-keys": "^2.1.0",
+    "eslint-plugin-unicorn": "^45.0.2",
+    "prettier": "^2.8.3"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.5"
+  },
+  "scripts": {
+    "release": "yarn npm publish"
+  }
+}
