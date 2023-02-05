@@ -8,7 +8,7 @@ const STRAPI_URLS: Readonly<string[]> = [
   'api',
   'config-sync',
   'import-export-entries',
-    'menus',
+  'menus',
   'content-manager',
   'content-type-builder',
   'email',
@@ -23,11 +23,13 @@ const STRAPI_URLS: Readonly<string[]> = [
   'users-permissions',
 ] as const
 
-type ServerOptions = Partial<Pick<UserConfig, 'server'>>
+type ServerOptions = UserConfig['server']
 
-const serverOptions = (options?: ServerOptions): ServerOptions => {
+const serverOptions = (options?: ServerOptions): Pick<UserConfig, 'server'> => {
   const packageJson = readPackageJson()
-  const proxy = packageJson?.proxy ? { [`^/(${STRAPI_URLS.join('|')})(.*)`]: packageJson.proxy.replace('localhost', '127.0.0.1') } : undefined
+  const proxy = packageJson?.proxy
+    ? { [`^/(${STRAPI_URLS.join('|')})(.*)`]: (packageJson.proxy as string).replace('localhost', '127.0.0.1') }
+    : undefined
   return {
     server: {
       port: Number.parseInt(process.env.WEBSITE_PORT ?? '8080'),
@@ -35,6 +37,7 @@ const serverOptions = (options?: ServerOptions): ServerOptions => {
       fs: {
         strict: false,
       },
+
       proxy,
       ...options,
     },

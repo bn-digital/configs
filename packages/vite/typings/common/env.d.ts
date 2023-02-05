@@ -1,5 +1,7 @@
 import { UserConfig } from 'vite';
-declare type EnvOptions = Partial<Pick<UserConfig, 'define' | 'envPrefix' | 'envDir'>>;
+type EnvOptions = Partial<Pick<UserConfig, 'define' | 'envPrefix' | 'envDir'>>;
+export type NodeEnv = 'development' | 'production';
+declare const env: <T>(key: keyof typeof process.env, defaultValue?: T) => T | string;
 declare const envOptions: () => EnvOptions;
-export { envOptions };
+export { env, envOptions };
 //# sourceMappingURL=env.d.ts.map

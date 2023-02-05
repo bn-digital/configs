@@ -1,5 +1,5 @@
 import { UserConfig } from 'vite';
-declare type ServerOptions = Partial<Pick<UserConfig, 'server'>>;
-declare const serverOptions: (options?: ServerOptions) => ServerOptions;
+type ServerOptions = UserConfig['server'];
+declare const serverOptions: (options?: ServerOptions) => Pick<UserConfig, 'server'>;
 export { serverOptions };
 //# sourceMappingURL=server.d.ts.map

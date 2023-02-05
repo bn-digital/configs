@@ -1,6 +1,0 @@
-.gitignore
-test
-build
-dist
-node_modules
-.cache

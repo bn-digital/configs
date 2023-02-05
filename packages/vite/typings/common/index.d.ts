@@ -1,5 +1,5 @@
 import { UserConfig } from 'vite';
-declare type CommonOptions = Partial<Pick<UserConfig, 'server' | 'plugins' | 'define' | 'envPrefix' | 'root' | 'envDir' | 'base' | 'css'>>;
+type CommonOptions = Partial<UserConfig>;
 /**
  * @param {PluginOptions} options
  * @param {CommonOptions} config

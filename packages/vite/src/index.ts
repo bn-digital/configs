@@ -1,15 +1,13 @@
-import { type PluginOption, type UserConfig,defineConfig, mergeConfig } from 'vite'
+import { type PluginOption, type UserConfig, defineConfig, mergeConfig } from 'vite'
+import { UserPluginConfig } from 'vite-plugin-checker/dist/esm/types'
 import type { VitePluginFontsOptions } from 'vite-plugin-fonts'
 import type { VitePWAOptions } from 'vite-plugin-pwa'
 import type { VitePluginRadarOptions } from 'vite-plugin-radar'
-import type { ViteSentryPluginOptions } from 'vite-plugin-sentry'
 
 import { withReact } from './react'
-import { withStaticHtml } from './static'
 
 declare global {
   type EnvVariableName = `WEBSITE_${string}`
-  type Browsers = `safari${number}` | `opera${number}` | `chrome${number}` | `edge${number}` | `ios${number}` | `ie${number}`
 
   interface ImportMetaEnv {
     [key: EnvVariableName]: string | number | boolean | null | undefined
@@ -19,19 +17,17 @@ declare global {
     readonly env: ImportMetaEnv
   }
 
-  type PluginOptions = {
-    fonts: Partial<VitePluginFontsOptions>
+  type PluginOptions = Pick<UserConfig, 'mode'> & {
     analytics: Partial<VitePluginRadarOptions>
+    fonts: Partial<VitePluginFontsOptions>
+    lint: { enabled: boolean } & Partial<UserPluginConfig>
     pwa: Partial<VitePWAOptions>
-    sentry: Partial<ViteSentryPluginOptions>
-    browsers: Browsers[]
-    sourceMaps: boolean
     react: Partial<ReactOptions>
   }
 
   type ReactOptions = {
-    antd: boolean
     graphql: boolean
+    swc: boolean
   }
 
   type Plugins = (PluginOption | PluginOption[])[]
@@ -41,8 +37,7 @@ declare global {
   type ConfigMergeCallback = (config?: UserConfig, plugins?: Partial<PluginOptions>) => ReturnType<typeof defineConfig>
 }
 
-const configureReact: ConfigMergeCallback = (config = {}, plugins = {}) => mergeConfig(withReact(plugins), config)
+const configureReact: ConfigMergeCallback = (config = {}, plugins = { lint: { enabled: true } }) =>
+  mergeConfig(withReact(plugins), config)
 
-const configureStaticHtml: ConfigMergeCallback = (config = {}, plugins = {}) => mergeConfig(withStaticHtml(plugins), config)
-
-export { configureReact, configureStaticHtml, configureReact as default }
+export { configureReact, configureReact as default }
