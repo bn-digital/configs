@@ -1,16 +1,14 @@
 {
+  "extends": "@tsconfig/recommended/tsconfig.json",
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "resolveJsonModule": true,
     "allowJs": false,
-    "checkJs": false,
-    "skipDefaultLibCheck": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "noImplicitAny": true,
+    "allowSyntheticDefaultImports": true,
     "moduleResolution": "Node",
-    "paths": {
-      "src/*": ["src/*"]
-    }
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "resolveJsonModule": true,
+    "skipDefaultLibCheck": true
   }
 }

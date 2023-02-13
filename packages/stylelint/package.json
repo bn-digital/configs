@@ -29,13 +29,13 @@
     "postcss-less": "^6.0.0",
     "postcss-scss": "^4.0.6",
     "postcss-syntax": "^0.36.2",
-    "stylelint": "^14.16.1",
-    "stylelint-config-prettier": "^9.0.4",
+    "stylelint": "^15.1.0",
+    "stylelint-config-prettier": "^9.0.5",
     "stylelint-config-rational-order": "^0.1.2",
-    "stylelint-config-recommended": "^9.0.0",
+    "stylelint-config-recommended": "^10.0.1",
     "stylelint-config-recommended-less": "^1.0.4",
-    "stylelint-config-recommended-scss": "^8.0.0",
-    "stylelint-order": "^6.0.1"
+    "stylelint-config-recommended-scss": "^9.0.0",
+    "stylelint-order": "^6.0.2"
   },
   "scripts": {
     "release": "yarn npm publish"

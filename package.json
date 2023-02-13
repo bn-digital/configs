@@ -26,8 +26,8 @@
     "extends": "@bn-digital/eslint-config/typescript"
   },
   "devDependencies": {
-    "@bn-digital/eslint-config": "^2.0.28",
-    "@bn-digital/prettier-config": "^2.1.9"
+    "@bn-digital/eslint-config": "^2.0.31",
+    "@bn-digital/prettier-config": "^2.1.11"
   },
   "scripts": {
     "fix": "yarn prettier --write packages",

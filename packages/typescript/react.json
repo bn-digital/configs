@@ -1,35 +1,13 @@
 {
-  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@tsconfig/vite-react/tsconfig.json",
   "compilerOptions": {
-    "allowJs": false,
-    "allowSyntheticDefaultImports": true,
-    "checkJs": false,
-    "esModuleInterop": false,
-    "forceConsistentCasingInFileNames": true,
-    "importHelpers": true,
     "incremental": true,
-    "jsx": "react-jsx",
-    "lib": ["DOM", "DOM.Iterable", "ESNext", "WebWorker"],
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "noEmit": true,
-    "noEmitHelpers": true,
-    "noEmitOnError": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
-    "noImplicitOverride": true,
     "noImplicitReturns": true,
+    "exactOptionalPropertyTypes": true,
     "noImplicitThis": true,
     "noUnusedLocals": true,
-    "outDir": "build",
-    "resolveJsonModule": true,
-    "skipDefaultLibCheck": true,
-    "skipLibCheck": true,
-    "sourceMap": true,
-    "strict": true,
-    "strictFunctionTypes": true,
-    "strictNullChecks": true,
-    "target": "ESNext",
-    "useDefineForClassFields": true
+    "resolveJsonModule": true
   }
 }

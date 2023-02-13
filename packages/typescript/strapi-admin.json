@@ -1,17 +1,9 @@
 {
-  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@strapi/typescript-utils/tsconfigs/admin.json",
   "compilerOptions": {
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "incremental": true,
-    "jsx": "react",
-    "lib": ["ES2020", "DOM"],
-    "module": "ES2020",
-    "moduleResolution": "node",
-    "noEmit": true,
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "sourceMap": true,
-    "target": "ES5"
+    "strictNullChecks": false
   }
 }

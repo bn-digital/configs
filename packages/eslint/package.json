@@ -1,7 +1,7 @@
 {
   "name": "@bn-digital/eslint-config",
   "description": "ESLint ruleset used in coding standard by BN Digital",
-  "version": "2.0.30",
+  "version": "2.0.31",
   "license": "MIT",
   "repository": {
     "url": "https://github.com/bn-digital/config",
@@ -31,11 +31,11 @@
     "access": "public"
   },
   "dependencies": {
-    "@bn-digital/prettier-config": "^2.1.10",
-    "@typescript-eslint/eslint-plugin": "^5.50.0",
-    "@typescript-eslint/parser": "^5.50.0",
-    "@typescript-eslint/utils": "^5.50.0",
-    "eslint": "^8.33.0",
+    "@bn-digital/prettier-config": "^2.1.11",
+    "@typescript-eslint/eslint-plugin": "^5.51.0",
+    "@typescript-eslint/parser": "^5.51.0",
+    "@typescript-eslint/utils": "^5.51.0",
+    "eslint": "^8.34.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-jsx-a11y": "^6.7.1",
@@ -46,7 +46,7 @@
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "eslint-plugin-typescript-sort-keys": "^2.1.0",
     "eslint-plugin-unicorn": "^45.0.2",
-    "prettier": "^2.8.3"
+    "prettier": "^2.8.4"
   },
   "devDependencies": {
     "typescript": "^4.9.5"
