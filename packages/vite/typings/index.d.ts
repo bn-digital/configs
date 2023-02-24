@@ -1,33 +1,4 @@
-import { type PluginOption, type UserConfig, defineConfig } from 'vite';
-import { UserPluginConfig } from 'vite-plugin-checker/dist/esm/types';
-import type { VitePluginFontsOptions } from 'vite-plugin-fonts';
-import type { VitePWAOptions } from 'vite-plugin-pwa';
-import type { VitePluginRadarOptions } from 'vite-plugin-radar';
-declare global {
-    type EnvVariableName = `WEBSITE_${string}`;
-    interface ImportMetaEnv {
-        [key: EnvVariableName]: string | number | boolean | null | undefined;
-    }
-    interface ImportMeta {
-        readonly env: ImportMetaEnv;
-    }
-    type PluginOptions = Pick<UserConfig, 'mode'> & {
-        analytics: Partial<VitePluginRadarOptions>;
-        fonts: Partial<VitePluginFontsOptions>;
-        lint: {
-            enabled: boolean;
-        } & Partial<UserPluginConfig>;
-        pwa: Partial<VitePWAOptions>;
-        react: Partial<ReactOptions>;
-    };
-    type ReactOptions = {
-        graphql: boolean;
-        swc: boolean;
-    };
-    type Plugins = (PluginOption | PluginOption[])[];
-    type ConfigCallback = (plugins: Partial<PluginOptions>) => ReturnType<typeof defineConfig>;
-    type ConfigMergeCallback = (config?: UserConfig, plugins?: Partial<PluginOptions>) => ReturnType<typeof defineConfig>;
-}
-declare const configureReact: ConfigMergeCallback;
+import { UserConfig } from 'vite';
+declare function configureReact(config: UserConfig, plugins: PluginOptions): Record<string, any>;
 export { configureReact, configureReact as default };
 //# sourceMappingURL=index.d.ts.map

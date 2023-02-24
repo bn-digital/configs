@@ -1,5 +1,6 @@
-import fs from 'fs'
-import path from 'path'
+import { readFileSync } from 'node:fs'
+import { join } from 'node:path'
+
 import { splitVendorChunkPlugin } from 'vite'
 import { default as checkPlugin } from 'vite-plugin-checker'
 import { default as fontsPlugin } from 'vite-plugin-fonts'
@@ -7,10 +8,10 @@ import { VitePWA as pwaPlugin, VitePWAOptions } from 'vite-plugin-pwa'
 import { default as analyticsPlugin, VitePluginRadarOptions } from 'vite-plugin-radar'
 import { default as tsConfigPathsPlugin } from 'vite-tsconfig-paths'
 
-import { env, NodeEnv } from './env'
+import { env } from './env'
 
 function readPackageJson(workingDir = ''): Record<string, unknown> {
-  return JSON.parse(fs.readFileSync(path.join(workingDir ?? process.cwd(), 'package.json'), 'utf-8'))
+  return JSON.parse(readFileSync(join(workingDir ?? process.cwd(), 'package.json'), 'utf-8'))
 }
 
 function resolveAnalyticsOptions(extraOptions?: Partial<VitePluginRadarOptions>): Partial<VitePluginRadarOptions> {
@@ -33,7 +34,7 @@ function resolvePWAOptions(extraOptions?: Partial<VitePWAOptions>): Partial<Vite
 function commonPlugins(options: Partial<PluginOptions> = {}): Plugins {
   type LogLevel = 'error' | 'warning'
   const workingDir = process.cwd()
-  const logLevel: LogLevel[] = options.mode === 'production' ? ['error'] : ['error', 'warning']
+  const logLevel: LogLevel[] = options.mode !== 'development' ? ['error'] : ['error', 'warning']
   const packageJson = readPackageJson()
   const plugins = [splitVendorChunkPlugin(), tsConfigPathsPlugin({ root: workingDir })]
   if (options.lint) {

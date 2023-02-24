@@ -16,7 +16,6 @@ const commonOptions = (
 ): CommonOptions => {
   const { plugins, css, server } = options
   return {
-    appType: 'spa',
     plugins: commonPlugins(config).concat(plugins),
     ...serverOptions(server),
     ...cssOptions(css),

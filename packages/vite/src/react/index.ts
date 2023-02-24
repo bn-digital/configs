@@ -1,14 +1,14 @@
 import { default as reactPlugin } from '@vitejs/plugin-react'
 import { default as reactSwcPlugin } from '@vitejs/plugin-react-swc'
-import { defineConfig } from 'vite'
+import { defineConfig, UserConfigExport } from 'vite'
 import graphqlCodegenPlugin from 'vite-plugin-graphql-codegen'
 import { default as svgrPlugin } from 'vite-plugin-svgr'
 
 import { commonOptions } from '../common'
 
-function reactPlugins(params: ReactOptions & Partial<PluginOptions>): Plugins {
+function reactPlugins(params: Partial<ReactOptions> = { swc: false }): Plugins {
   return [
-    params.react?.swc
+    params.swc
       ? reactSwcPlugin()
       : reactPlugin({
           jsxRuntime: 'automatic',
@@ -16,10 +16,12 @@ function reactPlugins(params: ReactOptions & Partial<PluginOptions>): Plugins {
     svgrPlugin({
       svgrOptions: { svgo: false },
     }),
-  ].concat(params.graphql ? graphqlCodegenPlugin({ runOnBuild: false }) : [])
+  ]
 }
 
-const withReact: ConfigCallback = config => {
+function withReact(
+  config: Partial<PluginOptions> = { graphql: { enabled: true }, lint: { enabled: true } }
+): UserConfigExport {
   return defineConfig({
     appType: 'spa',
     build: {
@@ -37,11 +39,10 @@ const withReact: ConfigCallback = config => {
         css: {
           preprocessorOptions: { less: { javascriptEnabled: true } },
         },
-        plugins: reactPlugins({
-          graphql: config.react?.graphql ?? true,
-          swc: config.react?.swc ?? false,
-          ...config.react,
-        }),
+        plugins: [
+          ...reactPlugins(config?.react),
+          ...[config.graphql?.enabled && graphqlCodegenPlugin({ runOnBuild: false })].filter(Boolean),
+        ],
       },
       config
     ),
