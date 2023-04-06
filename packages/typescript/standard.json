@@ -3,14 +3,12 @@
   "compilerOptions": {
     "allowJs": false,
     "allowSyntheticDefaultImports": true,
-    "charset": "utf8",
     "checkJs": false,
     "forceConsistentCasingInFileNames": true,
-    "incremental": true,
     "moduleResolution": "Node",
     "noFallthroughCasesInSwitch": true,
-    "pretty": true,
     "resolveJsonModule": true,
+    "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "strictNullChecks": true
   }

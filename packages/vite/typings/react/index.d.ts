@@ -1,4 +1,5 @@
-import { UserConfigExport } from 'vite';
-declare function withReact(config?: Partial<PluginOptions>): UserConfigExport;
+import { UserConfigExport } from "vite";
+import vite from "../types";
+declare function withReact(config: vite.Config): UserConfigExport;
 export { withReact };
 //# sourceMappingURL=index.d.ts.map

@@ -4,7 +4,6 @@
     "allowJs": false,
     "skipDefaultLibCheck": true,
     "resolveJsonModule": true,
-    "noUnusedLocals": true,
     "noImplicitAny": false,
     "strictNullChecks": false
   }

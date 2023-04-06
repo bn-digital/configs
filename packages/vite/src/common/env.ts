@@ -1,17 +1,16 @@
-import { join } from 'node:path'
+import { UserConfig } from "vite"
 
-import { UserConfig } from 'vite'
-import { config } from 'dotenv'
+import { EnvVar, ProcessEnv } from "../types"
 
-type EnvOptions = Partial<Pick<UserConfig, 'define' | 'envPrefix' | 'envDir'>>
+type EnvOptions = Partial<Pick<UserConfig, "define" | "envPrefix" | "envDir">>
 
-const prefixes = ['VITE_', 'WEBSITE_', 'REACT_', 'APP_']
-const workingDir = process.cwd()
-config({ path: join(workingDir, '.env') })
-const env: <T>(key: keyof typeof process.env, defaultValue?: T) => T | string = (key, defaultValue) =>
-  process.env?.[key] ?? defaultValue ?? ''
+const prefixes = ["VITE_", "WEBSITE_", "REACT_", "APP_"]
 
-const envOptions = (): EnvOptions => {
+function env<T extends EnvVar = EnvVar, V = ProcessEnv[T]>(key: T, defaultValue: ProcessEnv[T]): V {
+  return (process.env[key as string] ?? defaultValue ?? "") as V
+}
+
+function envOptions(workingDir?: string): EnvOptions {
   return {
     envDir: workingDir,
     envPrefix: prefixes,

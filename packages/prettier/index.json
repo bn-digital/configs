@@ -9,25 +9,42 @@
   "quoteProps": "consistent",
   "semi": false,
   "singleAttributePerLine": false,
-  "singleQuote": true,
+  "singleQuote": false,
+  "organizeImportsSkipDestructiveCodeActions": true,
   "trailingComma": "es5",
+  "plugins": ["prettier-plugin-organize-imports", "prettier-plugin-prisma"],
   "tabWidth": 2,
   "useTabs": false,
   "vueIndentScriptAndStyle": true,
   "overrides": [
     {
-      "files": ["*.js", "*.jsx"]
+      "files": ["*.js", "*.jsx", "*.mjs", "*.cjs"],
+      "options": {
+        "parser": "babel"
+      }
     },
     {
-      "files": ["*.ts", "*.tsx"],
+      "files": ["*.ts", "*.tsx", "*.d.ts"],
       "options": {
         "parser": "typescript"
+      }
+    },
+    {
+      "files": ["*.xml"],
+      "options": {
+        "plugins": ["xml"]
       }
     },
     {
       "files": ["*.less"],
       "options": {
         "parser": "less"
+      }
+    },
+    {
+      "files": ["*.prisma"],
+      "options": {
+        "parser": "prisma-parse"
       }
     },
     {
@@ -44,7 +61,7 @@
     },
     {
       "files": ["*.yml", "*.yaml"],
-      "excludeFiles": ["helmfile.yaml", "helmfile.lock"],
+      "excludeFiles": ["helmfile.yaml"],
       "options": {
         "singleQuote": true,
         "parser": "yaml"
@@ -53,7 +70,6 @@
     {
       "files": ["*.graphql", "*.gql", ".graphqls"],
       "options": {
-        "singleQuote": false,
         "parser": "graphql"
       }
     },
@@ -64,10 +80,18 @@
       }
     },
     {
-      "files": ["*.json", ".stylelintrc", ".prettierrc", ".eslintrc", ".babelrc", ".mocharc", ".lintstagedrc"],
-      "excludeFiles": ["package.json", "package-lock.json", "yarn.lock"],
+      "files": [
+        "*.json",
+        ".graphqlconfig",
+        ".stylelintrc",
+        ".prettierrc",
+        ".eslintrc",
+        ".babelrc",
+        ".mocharc",
+        ".lintstagedrc"
+      ],
+      "excludeFiles": ["package.json", "package-lock.json"],
       "options": {
-        "singleQuote": false,
         "trailingComma": "none",
         "proseWrap": "never",
         "parser": "json"
@@ -88,28 +112,24 @@
         "*.twig"
       ],
       "options": {
-        "singleQuote": false,
         "parser": "html"
       }
     },
     {
       "files": ["*.xml", "*.svg"],
       "options": {
-        "singleQuote": false,
         "parser": "html"
       }
     },
     {
       "files": ["*.mdx"],
       "options": {
-        "singleQuote": false,
         "parser": "mdx"
       }
     },
     {
       "files": ["*.md", "README", "CHANGELOG", "CODE_OF_CONDUCT", "CONTRIBUTING", "LICENSE"],
       "options": {
-        "singleQuote": false,
         "proseWrap": "never",
         "parser": "markdown"
       }

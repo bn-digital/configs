@@ -1,14 +1,10 @@
-import postcssPlugins from '@bn-digital/postcss-config'
-import { CSSOptions, UserConfig } from 'vite'
+import postcssPlugins from "@bn-digital/postcss-config"
 
-type CssOptions = Pick<UserConfig, 'css'>
-
-const cssOptions = (options?: CSSOptions): CssOptions => {
+import vite from "../types"
+const cssOptions = <T extends vite.Config["css"] = vite.Config["css"]>(options: T): T => {
   return {
-    css: {
-      postcss: { plugins: postcssPlugins },
-      ...options,
-    },
+    postcss: { plugins: postcssPlugins },
+    ...options,
   }
 }
 

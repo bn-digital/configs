@@ -1,129 +1,147 @@
-import { readFileSync } from 'node:fs'
-import { join } from 'node:path'
+import { splitVendorChunkPlugin } from "vite"
+import { default as checkPlugin } from "vite-plugin-checker"
+import { default as fontsPlugin } from "vite-plugin-fonts"
+import { default as buildInfoPlugin } from "vite-plugin-info"
+import { VitePWA as pwaPlugin, VitePWAOptions } from "vite-plugin-pwa"
+import { default as analyticsPlugin, VitePluginRadarOptions } from "vite-plugin-radar"
+import { default as tsConfigPathsPlugin } from "vite-tsconfig-paths"
 
-import { splitVendorChunkPlugin } from 'vite'
-import { default as checkPlugin } from 'vite-plugin-checker'
-import { default as fontsPlugin } from 'vite-plugin-fonts'
-import { VitePWA as pwaPlugin, VitePWAOptions } from 'vite-plugin-pwa'
-import { default as analyticsPlugin, VitePluginRadarOptions } from 'vite-plugin-radar'
-import { default as tsConfigPathsPlugin } from 'vite-tsconfig-paths'
+import vite from "../types"
 
-import { env } from './env'
-
-function readPackageJson(workingDir = ''): Record<string, unknown> {
-  return JSON.parse(readFileSync(join(workingDir ?? process.cwd(), 'package.json'), 'utf-8'))
-}
-
-function resolveAnalyticsOptions(extraOptions?: Partial<VitePluginRadarOptions>): Partial<VitePluginRadarOptions> {
+function resolveAnalyticsOptions({
+  analytics = undefined,
+  gtm = undefined,
+  ...extraOptions
+}: Partial<VitePluginRadarOptions>): Partial<VitePluginRadarOptions> {
   return {
-    analytics: process.env.GOOGLE_ANALYTICS_ID ? { id: process.env.GOOGLE_ANALYTICS_ID } : undefined,
-    gtm: process.env.GOOGLE_TAG_MANAGER_ID ? { id: process.env.GOOGLE_TAG_MANAGER_ID } : undefined,
+    analytics: process.env.GOOGLE_ANALYTICS_ID
+      ? { disable: false, id: process.env.GOOGLE_ANALYTICS_ID, ...analytics }
+      : analytics,
+    gtm: process.env.GOOGLE_TAG_MANAGER_ID ? { id: process.env.GOOGLE_TAG_MANAGER_ID, ...gtm } : gtm,
     ...extraOptions,
   }
 }
 
-function resolvePWAOptions(extraOptions?: Partial<VitePWAOptions>): Partial<VitePWAOptions> {
+function resolvePWAOptions(options?: Partial<VitePWAOptions>): Partial<VitePWAOptions> {
   return {
-    injectRegister: 'auto',
-    strategies: 'injectManifest',
+    injectRegister: "auto",
+    strategies: "injectManifest",
     minify: true,
-    ...extraOptions,
+    ...options,
   }
 }
 
-function commonPlugins(options: Partial<PluginOptions> = {}): Plugins {
-  type LogLevel = 'error' | 'warning'
-  const workingDir = process.cwd()
-  const logLevel: LogLevel[] = options.mode !== 'development' ? ['error'] : ['error', 'warning']
-  const packageJson = readPackageJson()
-  const plugins = [splitVendorChunkPlugin(), tsConfigPathsPlugin({ root: workingDir })]
-  if (options.lint) {
-    const { enabled, ...checkOptions } = options.lint
-    enabled &&
-      plugins.push(
-        checkPlugin({
-          enableBuild: true,
-          overlay: { position: 'tr', initialIsOpen: false },
-          eslint: {
-            lintCommand: 'eslint src/**/*.{ts,tsx}',
-            dev: {
-              overrideConfig: {
-                cache: true,
-                fix: true,
-                cacheLocation: 'node_modules/.cache/eslintcache',
-                baseConfig: {
-                  extends: '@bn-digital/eslint-config/react',
-                  ignorePatterns: ['src/graphql/index.tsx', 'src/types/graphql.d.ts'],
-                },
-              },
-              logLevel,
-            },
+function resolveCheckPluginOptions(app: vite.App, overrides: Parameters<typeof checkPlugin>[0]) {
+  const logLevel: vite.LogLevel[] = app.mode !== "development" ? ["error"] : ["error", "warning"]
+
+  return checkPlugin({
+    enableBuild: true,
+    overlay: { position: "tr", initialIsOpen: false },
+    eslint: {
+      lintCommand: 'eslint --format=pretty "./src/**/*.{ts,tsx}"',
+      dev: {
+        overrideConfig: {
+          cache: true,
+          fix: true,
+          cacheLocation: "node_modules/.cache/eslintcache",
+          baseConfig: {
+            extends: "@bn-digital/eslint-config/react",
+            ignorePatterns: ["src/graphql/index.tsx", "src/types/graphql.d.ts"],
           },
-          stylelint: {
-            dev: {
-              logLevel,
-              overrideConfig: {
-                cache: true,
-                allowEmptyInput: true,
-                fix: true,
-                ignorePath: ['build', 'node_modules', 'dist', 'dev-dist'],
-                cacheLocation: 'node_modules/.cache/stylelintcache',
-                config: { extends: '@bn-digital/stylelint-config/less' },
-              },
-            },
-            lintCommand: 'stylelint src/**/*.{vue,html,css,scss,sass,less,styl}',
-          },
-          typescript: { root: workingDir },
-          terminal: true,
-          ...checkOptions,
-        })
-      )
+        },
+        logLevel,
+      },
+      ...overrides.eslint,
+    },
+    stylelint: {
+      dev: {
+        logLevel,
+        overrideConfig: {
+          cache: true,
+          allowEmptyInput: true,
+          fix: true,
+          cwd: app.workingDir,
+          ignorePath: ["build", "node_modules", ".cache", "dist", "dev-dist"],
+          cacheLocation: "node_modules/.cache/stylelintcache",
+          config: { extends: "@bn-digital/stylelint-config/less" },
+        },
+      },
+      lintCommand: "stylelint src/**/*.{less,css}",
+      ...overrides.stylelint,
+    },
+    typescript: app.mode === "development" ? { root: app.workingDir, buildMode: false } : false,
+    terminal: app.mode === "development",
+    ...overrides,
+  })
+}
+
+function commonPlugins(app: vite.App, pluginOptions: vite.PluginOptions): vite.Plugins {
+  const plugins = [splitVendorChunkPlugin(), tsConfigPathsPlugin({ root: app.workingDir })]
+  if (pluginOptions.lint) {
+    const { enabled, ...checkOptions } = pluginOptions.lint
+    enabled && plugins.push(resolveCheckPluginOptions(app, checkOptions))
   }
 
-  const fontsOptions = options?.fonts
+  if (pluginOptions.buildInfo) {
+    const { enabled, ...buildInfoOptions } = pluginOptions.buildInfo
+    enabled && plugins.push(buildInfoPlugin({ meta: buildInfoOptions.meta }))
+  }
+
+  const fontsOptions = pluginOptions?.fonts
   fontsOptions && plugins.push(fontsPlugin(fontsOptions))
 
-  const analyticsOptions = options?.analytics && resolveAnalyticsOptions(options.analytics)
+  const analyticsOptions = pluginOptions?.analytics && resolveAnalyticsOptions(pluginOptions.analytics)
   analyticsOptions && plugins.push(analyticsPlugin(analyticsOptions))
 
-  const pwaOptions =
-    options?.pwa &&
-    resolvePWAOptions({
-      injectRegister: 'inline',
-      registerType: 'autoUpdate',
+  if (pluginOptions?.pwa) {
+    const pwaOptions = resolvePWAOptions({
+      injectRegister: "inline",
+      registerType: "autoUpdate",
       includeManifestIcons: true,
-      mode: env<NodeEnv>('NODE_ENV') !== 'production' ? 'development' : 'production',
-      ...options?.pwa,
+      mode: app.buildMode,
+      ...pluginOptions?.pwa,
       workbox: {
-        sourcemap: env<NodeEnv>('NODE_ENV') !== 'production',
-        mode: env<NodeEnv>('NODE_ENV', 'development'),
+        sourcemap: app.isDev,
+        mode: app.buildMode,
         ignoreURLParametersMatching: [/\/admin$/, /\/graphql/, /\/upload$/, /\/api$/],
-        disableDevLogs: env<NodeEnv>('NODE_ENV') === 'production',
+        disableDevLogs: app.isProd,
+        cleanupOutdatedCaches: true,
         runtimeCaching: [
           {
             urlPattern: ({ request }) =>
-              (['image', 'font', 'script', 'style'] as (typeof request.destination)[]).find(
+              (["image", "font", "script", "video", "style"] as (typeof request.destination)[]).find(
                 it => request.destination === it
               ),
-            handler: 'StaleWhileRevalidate',
-            options: { cacheName: 'assets-cache' },
+            method: "GET",
+            handler: "StaleWhileRevalidate",
+            options: { cacheName: "assets-cache" },
+          },
+          {
+            urlPattern: /\/graphql\/.*$/,
+            handler: "StaleWhileRevalidate",
+            options: {
+              cacheName: "graphql-cache",
+              precacheFallback: { fallbackURL: `https://${app.fqdn}/graphql` },
+            },
+            method: "POST",
           },
         ],
-        ...options?.pwa.workbox,
+        ...pluginOptions.pwa?.workbox,
       },
       manifest: {
-        name: packageJson.name as string,
-        short_name: packageJson.name as string,
-        scope: '/',
-        start_url: '/',
-        theme_color: '#7f7f7f',
-        categories: ['Web Application'],
-        ...options?.pwa?.manifest,
+        name: app.name[0].toUpperCase().concat(app.name.slice(1)),
+        short_name: app.name,
+        scope: "/",
+        start_url: "/",
+        theme_color: "#7f7f7f",
+        categories: ["Web Application"],
+        ...pluginOptions?.pwa?.manifest,
       },
     })
-  pwaOptions && pwaPlugin(pwaOptions).forEach(it => plugins.push(it))
+    pluginOptions.pwa?.enabled && pwaPlugin(pwaOptions).forEach(it => plugins.push(it))
+  }
 
   return plugins
 }
 
-export { commonPlugins, readPackageJson }
+export { commonPlugins }

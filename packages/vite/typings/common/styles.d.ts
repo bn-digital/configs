@@ -1,5 +1,3 @@
-import { CSSOptions, UserConfig } from 'vite';
-type CssOptions = Pick<UserConfig, 'css'>;
-declare const cssOptions: (options?: CSSOptions) => CssOptions;
+declare const cssOptions: <T extends import("vite").CSSOptions | undefined = import("vite").CSSOptions | undefined>(options: T) => T;
 export { cssOptions };
 //# sourceMappingURL=styles.d.ts.map

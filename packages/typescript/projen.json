@@ -1,5 +1,5 @@
 {
-  "extends": "@bn-digital/typescript-config/standard.json",
+  "extends": "./standard.json",
   "compilerOptions": {
     "alwaysStrict": true,
     "composite": false,

@@ -1,13 +1,14 @@
 {
   "extends": "@tsconfig/vite-react/tsconfig.json",
   "compilerOptions": {
-    "incremental": true,
+    "allowSyntheticDefaultImports": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
-    "exactOptionalPropertyTypes": true,
     "noImplicitThis": true,
-    "noUnusedLocals": true,
-    "resolveJsonModule": true
+    "noUnusedLocals": false,
+    "resolveJsonModule": true,
+    "strict": true,
+    "strictNullChecks": true
   }
 }

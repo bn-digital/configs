@@ -1,4 +1,4 @@
-declare function readPackageJson(workingDir?: string): Record<string, unknown>;
-declare function commonPlugins(options?: Partial<PluginOptions>): Plugins;
-export { commonPlugins, readPackageJson };
+import vite from "../types";
+declare function commonPlugins(app: vite.App, pluginOptions: vite.PluginOptions): vite.Plugins;
+export { commonPlugins };
 //# sourceMappingURL=plugins.d.ts.map

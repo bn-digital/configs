@@ -23,16 +23,25 @@
   },
   "prettier": "@bn-digital/prettier-config",
   "eslintConfig": {
-    "extends": "@bn-digital/eslint-config/typescript"
+    "extends": "@bn-digital/eslint-config"
   },
-  "devDependencies": {
-    "@bn-digital/eslint-config": "^2.0.31",
-    "@bn-digital/prettier-config": "^2.1.11"
+  "bin": {
+    "eslint": "node_modules/eslint/bin/eslint.js",
+    "lint": "./bin/lint.js"
+  },
+  "dependencies": {
+    "@bn-digital/eslint-config": "^2.1.3",
+    "@bn-digital/graphql-config": "^2.2.6",
+    "@bn-digital/postcss-config": "^2.0.11",
+    "@bn-digital/prettier-config": "^2.3.7",
+    "@bn-digital/stylelint-config": "^2.0.18",
+    "@bn-digital/typescript-config": "^1.2.6"
   },
   "scripts": {
-    "fix": "yarn prettier --write packages",
+    "lint": "lint --include=scripts",
+    "fix": "lint --include=scripts --fix",
     "build": "yarn workspaces foreach run build",
-    "release:packages": "yarn workspaces foreach run release"
+    "release": "yarn npm publish"
   },
-  "packageManager": "yarn@4.0.0-rc.37"
+  "packageManager": "yarn@3.5.0"
 }

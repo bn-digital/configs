@@ -1,7 +1,9 @@
 {
   "name": "@bn-digital/eslint-config",
   "description": "ESLint ruleset used in coding standard by BN Digital",
-  "version": "2.0.31",
+  "version": "2.1.17",
+  "cache": true,
+  "cacheLocation": "node_modules/.cache/.eslintcache",
   "license": "MIT",
   "repository": {
     "url": "https://github.com/bn-digital/config",
@@ -31,25 +33,25 @@
     "access": "public"
   },
   "dependencies": {
-    "@bn-digital/prettier-config": "^2.1.11",
-    "@typescript-eslint/eslint-plugin": "^5.51.0",
-    "@typescript-eslint/parser": "^5.51.0",
-    "@typescript-eslint/utils": "^5.51.0",
-    "eslint": "^8.34.0",
-    "eslint-config-prettier": "^8.6.0",
+    "@babel/eslint-parser": "^7.21.3",
+    "@eslint/create-config": "^0.4.2",
+    "@eslint/eslintrc": "^2.0.2",
+    "@graphql-eslint/eslint-plugin": "^3.18.0",
+    "@inventi/eslint-plugin-graphql-codegen": "^3.0.1",
+    "@typescript-eslint/eslint-plugin": "^5.57.1",
+    "@typescript-eslint/parser": "^5.57.1",
+    "@typescript-eslint/utils": "^5.57.1",
+    "eslint": "^8.37.0",
+    "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-simple-import-sort": "^10.0.0",
-    "eslint-plugin-typescript-sort-keys": "^2.1.0",
-    "eslint-plugin-unicorn": "^45.0.2",
-    "prettier": "^2.8.4"
+    "eslint-plugin-unicorn": "^46.0.0"
   },
   "devDependencies": {
-    "typescript": "^4.9.5"
+    "typescript": "^5.0.3"
   },
   "scripts": {
     "release": "yarn npm publish"

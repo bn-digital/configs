@@ -1,9 +1,5 @@
-import { UserConfig } from 'vite';
-type CommonOptions = Partial<UserConfig>;
-/**
- * @param {PluginOptions} options
- * @param {CommonOptions} config
- */
-declare const commonOptions: (options?: CommonOptions, config?: Partial<PluginOptions>) => CommonOptions;
-export { commonOptions };
+import vite from "../types";
+declare const commonOptions: (app: vite.App, options?: vite.Config) => vite.Config;
+declare function appInfo(): vite.App;
+export { appInfo, commonOptions };
 //# sourceMappingURL=index.d.ts.map

@@ -1,5 +1,4 @@
-import { UserConfig } from 'vite';
-type ServerOptions = UserConfig['server'];
-declare const serverOptions: (options?: ServerOptions) => Pick<UserConfig, 'server'>;
+import vite from "../types";
+declare const serverOptions: (options?: vite.ServerOptions) => vite.Config["server"];
 export { serverOptions };
 //# sourceMappingURL=server.d.ts.map
