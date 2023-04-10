@@ -5,3 +5,5 @@ dist
 coverage
 build
 .cache
+.eslintcache
+.stylelintcache
