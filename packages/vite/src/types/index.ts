@@ -24,7 +24,7 @@ namespace vite {
     workingDir: string
     name: string
     fqdn: string
-    package: { name: string; domain: string; version?: string; proxy?: string } & object
+    package: { name: string; homepage?: string; domain: string; version?: string; proxy?: string } & object
   }
 
   export type PluginOptions = {

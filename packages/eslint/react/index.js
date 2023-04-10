@@ -8,7 +8,6 @@ const config = {
     "plugin:jsx-a11y/recommended",
     "plugin:react-hooks/recommended",
   ],
-  ignorePatterns: ["**/graphql/index.tsx"],
   parser: "@typescript-eslint/parser",
   parserOptions: {
     sourceType: "module",
@@ -33,17 +32,6 @@ const config = {
     "react/jsx-no-target-blank": "warn",
     "react/prop-types": "off",
   },
-  overrides: [
-    {
-      files: ["**/*.graphql"],
-      extends: ["plugin:@graphql-eslint/operations-recommended"],
-      plugins: ["@graphql-eslint"],
-      parser: "@graphql-eslint/eslint-plugin",
-      rules: {
-        "@graphql-eslint/require-id-when-available": "warn",
-      },
-    },
-  ],
   settings: {
     react: {
       version: "detect",

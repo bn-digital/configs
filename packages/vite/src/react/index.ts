@@ -1,12 +1,11 @@
 import { default as reactPlugin } from "@vitejs/plugin-react"
 import { default as reactSwcPlugin } from "@vitejs/plugin-react-swc"
 import { defineConfig, UserConfigExport } from "vite"
-import graphqlCodegenPlugin from "vite-plugin-graphql-codegen"
-import ogPlugin from "vite-plugin-open-graph"
 import { default as svgrPlugin } from "vite-plugin-svgr"
 
 import { appInfo, commonOptions } from "../common"
 import { envOptions } from "../common/env"
+import { commonPlugins } from "../common/plugins"
 import { resolveBaseUrl } from "../index"
 import vite from "../types"
 
@@ -14,11 +13,7 @@ function reactPlugins(
   { svg, swc }: Partial<vite.ReactOptions> = { svg: { enabled: true }, swc: { enabled: false } }
 ): vite.Plugins {
   return [
-    swc?.enabled
-      ? reactSwcPlugin()
-      : reactPlugin({
-          jsxRuntime: "automatic",
-        }),
+    swc?.enabled ? reactSwcPlugin() : reactPlugin(),
     svgrPlugin({
       svgrOptions: svg,
     }),
@@ -51,13 +46,7 @@ function withReact(config: vite.Config): UserConfigExport {
     },
     ...commonOptions(app, {
       css: { preprocessorOptions: { less: { javascriptEnabled: true } } },
-      plugins: [
-        ...reactPlugins(config?.react),
-        ...[
-          config.graphql?.enabled && graphqlCodegenPlugin({ runOnBuild: false }),
-          config.openGraph?.enabled && ogPlugin(config.openGraph),
-        ].filter(Boolean),
-      ],
+      plugins: [...commonPlugins(app, config), ...reactPlugins(config?.react)].filter(Boolean),
       ...envOptions(app.workingDir),
       ...config,
     }),

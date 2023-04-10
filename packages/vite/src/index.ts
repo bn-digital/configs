@@ -1,19 +1,27 @@
 import { mergeConfig, UserConfig } from "vite"
 
+import * as process from "process"
+import { readPackageJson } from "./common"
+import { env } from "./common/env"
 import { withReact } from "./react"
 import vite from "./types"
 
-function resolveBaseUrl(env: string | undefined) {
-  switch (env) {
-    case "production":
-      return `https://${process.env.DOMAIN}/`
-    case "staging":
-      return process.env.APP_NAME ? `https://${process.env.APP_NAME}.bndigital.dev/` : "/"
-    case "development":
-      return "http://localhost:8080/"
-    default:
-      return "/"
-  }
+/**
+ * Resolve the base URL for the application depending on the environment
+ * @param appEnv
+ */
+function resolveBaseUrl(appEnv: vite.AppEnv = "development"): string {
+  if (appEnv === "development") return "/"
+  const { name, homepage = "" } = readPackageJson(process.cwd())
+  if (homepage) return homepage
+
+  const domain = env("DOMAIN", "")
+  if (domain) return `https:://${domain}/`
+
+  const appName = env("APP_NAME", name.split("/")[0].replace("@", ""))
+  if (appName || appEnv === "staging") return `https://${appName}.bndigital.dev/`
+
+  return "/"
 }
 
 function configureReact(config: UserConfig, plugins: Partial<vite.PluginOptions> = {}): UserConfig {

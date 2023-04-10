@@ -1,7 +1,7 @@
 {
   "name": "@bn-digital/stylelint-config",
   "description": "Stylelint ruleset",
-  "version": "2.0.20",
+  "version": "2.1.1",
   "license": "MIT",
   "main": "index.js",
   "readme": "README.md",
@@ -25,19 +25,16 @@
     "access": "public"
   },
   "dependencies": {
-    "@stylelint/postcss-css-in-js": "^0.38.0",
-    "postcss-import": "^15.1.0",
-    "postcss-less": "^6.0.0",
-    "postcss-preset-env": "^8.3.0",
-    "postcss-scss": "^4.0.6",
-    "postcss-syntax": "^0.36.2",
-    "stylelint": "^14.16.1",
+    "@bn-digital/postcss-config": "^2.0.12",
+    "stylelint": "^15.4.0",
     "stylelint-config-prettier": "^9.0.5",
     "stylelint-config-rational-order": "^0.1.2",
     "stylelint-config-recommended": "^11.0.0",
     "stylelint-config-recommended-less": "^1.0.4",
     "stylelint-config-recommended-scss": "^9.0.1",
-    "stylelint-order": "^6.0.2"
+    "stylelint-config-standard": "^32.0.0",
+    "stylelint-order": "^6.0.2",
+    "stylelint-stylistic": "^0.4.0"
   },
   "scripts": {
     "release": "yarn npm publish"

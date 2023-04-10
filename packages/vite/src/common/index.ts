@@ -4,22 +4,30 @@ import { join } from "path"
 
 import vite from "../types"
 import { env } from "./env"
-import { commonPlugins } from "./plugins"
 import { serverOptions } from "./server"
 import { cssOptions } from "./styles"
-const commonOptions = (app: vite.App, options: vite.Config = { plugins: [] }): vite.Config => {
-  const { plugins, css, server } = options
+
+const commonOptions = (app: vite.App, options: vite.Config = {}): vite.Config => {
+  const { css, server, ...otherOptions } = options
   return {
     server: serverOptions({ ...server, proxyUrl: app.package?.proxy }),
     css: cssOptions(css),
-    plugins: commonPlugins(app, options).concat(plugins),
+    ...otherOptions,
   }
 }
 
-function readPackageJson(workingDir: string): vite.App["package"] {
-  return JSON.parse(fs.readFileSync(join(workingDir, "package.json"), "utf8"))
+/**
+ * Read the package.json file from the working directory
+ * @param workingDir
+ */
+export function readPackageJson(workingDir: string): vite.App["package"] {
+  const filePath = join(workingDir, "package.json")
+  return fs.existsSync(filePath) ? JSON.parse(fs.readFileSync(filePath, "utf8")) : {}
 }
 
+/**
+ * Get the application information
+ */
 function appInfo(): vite.App {
   const workingDir = process.cwd()
   const nodeEnv = env("NODE_ENV", "development")

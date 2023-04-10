@@ -24,6 +24,7 @@ declare namespace vite {
         fqdn: string;
         package: {
             name: string;
+            homepage?: string;
             domain: string;
             version?: string;
             proxy?: string;

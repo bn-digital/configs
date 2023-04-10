@@ -1,6 +1,6 @@
+import { CodegenConfig } from "@graphql-codegen/cli"
 import type { IGraphQLConfig } from "graphql-config"
 import { join } from "path"
-import { CodegenConfig } from "@graphql-codegen/cli"
 const config = ({ name, workingDir = "" }: { name: string; workingDir: string }): IGraphQLConfig => {
   const workdirPath = (pathChunk: string): string => join(workingDir, ...pathChunk.split("/"))
 
