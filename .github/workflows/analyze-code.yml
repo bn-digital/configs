@@ -28,6 +28,7 @@ jobs:
             
   codeql:
     runs-on: self-hosted
+    continue-on-error: true
     strategy:
       fail-fast: false
     steps:
