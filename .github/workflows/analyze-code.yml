@@ -1,23 +1,20 @@
 on:
   workflow_call:
-
-env:
-  SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-  GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-
+  
+permissions:
+  pull-requests: read
+  
 jobs:
   sources:
     runs-on: self-hosted
     continue-on-error: true
     steps:
-      - name: Checkout sources
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
       - name: Run Sonar scanner
-        uses: sonarsource/sonarqube-scan-action@v1.1.0
+        uses: sonarsource/sonarqube-scan-action@v1.2.0
+        env:
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
           args: |
             -Dsonar.projectName=${{ github.event.repository.name }}
