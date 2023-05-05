@@ -39,8 +39,8 @@ Add required dependencies and scripts in `package.json` and install them:
 
 #### vite.config.ts
 
-Vite is responsible for bundling and serving the application.
-It is configured in your website's working directory `vite.config.ts` file with initial project configuration like this:
+Vite is responsible for bundling and serving the application. It is configured in your website's working
+directory `vite.config.ts` file with initial project configuration like this:
 
 ```ts
 import {configureReact} from "@bn-digital/vite"
