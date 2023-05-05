@@ -1,85 +1,62 @@
 # BN Digital Coding Standards
 
---- 
+## Packages
 
-## Core principles
+### Typescript
 
-### Simplicity
+#### Usage
 
-- No deep hierarchy
-- Grouping by type
-- Layers separation
+In your `tsconfig.json` file, add the following:
 
-```
-src/
-..components/       # contains all reusable components and UI-kit overrides
-..pages/            # contains all routes, splitted by uri
-....contacts/       # name reflects uri, one directory per page 
-......index.tsx     # each component has index.tsx with default export
-....index.tsx
-..contexts/
+```json
+{
+  "extends": "@bndigital/typescript/standard"
+}
 ```
 
-### Consistency
+Available profiles to use:
 
-- File & directory naming convention
-    - React Components related file(s) (`tsx`, `less`, `test.ts`, `spec.ts`, `stories.tsx` etc) reflect component name - **`PascalCase`**:
-      
-      `components/button/Button.tsx`:
+- `@bndigital/typescript/standard`
+- `@bndigital/typescript/react`
+- `@bndigital/typescript/strapi-admin`
+- `@bndigital/typescript/strapi-server`
+- `@bndigital/typescript/pulumi`
+- `@bndigital/typescript/projen`
 
-      ```typescript
-      import { FC } from 'react'
-      import './Button.less'
-      
-      type ButtonType = 'primary' | 'default'
-      
-      type ButtonProps = { type: ButtonType }
-      
-      const Button: FC<Partial<ButtonProps>> = ({ type = 'default', children, ...props }) => {
-        return <button className={`button button-${type}`}>{children}</button>
-      }
-      
-      export { Button }
-      ``` 
-      
-      `components/button/Button.less`:
-      
-      ```less
-      @button-bg-default: #fafafa;
-      @button-bg-primary: #578e0e;
-      
-      .button {
-        display: block;
-        width: 200px;
-      
-        &-default {
-          background-color: @button-bg-default;
-        }
-        
-        &-primary {
-          background-color: @button-bg-primary;
-        }
-      
-      } 
-      ```
+### ESLint
 
-### Predictability
+In your package.json file, add the following:
 
-- Follow UI kit naming
-
-```
-src/
-..components/
-....card/
-......UserCard.tsx  
-......UserCard.less  
-......OrganizationCard.tsx
-......OrganizationCard.less
-......index.tsx                 # export { UserCard, OrganizationCard } 
+```json
+{
+  "eslintConfig": {
+    "extends": "@bndigital/eslint-config"
+  }
+}
 ```
 
-## ESLint
+### Stylelint
 
-> Use [organization's preset](packages/eslint-config) as base. 
+In your package.json file, add the following:
 
-## Prettier
+```json
+{
+  "stylelint": {
+    "extends": "@bndigital/stylelint-config"
+  }
+}
+```
+
+### Prettier
+
+In your package.json file, add the following:
+
+```json
+{
+  "prettier": "@bndigital/prettier-config"
+}
+```
+
+### Vite
+
+### GraphQL

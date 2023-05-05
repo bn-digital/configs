@@ -29,4 +29,4 @@ function configureReact(config: UserConfig, plugins: Partial<vite.PluginOptions>
 }
 
 export { configureReact, resolveBaseUrl }
-export default { configureReact }
+export default configureReact

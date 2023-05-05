@@ -1,6 +1,8 @@
 {
-  "extends": "./standard.json",
+  "extends": "@tsconfig/node18",
   "compilerOptions": {
+    "allowJs": false,
+    "checkJs": false,
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "lib": ["ESNext"],
@@ -8,9 +10,9 @@
     "noEmit": true,
     "noEmitHelpers": true,
     "noEmitOnError": true,
-    "noUnusedLocals": true,
     "outDir": "bin",
     "resolveJsonModule": true,
+    "skipDefaultLibCheck": true,
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,

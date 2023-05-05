@@ -1,7 +1,7 @@
 {
   "name": "@bn-digital/eslint-config",
   "description": "ESLint ruleset used in coding standard by BN Digital",
-  "version": "2.1.21",
+  "version": "2.2.3",
   "cache": true,
   "cacheLocation": "node_modules/.cache/.eslintcache",
   "license": "MIT",
@@ -17,9 +17,6 @@
     "eslint-config",
     "bn-digital"
   ],
-  "bin": {
-    "eslint": "./bin/eslint.js"
-  },
   "author": {
     "name": "Vlad Volkov",
     "email": "vlad.volkov@bndigital.co",
@@ -36,20 +33,23 @@
     "access": "public"
   },
   "dependencies": {
-    "@babel/eslint-parser": "^7.21.3",
-    "@eslint/create-config": "^0.4.2",
+    "@babel/eslint-parser": "^7.21.8",
+    "@eslint/create-config": "^0.4.3",
     "@eslint/eslintrc": "^2.0.2",
+    "@eslint/js": "^8.39.0",
     "@inventi/eslint-plugin-graphql-codegen": "^3.0.1",
-    "@typescript-eslint/eslint-plugin": "^5.57.1",
-    "@typescript-eslint/parser": "^5.57.1",
-    "@typescript-eslint/utils": "^5.57.1",
-    "eslint": "^8.38.0",
+    "@types/eslint": "^8.37.0",
+    "@typescript-eslint/eslint-plugin": "^5.59.2",
+    "@typescript-eslint/parser": "^5.59.2",
+    "@typescript-eslint/utils": "^5.59.2",
+    "eslint": "^8.39.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.1",
     "eslint-plugin-unicorn": "^46.0.0"
   },
   "devDependencies": {

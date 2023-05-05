@@ -1,4 +1,3 @@
-import { type Config as SvgrOptions } from "@svgr/core";
 import { type PluginOption, type UserConfig } from "vite";
 import { type UserPluginConfig } from "vite-plugin-checker/dist/esm/types";
 import { type VitePluginFontsOptions } from "vite-plugin-fonts";
@@ -44,7 +43,7 @@ declare namespace vite {
     };
     export type ReactOptions = {
         swc?: Enablement;
-        svg?: Enablement & SvgrOptions;
+        svg?: Enablement;
     };
     export type ServerOptions = UserConfig["server"] & {
         proxyUrl: string | undefined;

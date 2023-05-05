@@ -6,7 +6,7 @@
     "apollo-client",
     "graphql-codegen"
   ],
-  "version": "2.3.0",
+  "version": "2.3.2",
   "author": {
     "name": "Vlad Volkov",
     "email": "vlad.volkov@bndigital.co",
@@ -26,19 +26,19 @@
   },
   "main": "lib/index.js",
   "dependencies": {
-    "@graphql-codegen/cli": "^3.3.0",
+    "@graphql-codegen/cli": "^3.3.1",
     "@graphql-codegen/core": "^3.1.0",
     "@graphql-codegen/fragment-matcher": "^4.0.1",
-    "@graphql-codegen/typescript": "^3.0.3",
+    "@graphql-codegen/typescript": "^3.0.4",
     "@graphql-codegen/typescript-apollo-client-helpers": "^2.2.6",
-    "@graphql-codegen/typescript-operations": "^3.0.3",
+    "@graphql-codegen/typescript-operations": "^3.0.4",
     "@graphql-codegen/typescript-react-apollo": "^3.3.7",
     "graphql": "^16.6.0",
     "graphql-config": "^4.5.0"
   },
   "devDependencies": {
-    "@bn-digital/typescript-config": "^1.2.6",
-    "typescript": "^5.0.3"
+    "@bn-digital/typescript-config": "^1.3.3",
+    "typescript": "^5.0.4"
   },
   "scripts": {
     "build": "tsc -p .",

@@ -14,9 +14,11 @@ function reactPlugins(
 ): vite.Plugins {
   return [
     swc?.enabled ? reactSwcPlugin() : reactPlugin(),
-    svgrPlugin({
-      svgrOptions: svg,
-    }),
+    svg?.enabled &&
+      svgrPlugin({
+        svgrOptions: { svgo: false },
+        esbuildOptions: { minify: true },
+      }),
   ]
 }
 
@@ -33,6 +35,7 @@ function withReact(config: vite.Config): UserConfigExport {
       },
     },
     build: {
+      write: true,
       ssrManifest: true,
       chunkSizeWarningLimit: 1024,
       cssCodeSplit: true,
@@ -42,6 +45,7 @@ function withReact(config: vite.Config): UserConfigExport {
       assetsInlineLimit: 1024 * 4,
       minify: "terser",
       outDir: "build",
+      sourcemap: true,
       target: "esnext",
     },
     ...commonOptions(app, {
@@ -54,3 +58,12 @@ function withReact(config: vite.Config): UserConfigExport {
 }
 
 export { withReact }
+
+
+
+
+
+
+
+
+
