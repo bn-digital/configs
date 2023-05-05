@@ -1,7 +1,7 @@
 {
   "name": "@bn-digital/vite",
   "description": "Vite configuration used in BN Digital projects",
-  "version": "2.3.4",
+  "version": "2.3.5",
   "license": "MIT",
   "keywords": [
     "vite",
@@ -12,7 +12,6 @@
   "types": "typings/index.d.ts",
   "main": "lib/index.js",
   "files": [
-    "bin",
     "typings",
     "lib"
   ],
@@ -49,7 +48,7 @@
     "@vitejs/plugin-react-swc": "^3.3.0",
     "dotenv": "^16.0.3",
     "terser": "^5.17.1",
-    "vite": "^4.3.4",
+    "vite": "^4.3.5",
     "vite-plugin-checker": "^0.6.0",
     "vite-plugin-fonts": "^0.7.0",
     "vite-plugin-graphql-codegen": "^3.2.1",

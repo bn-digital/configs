@@ -11,8 +11,9 @@
     "url": "https://github.com/vladyslavvolkov"
   },
   "repository": {
-    "url": "https://github.com/bn-digital/config",
-    "directory": "packages/stylelint-config"
+    "type": "git",
+    "url": "https://github.com/bn-digital/configs.git",
+    "directory": "/packages/stylelint-config"
   },
   "maintainers": [
     {
@@ -26,7 +27,7 @@
   },
   "dependencies": {
     "@bn-digital/postcss-config": "^2.0.12",
-    "stylelint": "^15.6.0",
+    "stylelint": "^15.6.1",
     "stylelint-config-prettier": "^9.0.5",
     "stylelint-config-rational-order": "^0.1.2",
     "stylelint-config-recommended": "^12.0.0",
@@ -34,7 +35,7 @@
     "stylelint-config-recommended-scss": "^11.0.0",
     "stylelint-config-standard": "^33.0.0",
     "stylelint-order": "^6.0.3",
-    "stylelint-stylistic": "^0.4.0"
+    "stylelint-stylistic": "^0.4.1"
   },
   "scripts": {
     "release": "yarn npm publish"
