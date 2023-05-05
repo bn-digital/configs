@@ -31,35 +31,32 @@ Add required dependencies and scripts in `package.json` and install them:
     "baseUrl": ".",
     "outDir": "build"
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }
 ```
 
 #### vite.config.ts
 
-Vite is responsible for bundling and serving the application. It is configured in your website's working
-directory `vite.config.ts` file with initial project configuration like this:
+Vite is responsible for bundling and serving the application. It is configured in your website's working directory `vite.config.ts` file with initial project configuration like this:
 
 ```ts
-import {configureReact} from "@bn-digital/vite"
+import { configureReact } from "@bn-digital/vite"
 
 export default configureReact(
   {},
   {
-    react: {svg: {enabled: true}},
-    buildInfo: {enabled: false},
-    lint: {enabled: true, enableBuild: false},
-    graphql: {enabled: true},
+    react: { svg: { enabled: true } },
+    buildInfo: { enabled: false },
+    lint: { enabled: true, enableBuild: false },
+    graphql: { enabled: true },
     analytics: {
       enableDev: true,
-      gtm: process.env.APP_ENV === "staging" || !process.env.APP_ENV ? {id: "GTM-XXXX"} : undefined,
+      gtm: process.env.APP_ENV === "staging" || !process.env.APP_ENV ? { id: "GTM-XXXX" } : undefined,
     },
     fonts: {
       google: {
         preconnect: true,
-        families: [{name: "Lato", styles: "wght@400;500;600;700;800;900"}],
+        families: [{ name: "Lato", styles: "wght@400;500;600;700;800;900" }],
         display: "auto",
       },
     },
