@@ -1,10 +1,6 @@
-<center>
-
 # BN Digital Coding Standards
 
 ![npm](https://img.shields.io/npm/v/@bn-digital/cosmiconfig?style=flat-square&label=cosmiconfig) ![npm](https://img.shields.io/npm/v/@bn-digital/eslint-config?style=flat-square&label=eslint) ![npm](https://img.shields.io/npm/v/@bn-digital/prettier-config?style=flat-square&label=prettier) ![npm](https://img.shields.io/npm/v/@bn-digital/stylelint-config?style=flat-square&label=stylelint) ![npm](https://img.shields.io/npm/v/@bn-digital/graphql-config?style=flat-square&label=graphql) ![npm](https://img.shields.io/npm/v/@bn-digital/vite?style=flat-square&label=vite) ![npm](https://img.shields.io/npm/v/@bn-digital/commitlint-config?style=flat-square&label=commitlint)
-
-</center>
 
 ---
 
