@@ -1744,8 +1744,8 @@ __metadata:
     "@bn-digital/graphql-config": ^2.3.2
     "@bn-digital/postcss-config": ^2.0.13
     "@bn-digital/stylelint-config": ^2.2.0
-    "@bn-digital/typescript-config": ^1.3.3
-    "@types/node": ^20.0.0
+    "@bn-digital/typescript-config": ^1.3.4
+    "@types/node": ^20.1.0
     "@vitejs/plugin-react": ^4.0.0
     "@vitejs/plugin-react-swc": ^3.3.0
     dotenv: ^16.0.3
