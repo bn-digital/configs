@@ -1,0 +1,3 @@
+{
+  "extends": "@bn-digital/typescript-config/standard"
+}

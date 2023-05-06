@@ -1,8 +1,6 @@
 {
-  "extends": "@tsconfig/node18",
+  "extends": "@bn-digital/typescript-config/standard.json",
   "compilerOptions": {
-    "allowJs": false,
-    "checkJs": false,
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "lib": ["ESNext"],

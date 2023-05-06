@@ -1,7 +1,7 @@
 {
   "name": "@bn-digital/typescript-config",
   "description": "Vite configuration used in BN Digital projects",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "license": "MIT",
   "keywords": [
     "typescript"
@@ -15,8 +15,8 @@
     "url": "https://github.com/vladyslavvolkov"
   },
   "repository": {
-    "url": "https://github.com/bn-digital/config",
-    "directory": "packages/vite"
+    "url": "https://github.com/bn-digital/configs",
+    "directory": "/packages/typescript"
   },
   "maintainers": [
     {

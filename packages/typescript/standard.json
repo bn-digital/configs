@@ -8,8 +8,8 @@
     "moduleResolution": "Node",
     "noFallthroughCasesInSwitch": true,
     "resolveJsonModule": true,
-    "skipLibCheck": true,
     "skipDefaultLibCheck": true,
+    "skipLibCheck": true,
     "strictNullChecks": true
   }
 }
