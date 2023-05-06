@@ -1,7 +1,7 @@
 {
   "name": "@bn-digital/cosmiconfig",
   "description": "Collection of coding standards, style guides and shared configurations",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "license": "MIT",
   "readme": "README.md",
   "repository": {
@@ -30,6 +30,9 @@
   "prettier": "@bn-digital/prettier-config",
   "eslintConfig": {
     "extends": "@bn-digital/eslint-config"
+  },
+  "commitlint": {
+    "extends": "@bn-digital/commitlint-config"
   },
   "bin": {
     "lint": "./bin/lint.js"
@@ -67,7 +70,8 @@
     "lint": "lint tsx less",
     "fix": "lint --include=scripts --fix",
     "build": "yarn workspaces foreach run build",
-    "release": "yarn npm publish"
+    "release": "yarn npm publish",
+    "postinstall": "husky install"
   },
   "packageManager": "yarn@3.5.0"
 }
