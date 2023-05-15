@@ -1,6 +1,11 @@
 on:
   workflow_call:
-
+  
+env:
+  SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+  
 jobs:
   scan:
     runs-on: self-hosted
