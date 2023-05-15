@@ -2,7 +2,7 @@ on:
   workflow_call:
 
 jobs:
-  sources:
+  scan:
     runs-on: self-hosted
     continue-on-error: true
     steps:
