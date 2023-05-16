@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - main
+      - latest
 
 permissions:
   contents: write
@@ -17,7 +17,7 @@ jobs:
         with:
           command: manifest
           token: ${{secrets.GITHUB_TOKEN}}
-          default-branch: main
+          default-branch: latest
 
       # The logic below handles the npm publication:
       - name: Checkout Repository
@@ -29,10 +29,11 @@ jobs:
         with:
           node-version: 14
           registry-url: 'https://registry.npmjs.org'
+
       - name: Build Packages
         if: ${{ steps.release.outputs.releases_created }}
         run: |
-          npm install
+          yarn
           npx lerna bootstrap
 
       # Release Please has already incremented versions and published tags, so we just
@@ -41,5 +42,5 @@ jobs:
       - name: Publish to NPM
         if: ${{ steps.release.outputs.releases_created }}
         env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npx lerna publish from-package --no-push --no-private --yes

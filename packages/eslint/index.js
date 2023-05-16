@@ -2,7 +2,6 @@
  * @type {import("eslint").ESLint.Options}
  */
 const config = {
-  
   root: true,
   extends: ["prettier", "eslint:recommended", "plugin:@typescript-eslint/recommended"],
   ignorePatterns: ["node_modules", "**/*/graphql/index.tsx", "**/*.less", "build", ".cache", "dist", "dev-dist"],
@@ -32,7 +31,6 @@ const config = {
         "plugin:@typescript-eslint/recommended",
         "plugin:react/recommended",
         "plugin:react/jsx-runtime",
-        "plugin:jsx-a11y/recommended",
         "plugin:react-hooks/recommended",
       ],
       parser: "@typescript-eslint/parser",

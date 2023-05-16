@@ -1,7 +1,0 @@
-{
-  "workspaces": ["packages/*"],
-  "useWorkspaces": true,
-  "packages": ["packages/*"],
-  "version": "1.0.9",
-  "npmClient": ".yarn/releases/yarn-3.5.0.cjs"
-}
