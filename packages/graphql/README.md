@@ -75,7 +75,7 @@ config:
     Long: number
     DateTime: Date
 generates:
-  packages/website/src/graphql/index.tsx:
+  packages/website/src/graphql/index.ts:
     documents:
       - packages/website/src/graphql/**/*.graphql
     plugins:

@@ -4,7 +4,6 @@ module.exports = {
     "stylelint-config-recommended",
     "stylelint-config-prettier",
     "stylelint-config-rational-order",
-    "stylelint-stylistic",
     "postcss-less",
   ],
   customSyntax: "postcss-less",

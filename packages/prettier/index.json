@@ -3,7 +3,6 @@
   "bracketSameLine": false,
   "bracketSpacing": true,
   "embeddedLanguageFormatting": "auto",
-  "endOfLine": "auto",
   "jsxSingleQuote": true,
   "printWidth": 120,
   "quoteProps": "consistent",

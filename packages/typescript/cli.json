@@ -1,11 +1,6 @@
 {
-  "extends": "@bn-digital/typescript-config/standard",
+  "extends": "@bn-digital/typescript-config/standard.json",
   "compilerOptions": {
-    "alwaysStrict": true,
-    "composite": false,
-    "declaration": true,
-    "declarationMap": false,
-    "experimentalDecorators": true,
     "inlineSourceMap": true,
     "inlineSources": true,
     "lib": ["es2020"],
@@ -20,8 +15,6 @@
     "strict": true,
     "strictFunctionTypes": true,
     "strictNullChecks": true,
-    "strictPropertyInitialization": true,
-    "stripInternal": false,
     "target": "ES2020"
   }
 }

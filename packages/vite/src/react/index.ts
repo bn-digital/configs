@@ -1,6 +1,6 @@
 import { default as reactPlugin } from "@vitejs/plugin-react"
 import { default as reactSwcPlugin } from "@vitejs/plugin-react-swc"
-import { defineConfig, UserConfigExport } from "vite"
+import { UserConfig } from "vite"
 import { default as svgrPlugin } from "vite-plugin-svgr"
 
 import { appInfo, commonOptions } from "../common"
@@ -22,9 +22,9 @@ function reactPlugins(
   ]
 }
 
-function withReact(config: vite.Config): UserConfigExport {
+function withReact(config: vite.Config): UserConfig|Promise<UserConfig> {
   const app = appInfo()
-  return defineConfig({
+  return {
     appType: "spa",
     experimental: {
       renderBuiltUrl(
@@ -54,7 +54,7 @@ function withReact(config: vite.Config): UserConfigExport {
       ...envOptions(app.workingDir),
       ...config,
     }),
-  })
+  }
 }
 
 export { withReact }
