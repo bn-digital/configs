@@ -2,7 +2,7 @@
   "name": "@bn-digital/prettier-config",
   "description": "Prettier ruleset used as part of coding standard by BN Digital",
   "license": "MIT",
-  "version": "2.4.1",
+  "version": "2.4.2",
   "readme": "README.md",
   "main": "index.json",
   "keywords": [
@@ -29,11 +29,11 @@
     "access": "public"
   },
   "dependencies": {
-    "@prettier/plugin-pug": "^2.5.1",
-    "@prettier/plugin-xml": "^3.0.0",
-    "prettier": "^3.0.0",
-    "prettier-plugin-organize-imports": "^3.2.2",
-    "prettier-plugin-prisma": "^4.13.0",
+    "@prettier/plugin-pug": "^3.0.0",
+    "@prettier/plugin-xml": "^3.2.1",
+    "prettier": "^3.0.3",
+    "prettier-plugin-organize-imports": "^3.2.3",
+    "prettier-plugin-prisma": "^5.0.0",
     "typescript": "^5.1.6"
   },
   "scripts": {
